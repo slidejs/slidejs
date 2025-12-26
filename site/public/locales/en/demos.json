@@ -1,0 +1,23 @@
+{
+  "title": "Demos",
+  "subtitle": "See SlideJS in action with different rendering engines. Each example includes complete working code and source.",
+  "viewDemo": "View Example",
+  "revealjs": {
+    "title": "reveal.js Demo",
+    "description": "Create HTML presentations using the reveal.js rendering engine. Learn how to use Slide DSL with reveal.js adapter.",
+    "framework": "reveal.js",
+    "package": "@slidejs/runner-revealjs"
+  },
+  "swiper": {
+    "title": "Swiper Demo",
+    "description": "Create modern touch slider presentations using Swiper.js rendering engine. Learn how to use Slide DSL with Swiper adapter.",
+    "framework": "Swiper.js",
+    "package": "@slidejs/runner-swiper"
+  },
+  "splide": {
+    "title": "Splide Demo",
+    "description": "Create lightweight carousel presentations using Splide rendering engine. Learn how to use Slide DSL with Splide adapter.",
+    "framework": "Splide",
+    "package": "@slidejs/runner-splide"
+  }
+}

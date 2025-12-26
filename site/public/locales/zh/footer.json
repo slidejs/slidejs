@@ -1,0 +1,11 @@
+{
+  "brandName": "SlideJS",
+  "description": "使用 {editorjs} 和 {wsx} 构建交互式测验的开源库",
+  "resources": {
+    "title": "资源",
+    "docs": "文档",
+    "demos": "演示",
+    "github": "GitHub"
+  },
+  "copyright": "© 2025 SlideJS. Licensed under MIT."
+}

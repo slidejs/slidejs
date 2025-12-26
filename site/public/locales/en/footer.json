@@ -1,0 +1,11 @@
+{
+  "brandName": "SlideJS",
+  "description": "An open-source library for building interactive quizzes with {editorjs} and {wsx}",
+  "resources": {
+    "title": "Resources",
+    "docs": "Docs",
+    "demos": "Demos",
+    "github": "GitHub"
+  },
+  "copyright": "© 2025 SlideJS. Licensed under MIT."
+}

@@ -1,0 +1,55 @@
+{
+  "title": "SlideJS",
+  "subtitle": "一个强大的幻灯片 DSL 库，使用声明式语法从任意数据源生成幻灯片演示。",
+  "stats": {
+    "license": "MIT 许可证",
+    "typescript": "TypeScript",
+    "runtimeDeps": "运行时依赖"
+  },
+  "features": {
+    "title": "特性",
+    "multipleTypes": {
+      "title": "多种渲染引擎",
+      "description": "支持 reveal.js、Swiper、Splide 等多种幻灯片渲染引擎。"
+    },
+    "modernUI": {
+      "title": "现代化 UI",
+      "description": "基于 wsx 组件构建的美观界面，完全响应式设计。"
+    },
+    "editorjsIntegration": {
+      "title": "声明式 DSL",
+      "description": "使用简洁的 DSL 语法定义幻灯片结构，支持规则引擎和嵌套循环。"
+    },
+    "modular": {
+      "title": "模块化设计",
+      "description": "核心组件可独立使用，配置灵活。"
+    },
+    "typeSafe": {
+      "title": "类型安全",
+      "description": "完整的 TypeScript 类型定义和验证，提供更好的开发体验。"
+    },
+    "responsive": {
+      "title": "响应式",
+      "description": "在桌面、平板和移动设备上完美运行。"
+    }
+  },
+  "readyOutOfBox": {
+    "title": "开箱即用",
+    "description": "立即开始使用内置功能：",
+    "features": {
+      "drag": "多种渲染引擎",
+      "zoom": "规则引擎",
+      "multiSelect": "动态内容",
+      "addRemove": "数据源无关"
+    }
+  },
+  "quickStart": {
+    "title": "快速开始",
+    "description": "通过简单的安装和设置流程，几分钟内即可上手。"
+  },
+  "poweredBy": {
+    "title": "由我们构建，由您设计",
+    "description": "完全可定制，以匹配您的品牌和设计需求。",
+    "customization": "了解自定义"
+  }
+}

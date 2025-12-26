@@ -1,0 +1,55 @@
+{
+  "title": "SlideJS",
+  "subtitle": "A powerful slide DSL library that generates slide presentations from any data source using declarative syntax.",
+  "stats": {
+    "license": "MIT License",
+    "typescript": "TypeScript",
+    "runtimeDeps": "Runtime Dependencies"
+  },
+  "features": {
+    "title": "Features",
+    "multipleTypes": {
+      "title": "Multiple Render Engines",
+      "description": "Support for reveal.js, Swiper, Splide, and other slide rendering engines."
+    },
+    "modernUI": {
+      "title": "Modern UI",
+      "description": "Beautiful interface built with wsx components, fully responsive design."
+    },
+    "editorjsIntegration": {
+      "title": "Declarative DSL",
+      "description": "Define slide structure using concise DSL syntax with rule engine and nested loops."
+    },
+    "modular": {
+      "title": "Modular Design",
+      "description": "Core components can be used independently with flexible configuration."
+    },
+    "typeSafe": {
+      "title": "Type Safe",
+      "description": "Complete TypeScript type definitions and validation for better development experience."
+    },
+    "responsive": {
+      "title": "Responsive",
+      "description": "Works perfectly on desktop, tablet, and mobile devices."
+    }
+  },
+  "readyOutOfBox": {
+    "title": "Ready Out of the Box",
+    "description": "Get started immediately with built-in features:",
+    "features": {
+      "drag": "Multiple Render Engines",
+      "zoom": "Rule Engine",
+      "multiSelect": "Dynamic Content",
+      "addRemove": "Data Source Agnostic"
+    }
+  },
+  "quickStart": {
+    "title": "Quick Start",
+    "description": "Get up and running in minutes."
+  },
+  "poweredBy": {
+    "title": "Built by Us, Designed by You",
+    "description": "Fully customizable to match your brand and design requirements.",
+    "customization": "Learn Customization"
+  }
+}

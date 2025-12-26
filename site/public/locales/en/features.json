@@ -1,0 +1,148 @@
+{
+  "title": "Features",
+  "subtitle": "Discover the powerful capabilities of SlideJS",
+  "hero": {
+    "title": "Generate Slide Presentations from Any Data Source",
+    "description": "SlideJS provides a comprehensive solution for generating slide presentations from Quiz, Survey, Form, and other data sources using declarative DSL, supporting multiple rendering engines."
+  },
+  "sections": {
+    "editorjsIntegration": {
+      "title": "Declarative DSL",
+      "description": "Define slide structure using concise DSL syntax with rule engine and nested loops.",
+      "details": [
+        "Declarative syntax, easy to understand and maintain",
+        "Support for start, content, end rules",
+        "Nested for loops for complex data structures",
+        "Type-safe TypeScript definitions"
+      ],
+      "codeExample": "present quiz \"my-quiz\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"Welcome!\"\n        }\n      }\n    }\n  }\n}"
+    },
+    "multipleTypes": {
+      "title": "Multiple Render Engines",
+      "description": "Support for multiple popular slide rendering engines to meet different presentation needs.",
+      "details": [
+        "reveal.js - HTML presentation framework",
+        "Swiper - Modern touch slider",
+        "Splide - Lightweight carousel component",
+        "Extensible adapter system"
+      ],
+      "codeExample": "import { createSlideRunner } from '@slidejs/runner-revealjs';\n// or\nimport { createSlideRunner } from '@slidejs/runner-swiper';\n// or\nimport { createSlideRunner } from '@slidejs/runner-splide';"
+    },
+    "dsl": {
+      "title": "Slide DSL",
+      "description": "Declarative domain-specific language for generating slide presentations from any data source.",
+      "details": [
+        "Peggy-based grammar parser",
+        "Support for expression evaluation and for loops",
+        "Data source agnostic design",
+        "Context Adapter pattern",
+        "Type-safe TypeScript definitions"
+      ],
+      "codeExample": "present quiz \"my-quiz\" {\n  rules {\n    rule content \"questions\" {\n      for question in quiz.questions {\n        slide {\n          content dynamic {\n            name: \"question-slide\"\n            attrs { question: question.text }\n          }\n        }\n      }\n    }\n  }\n}"
+    },
+    "themeSystem": {
+      "title": "Theme System",
+      "description": "Flexible theme system with multiple built-in themes and custom theme support.",
+      "details": [
+        "Multiple built-in themes (light, dark, solarized, etc.)",
+        "Easy theme switching",
+        "Custom theme support",
+        "CSS variable based",
+        "Responsive design"
+      ],
+      "codeExample": "import '@slidejs/theme/light.css';\n// or\nimport '@slidejs/theme/dark.css';\n// or create your own theme"
+    },
+    "frameworkIntegration": {
+      "title": "Multiple Render Engines",
+      "description": "Support for multiple popular slide rendering engines.",
+      "details": [
+        "reveal.js runner",
+        "Swiper runner",
+        "Splide runner",
+        "Extensible adapter system",
+        "Unified API interface"
+      ],
+      "codeExample": "import { createSlideRunner } from '@slidejs/runner-revealjs';\n\nconst runner = await createSlideRunner(dslSource, context, {\n  container: '#slides',\n  revealOptions: { transition: 'slide' }\n});"
+    },
+    "typeSafety": {
+      "title": "Type Safety",
+      "description": "Complete TypeScript support with comprehensive type definitions.",
+      "details": [
+        "Full TypeScript definitions",
+        "Type-safe API",
+        "IntelliSense support",
+        "Compile-time error checking",
+        "Better developer experience"
+      ],
+      "codeExample": "import type { SlideDSL, SlideContext } from '@slidejs/core';\n\nconst dsl: SlideDSL = {\n  version: '1.0.0',\n  sourceType: 'quiz',\n  sourceId: 'my-quiz',\n  rules: [/* ... */]\n};"
+    },
+    "modular": {
+      "title": "Modular Design",
+      "description": "Use core components independently with flexible configuration.",
+      "details": [
+        "Independent core components",
+        "Flexible configuration options",
+        "Tree-shakeable",
+        "Small bundle size",
+        "Easy to extend"
+      ],
+      "codeExample": "import { SlideEngine } from '@slidejs/core';\nimport { parseSlideDSL, compile } from '@slidejs/dsl';\n\nconst ast = await parseSlideDSL(dslSource);\nconst slideDSL = compile(ast);\nconst engine = new SlideEngine(slideDSL);"
+    },
+    "responsive": {
+      "title": "Responsive Design",
+      "description": "Works on all devices and screen sizes.",
+      "details": [
+        "Mobile-first design",
+        "Tablet optimized",
+        "Desktop enhanced",
+        "Touch-friendly interactions",
+        "Adaptive layouts"
+      ]
+    }
+  },
+  "comparison": {
+    "title": "Why Choose SlideJS?",
+    "subtitle": "Compare SlideJS with other solutions",
+    "features": "Features",
+    "quizerjs": "SlideJS",
+    "otherSolutions": "Other Solutions",
+    "rows": {
+      "editorjsIntegration": {
+        "feature": "Declarative DSL",
+        "quizerjs": "✓ Rule Engine",
+        "other": "✗ Imperative Code"
+      },
+      "dsl": {
+        "feature": "DSL Specification",
+        "quizerjs": "✓ Unified Format",
+        "other": "✗ Proprietary Formats"
+      },
+      "typeSafety": {
+        "feature": "TypeScript Support",
+        "quizerjs": "✓ Full Support",
+        "other": "✗ Partial or None"
+      },
+      "frameworkSupport": {
+        "feature": "Render Engines",
+        "quizerjs": "✓ reveal.js, Swiper, Splide",
+        "other": "✗ Usually One Engine"
+      },
+      "themeSystem": {
+        "feature": "Theme System",
+        "quizerjs": "✓ Multiple Themes",
+        "other": "✗ Limited Customization"
+      },
+      "modular": {
+        "feature": "Modular Design",
+        "quizerjs": "✓ Tree-shakeable",
+        "other": "✗ Monolithic"
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to Get Started?",
+    "description": "Start building slide presentations today.",
+    "getStarted": "Get Started",
+    "viewDemos": "View Demos"
+  }
+}

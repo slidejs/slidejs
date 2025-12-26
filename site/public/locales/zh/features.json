@@ -1,0 +1,131 @@
+{
+  "title": "功能特性",
+  "subtitle": "探索 SlideJS 的强大功能",
+  "hero": {
+    "title": "从任意数据源生成幻灯片演示",
+    "description": "SlideJS 提供了完整的解决方案，使用声明式 DSL 从 Quiz、Survey、Form 等数据源生成幻灯片演示，支持多种渲染引擎。"
+  },
+  "sections": {
+    "editorjsIntegration": {
+      "title": "声明式 DSL",
+      "description": "使用简洁的 DSL 语法定义幻灯片结构，支持规则引擎和嵌套循环。",
+      "details": [
+        "声明式语法，易于理解和维护",
+        "支持 start、content、end 规则",
+        "嵌套 for 循环处理复杂数据结构",
+        "类型安全的 TypeScript 定义"
+      ],
+      "codeExample": "present quiz \"my-quiz\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"Welcome!\"\n        }\n      }\n    }\n  }\n}"
+    },
+    "multipleTypes": {
+      "title": "多种渲染引擎",
+      "description": "支持多种流行的幻灯片渲染引擎，满足不同的展示需求。",
+      "details": ["reveal.js - HTML 演示框架", "Swiper - 现代触摸滑块", "Splide - 轻量级轮播组件", "可扩展的适配器系统"],
+      "codeExample": "import { createSlideRunner } from '@slidejs/runner-revealjs';\n// 或\nimport { createSlideRunner } from '@slidejs/runner-swiper';\n// 或\nimport { createSlideRunner } from '@slidejs/runner-splide';"
+    },
+    "dsl": {
+      "title": "Slide DSL",
+      "description": "声明式的领域特定语言，用于从任意数据源生成幻灯片演示。",
+      "details": [
+        "基于 Peggy 的语法解析器",
+        "支持表达式计算和 for 循环",
+        "数据源无关的设计",
+        "Context Adapter 模式",
+        "类型安全的 TypeScript 定义"
+      ],
+      "codeExample": "present quiz \"my-quiz\" {\n  rules {\n    rule content \"questions\" {\n      for question in quiz.questions {\n        slide {\n          content dynamic {\n            name: \"question-slide\"\n            attrs { question: question.text }\n          }\n        }\n      }\n    }\n  }\n}"
+    },
+    "themeSystem": {
+      "title": "主题系统",
+      "description": "灵活的主题系统，提供多个内置主题和自定义主题支持。",
+      "details": [
+        "多个内置主题（浅色、深色、solarized 等）",
+        "轻松切换主题",
+        "自定义主题支持",
+        "基于 CSS 变量",
+        "响应式设计"
+      ],
+      "codeExample": "import '@slidejs/theme/light.css';\n// 或\nimport '@slidejs/theme/dark.css';\n// 或创建您自己的主题"
+    },
+    "frameworkIntegration": {
+      "title": "多种渲染引擎",
+      "description": "支持多种流行的幻灯片渲染引擎。",
+      "details": [
+        "reveal.js 运行器",
+        "Swiper 运行器",
+        "Splide 运行器",
+        "可扩展的适配器系统",
+        "统一的 API 接口"
+      ],
+      "codeExample": "import { createSlideRunner } from '@slidejs/runner-revealjs';\n\nconst runner = await createSlideRunner(dslSource, context, {\n  container: '#slides',\n  revealOptions: { transition: 'slide' }\n});"
+    },
+    "typeSafety": {
+      "title": "类型安全",
+      "description": "完整的 TypeScript 支持，提供全面的类型定义。",
+      "details": [
+        "完整的 TypeScript 定义",
+        "类型安全的 API",
+        "IntelliSense 支持",
+        "编译时错误检查",
+        "更好的开发体验"
+      ],
+      "codeExample": "import type { SlideDSL, SlideContext } from '@slidejs/core';\n\nconst dsl: SlideDSL = {\n  version: '1.0.0',\n  sourceType: 'quiz',\n  sourceId: 'my-quiz',\n  rules: [/* ... */]\n};"
+    },
+    "modular": {
+      "title": "模块化设计",
+      "description": "核心组件可独立使用，配置灵活。",
+      "details": ["独立的核心组件", "灵活的配置选项", "支持 Tree-shaking", "小体积", "易于扩展"],
+      "codeExample": "import { SlideEngine } from '@slidejs/core';\nimport { parseSlideDSL, compile } from '@slidejs/dsl';\n\nconst ast = await parseSlideDSL(dslSource);\nconst slideDSL = compile(ast);\nconst engine = new SlideEngine(slideDSL);"
+    },
+    "responsive": {
+      "title": "响应式设计",
+      "description": "在所有设备和屏幕尺寸上提供完美体验。",
+      "details": ["移动优先设计", "平板优化", "桌面增强", "触摸友好的交互", "自适应布局"]
+    }
+  },
+  "comparison": {
+    "title": "为什么选择 SlideJS？",
+    "subtitle": "将 SlideJS 与其他解决方案进行比较",
+    "features": "功能",
+    "slidejs": "SlideJS",
+    "otherSolutions": "其他解决方案",
+    "rows": {
+      "editorjsIntegration": {
+        "feature": "声明式 DSL",
+        "slidejs": "✓ 规则引擎",
+        "other": "✗ 命令式代码"
+      },
+      "dsl": {
+        "feature": "DSL 规范",
+        "slidejs": "✓ 统一格式",
+        "other": "✗ 专有格式"
+      },
+      "typeSafety": {
+        "feature": "TypeScript 支持",
+        "slidejs": "✓ 完整支持",
+        "other": "✗ 部分或无"
+      },
+      "frameworkSupport": {
+        "feature": "渲染引擎",
+        "slidejs": "✓ reveal.js, Swiper, Splide",
+        "other": "✗ 通常只支持一个引擎"
+      },
+      "themeSystem": {
+        "feature": "主题系统",
+        "slidejs": "✓ 多个主题",
+        "other": "✗ 有限的自定义"
+      },
+      "modular": {
+        "feature": "模块化设计",
+        "slidejs": "✓ 支持 Tree-shaking",
+        "other": "✗ 单体式"
+      }
+    }
+  },
+  "cta": {
+    "title": "准备开始了吗？",
+    "description": "立即开始使用 SlideJS 构建幻灯片演示。",
+    "getStarted": "快速开始",
+    "viewDemos": "查看演示"
+  }
+}

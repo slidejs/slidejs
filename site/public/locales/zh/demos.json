@@ -1,0 +1,23 @@
+{
+  "title": "演示项目",
+  "subtitle": "查看 SlideJS 在不同渲染引擎中的实际应用。每个示例都包含完整的工作代码和源代码。",
+  "viewDemo": "查看示例",
+  "revealjs": {
+    "title": "reveal.js 演示",
+    "description": "使用 reveal.js 渲染引擎创建 HTML 演示文稿。展示如何使用 Slide DSL 和 reveal.js 适配器。",
+    "framework": "reveal.js",
+    "package": "@slidejs/runner-revealjs"
+  },
+  "swiper": {
+    "title": "Swiper 演示",
+    "description": "使用 Swiper.js 渲染引擎创建现代触摸滑块演示。展示如何使用 Slide DSL 和 Swiper 适配器。",
+    "framework": "Swiper.js",
+    "package": "@slidejs/runner-swiper"
+  },
+  "splide": {
+    "title": "Splide 演示",
+    "description": "使用 Splide 渲染引擎创建轻量级轮播演示。展示如何使用 Slide DSL 和 Splide 适配器。",
+    "framework": "Splide",
+    "package": "@slidejs/runner-splide"
+  }
+}
