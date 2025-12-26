@@ -6,8 +6,6 @@
 
 import { createLogger } from '@wsxjs/wsx-core';
 import 'uno.css'; // UnoCSS 工具类
-// 导入主题系统（使用预设主题）
-import '@slidejs/theme/terra-cotta.css'; // 使用 Terra Cotta 赤陶土主题 - 严肃活泼的暖色单系色调
 import './main.css'; // 全局样式
 // 导入基础组件包（包含 CSS）
 import '@wsxjs/wsx-base-components';

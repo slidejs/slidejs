@@ -65,7 +65,7 @@
 .demo-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--quiz-shadow-lg, 0 4px 12px rgba(0, 0, 0, 0.15));
-  border-color: var(--quiz-accent-color, #d4735e);
+  border-color: var(--quiz-accent-color, #4a9d5f);
 }
 
 .demo-icon {
@@ -101,7 +101,7 @@
 .demo-package {
   display: inline-block;
   padding: 0.25rem 0.75rem;
-  background: var(--quiz-accent-color, #d4735e);
+  background: var(--quiz-accent-color, #4a9d5f);
   color: white;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -120,7 +120,7 @@
 .demo-link {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--quiz-accent-color, #d4735e);
+  color: var(--quiz-accent-color, #4a9d5f);
   margin-top: auto;
 }
 

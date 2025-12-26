@@ -12,6 +12,6 @@ export default defineConfig({
     'btn-secondary': 'btn bg-gray-500 text-white hover:bg-gray-600',
     container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
   },
-  // 主题颜色由 @slidejs/theme 包的 CSS 变量提供
+  // 主题颜色由自定义 CSS 变量提供
   // 不在这里硬编码颜色值
 });

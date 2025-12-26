@@ -25,7 +25,6 @@
   "dependencies": {
     "@slidejs/core": "workspace:*",
     "@slidejs/dsl": "workspace:*",
-    "@slidejs/theme": "workspace:*",
     "@wsxjs/wsx-base-components": "^0.0.19",
     "@wsxjs/wsx-core": "^0.0.19",
     "@wsxjs/wsx-i18next": "^0.0.19",

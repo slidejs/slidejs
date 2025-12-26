@@ -1,0 +1,6 @@
+{
+    "vitest.disableWorkspaceWarning": true,
+    "files.associations": {
+        "*.wsx": "typescriptreact"
+    }
+}
