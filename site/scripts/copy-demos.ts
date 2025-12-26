@@ -18,14 +18,16 @@ const SITE_DIST_DIR = resolve(__dirname, '../dist');
 const DEMOS_DIST_DIR = join(SITE_DIST_DIR, 'demos');
 
 // 需要复制的 demo 列表
-const DEMOS = ['react', 'vue', 'svelte', 'vanilla'] as const;
+const DEMOS = ['slidejs-swiper', 'slidejs-splide', 'slidejs-revealjs'] as const;
 
 /**
  * 复制单个 demo 的构建产物
  */
 function copyDemo(demoName: string): void {
   const demoDistPath = join(ROOT_DIR, 'demos', demoName, 'dist');
-  const targetPath = join(DEMOS_DIST_DIR, demoName);
+  // Strip 'slidejs-' prefix for clean URLs: slidejs-swiper -> swiper
+  const targetName = demoName.replace('slidejs-', '');
+  const targetPath = join(DEMOS_DIST_DIR, targetName);
 
   if (!existsSync(demoDistPath)) {
     console.warn(`⚠️  Demo "${demoName}" 的构建产物不存在: ${demoDistPath}`);
@@ -57,13 +59,13 @@ function copyDemo(demoName: string): void {
       // /assets/... -> /demos/{demoName}/assets/...
       htmlContent = htmlContent.replace(
         /(href|src)="\/assets\/([^"]+)"/g,
-        `$1="/demos/${demoName}/assets/$2"`
+        `$1="/demos/${targetName}/assets/$2"`
       );
       // 修复 favicon 等根路径资源（如果存在）
       // 匹配 /vite.svg, /favicon.svg, /favicon.ico 等
       htmlContent = htmlContent.replace(
         /(href|src)="\/(vite\.svg|favicon\.(svg|ico|png|jpg))"/g,
-        `$1="/demos/${demoName}/$2"`
+        `$1="/demos/${targetName}/$2"`
       );
       // 修复其他可能的 public 目录资源（如 /images/..., /fonts/... 等）
       // 但只修复绝对路径，不修复相对路径
@@ -74,14 +76,14 @@ function copyDemo(demoName: string): void {
           if (path.startsWith('demos/')) return match;
           // 如果路径是 /assets/，已经在上面处理过了
           if (path.startsWith('assets/')) return match;
-          // 其他根路径资源，添加 /demos/{demoName}/ 前缀
-          return `${attr}="/demos/${demoName}/${path}"`;
+          // 其他根路径资源，添加 /demos/{targetName}/ 前缀
+          return `${attr}="/demos/${targetName}/${path}"`;
         }
       );
       writeFileSync(indexPath, htmlContent, 'utf-8');
     }
 
-    console.log(`✅ 已复制 ${demoName} demo 到 ${targetPath}`);
+    console.log(`✅ 已复制 ${targetName} demo 到 ${targetPath}`);
   } catch (error) {
     console.error(`❌ 复制 ${demoName} demo 失败:`, error);
     throw error;
@@ -105,7 +107,8 @@ function main() {
   console.log(`\n✨ 所有 demos 已复制到 ${DEMOS_DIST_DIR}`);
   console.log(`\n📝 访问路径:`);
   DEMOS.forEach(demo => {
-    console.log(`   - /demos/${demo}/`);
+    const cleanName = demo.replace('slidejs-', '');
+    console.log(`   - /demos/${cleanName}/`);
   });
 }
 
