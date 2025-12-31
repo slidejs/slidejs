@@ -8,7 +8,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'SlideJsSwiper',
       formats: ['es', 'cjs'],
-      fileName: format => `index.${format === 'es' ? 'js' : 'cjs'}`,
+      fileName: format => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
     },
     rollupOptions: {
       external: [

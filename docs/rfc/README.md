@@ -16,10 +16,11 @@
 - [RFC 0004: Slide DSL 语言服务器与开发工具](./0004-slide-dsl-language-server.md) - LSP 服务器、VSCode 扩展与 CLI 工具
 - [RFC 0005: reveal.js 高级功能支持](./0005-revealjs-advanced-features.md) - Fragments、Background、Notes 等功能
 - [RFC 0006: SlideJS 插件生态系统](./0006-plugin-ecosystem.md) - 插件市场与分发机制
+- [RFC 0008: 统一包构建格式](./0008-unified-build-formats.md) - CJS 和 ESM 双格式支持 🔄
 
 ### 计划中
 
-- RFC 0008: Vue 集成设计
+- RFC 0009: Vue 集成设计
 
 ## RFC 流程
 
