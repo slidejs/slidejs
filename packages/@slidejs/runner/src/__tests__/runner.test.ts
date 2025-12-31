@@ -32,7 +32,7 @@ function createMockAdapter(): SlideAdapter {
       // 同步触发事件，模拟真实适配器行为
       const handlers = eventHandlers.get('slideChanged');
       if (handlers) {
-        handlers.forEach((handler) => handler({ index, from: fromIndex, to: index }));
+        handlers.forEach(handler => handler({ index, from: fromIndex, to: index }));
       }
     },
     getCurrentIndex() {
@@ -213,9 +213,9 @@ describe('SlideRunner', () => {
       await runner.run(dsl, context);
 
       expect(beforeRender).toHaveBeenCalledTimes(1);
-      expect(beforeRender).toHaveBeenCalledWith(expect.arrayContaining([
-        expect.objectContaining({ id: 'slide-1' }),
-      ]));
+      expect(beforeRender).toHaveBeenCalledWith(
+        expect.arrayContaining([expect.objectContaining({ id: 'slide-1' })])
+      );
     });
 
     it('应该执行 afterRender 插件钩子', async () => {
@@ -370,7 +370,7 @@ describe('SlideRunner', () => {
       runner.navigateTo(1);
 
       // 等待异步钩子执行
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(runner.getCurrentIndex()).toBe(1);
     });
@@ -404,7 +404,7 @@ describe('SlideRunner', () => {
       runner.navigateTo(1);
 
       // 等待异步钩子执行
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(beforeSlideChange).toHaveBeenCalledWith(0, 1);
     });
@@ -426,7 +426,7 @@ describe('SlideRunner', () => {
       runner.navigateTo(1);
 
       // 等待异步钩子执行
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(afterSlideChange).toHaveBeenCalledWith(0, 1);
     });
@@ -443,7 +443,7 @@ describe('SlideRunner', () => {
       runner.navigateTo(2);
 
       // 等待异步钩子执行
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(runner.getCurrentIndex()).toBe(2);
     });
@@ -620,4 +620,3 @@ describe('SlideRunner', () => {
     });
   });
 });
-

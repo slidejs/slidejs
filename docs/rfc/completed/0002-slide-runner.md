@@ -1,6 +1,7 @@
 # RFC 0002: Slide Runner 与多渲染引擎集成
 
 ## 元数据
+
 - **RFC ID**: 0002
 - **标题**: Slide Runner - 可扩展的幻灯片执行引擎与多渲染引擎适配器
 - **状态**: 已完成
@@ -11,11 +12,13 @@
 ## 摘要
 
 Slide Runner 是一个可扩展的幻灯片执行引擎，负责将 Slide DSL 生成的 `SlideDefinition[]` 渲染为实际的演示文稿。本 RFC 定义了 SlideRunner 的核心架构、扩展机制，以及三个官方适配器的实现规范：
+
 - `@slidejs/runner-revealjs` - reveal.js 适配器
 - `@slidejs/runner-swiper` - Swiper.js 适配器
 - `@slidejs/runner-splide` - Splide 适配器
 
 **核心概念**：
+
 - **Runner（运行器）**：负责协调 DSL 解析、幻灯片生成、适配器初始化和渲染
 - **Play（播放）**：启动演示，导航到第一张幻灯片，使演示进入可交互状态
 - **Adapter（适配器）**：将标准化的 `SlideDefinition[]` 渲染为特定渲染引擎（reveal.js、Swiper、Splide 等）的格式
@@ -23,11 +26,13 @@ Slide Runner 是一个可扩展的幻灯片执行引擎，负责将 Slide DSL �
 ## 动机
 
 ### 背景问题
+
 1. **渲染引擎多样性**: 存在多种幻灯片框架（reveal.js, Swiper, Splide 等），需要支持不同的渲染引擎
 2. **动态内容渲染**: Slide DSL 支持动态内容（Web Components），需要在运行时渲染
 3. **可扩展性需求**: 用户应该能够自定义渲染逻辑、添加插件、扩展功能
 
 ### 设计目标
+
 1. **引擎无关**: 核心 SlideRunner 不依赖于特定的渲染引擎
 2. **可扩展**: 通过适配器模式支持多种渲染引擎
 3. **类型安全**: 完整的 TypeScript 类型定义
@@ -65,6 +70,7 @@ flowchart TD
 ```
 
 **说明**：此图表使用高对比度配色方案，确保在亮色和暗色模式下都清晰可见。颜色方案遵循语义化设计：
+
 - **蓝色 (#4a90e2)**：DSL 输入层 - 高对比度，适合两种模式
 - **灰色 (#6c757d)**：引擎处理层 - 中性色，通用性强
 - **绿色 (#28a745)**：核心运行器 - 高饱和度，易于识别
@@ -72,6 +78,7 @@ flowchart TD
 - **红色 (#dc3545)**：最终渲染输出 - 高对比度，醒目
 
 **亮色/暗色模式适配**：
+
 - 所有颜色使用高对比度值，确保在两种模式下都清晰可见
 - 文字颜色根据背景自动调整（白色文字用于深色背景，黑色文字用于浅色背景）
 - 如需完全自动适配，可通过 CSS 媒体查询覆盖 Mermaid 的默认样式
@@ -99,6 +106,7 @@ SlideRunner 的执行分为三个阶段：
    - 使演示进入可交互状态（用户可以使用键盘、鼠标导航）
 
 **关键区别**：
+
 - `run()` 或 `renderSlides()`：完成初始化和渲染，但**不自动播放**
 - `play()`：启动演示，导航到第一张幻灯片，使演示可交互
 - 用户需要**显式调用 `play()`** 来开始演示
@@ -118,18 +126,20 @@ SlideRunner 的执行分为三个阶段：
 #### 2.2 Play（播放）概念
 
 **Play 的定义**：
+
 - **播放**是启动演示的动作，将演示从"准备就绪"状态转换为"可交互"状态
 - 播放会导航到第一张幻灯片（索引 0），使演示进入可交互状态
 - 播放后，用户可以使用键盘、鼠标或 API 导航幻灯片
 
 **Play 与 Run 的区别**：
 
-| 方法 | 作用 | 状态变化 |
-|------|------|---------|
-| `run()` | 初始化 + 渲染 | 幻灯片已准备好，但未激活 |
-| `play()` | 启动演示 | 导航到第一张，演示可交互 |
+| 方法     | 作用          | 状态变化                 |
+| -------- | ------------- | ------------------------ |
+| `run()`  | 初始化 + 渲染 | 幻灯片已准备好，但未激活 |
+| `play()` | 启动演示      | 导航到第一张，演示可交互 |
 
 **执行顺序**：
+
 ```typescript
 // 1. 创建 Runner
 const runner = new SlideRunner({ ... });
@@ -227,11 +237,7 @@ export interface AdapterOptions {
 /**
  * 适配器事件类型
  */
-export type AdapterEvent =
-  | 'slideChanged'
-  | 'slideRendered'
-  | 'ready'
-  | 'error';
+export type AdapterEvent = 'slideChanged' | 'slideRendered' | 'ready' | 'error';
 
 export type EventHandler = (data?: unknown) => void;
 ```
@@ -516,7 +522,7 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
    * 设置事件监听
    */
   private setupEventListeners(): void {
-    this.adapter.on('slideChanged', async (data) => {
+    this.adapter.on('slideChanged', async data => {
       const { from, to } = data as { from: number; to: number };
 
       // 执行 beforeSlideChange 插件钩子
@@ -549,12 +555,7 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
 **定义位置**: `@slidejs/runner-revealjs/src/adapter.ts`
 
 ```typescript
-import type {
-  SlideAdapter,
-  AdapterOptions,
-  AdapterEvent,
-  EventHandler,
-} from '@slidejs/runner';
+import type { SlideAdapter, AdapterOptions, AdapterEvent, EventHandler } from '@slidejs/runner';
 import type { SlideDefinition } from '@slidejs/core';
 import Reveal from 'reveal.js';
 
@@ -571,7 +572,16 @@ export interface RevealJsOptions extends AdapterOptions {
   /**
    * 主题名称
    */
-  theme?: 'black' | 'white' | 'league' | 'beige' | 'sky' | 'night' | 'serif' | 'simple' | 'solarized';
+  theme?:
+    | 'black'
+    | 'white'
+    | 'league'
+    | 'beige'
+    | 'sky'
+    | 'night'
+    | 'serif'
+    | 'simple'
+    | 'solarized';
 
   /**
    * 自定义 CSS 类名前缀
@@ -614,7 +624,7 @@ export class RevealJsAdapter implements SlideAdapter {
     });
 
     // 设置事件监听
-    this.reveal.on('slidechanged', (event) => {
+    this.reveal.on('slidechanged', event => {
       this.emit('slideChanged', {
         from: event.previousSlide ? this.getSlideIndex(event.previousSlide) : 0,
         to: this.getSlideIndex(event.currentSlide),
@@ -709,7 +719,7 @@ export class RevealJsAdapter implements SlideAdapter {
     if (slide.behavior?.transition) {
       const transitionType = this.mapTransition(slide.behavior.transition);
       section.setAttribute('data-transition', transitionType);
-      
+
       // 设置 transition speed（如果指定）
       if (slide.behavior.transition.speed) {
         const speed = this.mapTransitionSpeed(slide.behavior.transition.speed);
@@ -731,7 +741,7 @@ export class RevealJsAdapter implements SlideAdapter {
 
   /**
    * 渲染动态内容（Web Component）
-   * 
+   *
    * 支持所有 Web Components，包括：
    * - 标准 Web Components（原生 Custom Elements）
    * - wsx 组件（编译为标准 Web Components）
@@ -770,7 +780,7 @@ export class RevealJsAdapter implements SlideAdapter {
     container: HTMLElement,
     content: Extract<SlideDefinition['content'], { type: 'text' }>
   ): void {
-    content.lines.forEach((line) => {
+    content.lines.forEach(line => {
       const p = document.createElement('p');
       p.textContent = line;
       container.appendChild(p);
@@ -815,7 +825,7 @@ export class RevealJsAdapter implements SlideAdapter {
     link.href = `https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/${theme}.css`;
     document.head.appendChild(link);
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       link.onload = () => resolve();
     });
   }
@@ -834,7 +844,7 @@ export class RevealJsAdapter implements SlideAdapter {
   private emit(event: AdapterEvent, data?: unknown): void {
     const handlers = this.eventHandlers.get(event);
     if (handlers) {
-      handlers.forEach((handler) => handler(data));
+      handlers.forEach(handler => handler(data));
     }
   }
 }
@@ -859,6 +869,7 @@ slide {
 ```
 
 **属性映射规则**:
+
 - **字符串和数字** → HTML attributes: `element.setAttribute('question', 'What is 2 + 2?')`
 - **布尔值** → HTML attributes（true 时设置空属性）: `element.setAttribute('disabled', '')`
 - **对象和数组** → JavaScript properties: `element.options = [...]`
@@ -924,6 +935,7 @@ export class MyQuizQuestion extends LightComponent {
 ```
 
 **关键点**:
+
 - wsx 会自动检测同名 CSS 文件（`my-quiz-question.css`），无需手动导入
 - 使用 `@autoRegister` 装饰器自动注册为 Web Component
 - 组件在渲染前必须已导入并注册
@@ -1024,6 +1036,7 @@ runner.play();
 #### 5.4 完整示例
 
 **DSL 文件** (`demo.slide`):
+
 ```dsl
 present quiz "wsx-component-demo" {
   rules {
@@ -1215,6 +1228,7 @@ runner.play();
 ```
 
 **执行流程说明**：
+
 1. `run()` 完成初始化和渲染，幻灯片已准备好但未激活
 2. `play()` 启动演示，导航到第一张幻灯片，使演示可交互
 3. 用户可以使用键盘、鼠标或 API 导航幻灯片
@@ -1463,7 +1477,16 @@ export interface FragmentDefinition {
   /**
    * Fragment 样式
    */
-  style?: 'fade-in' | 'fade-out' | 'fade-up' | 'fade-down' | 'grow' | 'shrink' | 'highlight-red' | 'highlight-blue' | 'highlight-green';
+  style?:
+    | 'fade-in'
+    | 'fade-out'
+    | 'fade-up'
+    | 'fade-down'
+    | 'grow'
+    | 'shrink'
+    | 'highlight-red'
+    | 'highlight-blue'
+    | 'highlight-green';
 
   /**
    * 应用 fragment 的内容
@@ -1513,6 +1536,7 @@ export interface FragmentDefinition {
 #### 8.4 reveal.js 高级功能支持
 
 1. **Fragments（片段）**: 支持逐步显示内容
+
    ```typescript
    // 在 SlideDefinition 中扩展支持 fragments
    interface SlideContent {
@@ -1527,6 +1551,7 @@ export interface FragmentDefinition {
    ```
 
 2. **Background（背景）**: 支持幻灯片背景
+
    ```typescript
    interface SlideDefinition {
      background?: {
@@ -1541,6 +1566,7 @@ export interface FragmentDefinition {
    ```
 
 3. **Auto-slide（自动播放）**: 配置自动切换
+
    ```typescript
    interface RevealJsOptions {
      autoSlide?: number; // 自动切换间隔（毫秒）
@@ -1550,6 +1576,7 @@ export interface FragmentDefinition {
    ```
 
 4. **代码高亮**: 集成 highlight.js 或 Prism.js
+
    ```typescript
    // RevealJsAdapter 自动加载代码高亮插件
    private async loadCodeHighlight(): Promise<void> {
@@ -1561,6 +1588,7 @@ export interface FragmentDefinition {
    ```
 
 5. **数学公式**: 集成 MathJax 或 KaTeX
+
    ```typescript
    interface RevealJsOptions {
      math?: {
@@ -1580,6 +1608,7 @@ export interface FragmentDefinition {
 #### 8.5 响应式更新机制
 
 1. **重新渲染**: 当数据变化时更新幻灯片
+
    ```typescript
    class SlideRunner {
      /**
@@ -1600,6 +1629,7 @@ export interface FragmentDefinition {
    ```
 
 2. **状态管理**: 持久化幻灯片状态
+
    ```typescript
    interface SlideRunnerConfig {
      /**
@@ -1617,6 +1647,7 @@ export interface FragmentDefinition {
 #### 8.6 可访问性（a11y）
 
 1. **ARIA 标签**: 自动添加适当的 ARIA 属性
+
    ```typescript
    // RevealJsAdapter 自动添加
    section.setAttribute('role', 'region');
@@ -1630,6 +1661,7 @@ export interface FragmentDefinition {
 #### 8.7 移动端支持
 
 1. **触摸手势**: 支持滑动切换幻灯片
+
    ```typescript
    interface RevealJsOptions {
      touch?: boolean;
@@ -1679,6 +1711,7 @@ flowchart TD
 ```
 
 **说明**：此流程图展示了 SlideRunner 的完整执行模型，从初始化到播放的三个阶段。颜色方案使用高对比度配色，确保在亮色和暗色模式下都清晰可见：
+
 - **蓝色 (#4a90e2)**：初始化阶段 - 高对比度，适合两种模式
 - **绿色 (#28a745)**：渲染阶段 - 高饱和度，易于识别
 - **黄色 (#ffc107)**：播放阶段 - 注意文字为黑色以确保可读性
@@ -1686,6 +1719,7 @@ flowchart TD
 - **红色 (#dc3545)**：开始/结束节点 - 高对比度，醒目
 
 **亮色/暗色模式适配**：
+
 - 所有颜色使用高对比度值，确保在两种模式下都清晰可见
 - 文字颜色根据背景自动调整（白色文字用于深色背景，黑色文字用于浅色背景）
 - 如需完全自动适配，可通过 CSS 媒体查询覆盖 Mermaid 的默认样式
@@ -1725,6 +1759,7 @@ flowchart TD
 ### 使用模式
 
 **模式 1：完整流程（推荐）**
+
 ```typescript
 const runner = new SlideRunner({ ... });
 await runner.run(dsl, context);  // 初始化 + 渲染
@@ -1732,6 +1767,7 @@ runner.play();                    // 启动演示
 ```
 
 **模式 2：分步控制**
+
 ```typescript
 const runner = new SlideRunner({ ... });
 await runner.run(dsl, context);  // 初始化 + 渲染
@@ -1743,6 +1779,7 @@ if (shouldAutoPlay) {
 ```
 
 **模式 3：直接渲染（不使用 DSL）**
+
 ```typescript
 const runner = new SlideRunner({ ... });
 await runner.renderSlides(slides);  // 直接渲染
@@ -1752,6 +1789,7 @@ runner.play();                       // 启动演示
 ## 实施计划
 
 ### Phase 1: 核心基础设施 ✅ 已完成
+
 - [x] 创建 `@slidejs/runner` 包
 - [x] 实现 `SlideRunner` 核心类
 - [x] 定义 `SlideAdapter` 接口
@@ -1759,6 +1797,7 @@ runner.play();                       // 启动演示
 - [x] 实现 `play()` 方法和状态管理
 
 ### Phase 2: 适配器实现 ✅ 已完成
+
 - [x] 创建 `@slidejs/runner-revealjs` 包
 - [x] 实现 `RevealJsAdapter`
 - [x] 支持所有 transition 类型（slide, zoom, fade, cube, flip, none）
@@ -1772,12 +1811,14 @@ runner.play();                       // 启动演示
 - [x] 支持 Splide 的所有核心功能（arrows, pagination, keyboard）
 
 ### Phase 3: 测试与文档 ✅ 已完成
+
 - [x] 编写单元测试（已创建完整的测试套件）
 - [x] 创建集成测试示例（`demos/slidejs-revealjs` 已创建）
 - [x] 编写使用文档（部分内容已在 README 和文档中）
 - [x] 创建示例项目（revealjs, swiper, splide 三个示例已创建）
 
 ### Phase 4: 高级功能 ⚠️ 部分完成
+
 - [x] 其他适配器（Swiper 和 Splide 适配器已实现）
 - [ ] 高级 reveal.js 功能（见 RFC 0005）
 - [ ] 插件市场（见 RFC 0006）
@@ -1785,6 +1826,7 @@ runner.play();                       // 启动演示
 ## 实施状态总结
 
 ### ✅ 已完成功能
+
 1. **核心 Runner**：SlideRunner 类已实现，支持完整的生命周期管理
 2. **适配器接口**：SlideAdapter 接口已定义
 3. **reveal.js 适配器**：RevealJsAdapter 已实现，支持所有基础功能
@@ -1797,10 +1839,12 @@ runner.play();                       // 启动演示
 10. **单元测试**：完整的测试套件已创建，28 个测试用例全部通过
 
 ### ⚠️ 待完成功能（未来增强）
+
 1. **高级 reveal.js 功能**：Fragments、Background、Notes 等（见 RFC 0005）
 2. **插件市场**：插件生态系统（见 RFC 0006）
 
 **注意**：性能优化（虚拟滚动、懒加载）不在当前计划中，原因：
+
 - reveal.js 等渲染引擎已内置性能优化
 - 大多数演示文稿的幻灯片数量不会达到需要虚拟滚动的规模（通常 < 100 张）
 - 过早优化可能增加复杂度而收益有限
@@ -1815,6 +1859,7 @@ runner.play();                       // 启动演示
 ## 风险评估
 
 ### 技术风险
+
 1. **渲染引擎版本兼容性**:
    - 风险等级: 中
    - 缓解: 锁定特定版本，提供升级指南
@@ -1831,18 +1876,22 @@ runner.play();                       // 启动演示
 ## 替代方案
 
 ### 方案 A: 直接集成单个渲染引擎（不使用适配器）
+
 - **优点**: 实现简单，无额外抽象
 - **缺点**: 无法支持其他渲染引擎，不可扩展
 
 ### 方案 B: 使用 iframe 隔离
+
 - **优点**: 样式隔离，安全性高
 - **缺点**: 通信复杂，性能开销
 
 ### 方案 C: 自研渲染引擎
+
 - **优点**: 完全控制
 - **缺点**: 开发成本高，不成熟
 
 **选择**: 我们选择适配器模式（本 RFC），因为：
+
 1. 可扩展性最佳
 2. 利用成熟的渲染引擎（reveal.js, Swiper, Splide）
 3. 用户可以自定义适配器

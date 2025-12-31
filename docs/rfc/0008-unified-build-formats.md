@@ -1,6 +1,7 @@
 # RFC 0008: 统一包构建格式 - CJS 和 ESM 双格式支持
 
 ## 元数据
+
 - **RFC ID**: 0008
 - **标题**: 统一包构建格式 - CJS 和 ESM 双格式支持
 - **状态**: 实施中
@@ -48,6 +49,7 @@
 ### 目标
 
 统一所有包的构建配置，确保：
+
 1. 所有包都生成 `index.mjs` (ESM) 和 `index.cjs` (CJS) 格式
 2. 所有包都生成 `index.d.ts` 类型定义文件
 3. 所有包的 `package.json` 正确配置 `exports` 字段
@@ -121,6 +123,7 @@ dts({
 参考 `@slidejs/runner` 的配置：
 
 **vite.config.ts**:
+
 ```typescript
 export default defineConfig({
   build: {
@@ -146,6 +149,7 @@ export default defineConfig({
 ```
 
 **package.json**:
+
 ```json
 {
   "main": "./dist/index.cjs",
@@ -180,6 +184,7 @@ export default defineConfig({
 ### 验证方法
 
 1. **构建验证**：
+
    ```bash
    pnpm --filter @slidejs/core build
    pnpm --filter @slidejs/context build
@@ -194,10 +199,11 @@ export default defineConfig({
    - `index.mjs.map` 和 `index.cjs.map` (Source maps)
 
 3. **导入测试**：
+
    ```typescript
    // ESM 导入
    import { ... } from '@slidejs/core';
-   
+
    // CommonJS 导入
    const { ... } = require('@slidejs/core');
    ```
@@ -244,14 +250,17 @@ export default defineConfig({
 ## 替代方案
 
 ### 方案 A: 仅支持 ESM（当前状态）
+
 - **优点**: 简单，包体积小
 - **缺点**: 兼容性差，限制使用场景
 
 ### 方案 B: 仅支持 CommonJS
+
 - **优点**: 兼容性好
 - **缺点**: 不符合现代 JavaScript 标准，无法利用 ESM 优势
 
 **选择**: 我们选择双格式支持（本 RFC），因为：
+
 1. 提供最佳兼容性
 2. 符合现代包管理最佳实践
 3. 与现有 runner 包保持一致

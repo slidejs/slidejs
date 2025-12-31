@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
 /**
  * Vite 插件：处理 pino 浏览器版本的导入问题
  *

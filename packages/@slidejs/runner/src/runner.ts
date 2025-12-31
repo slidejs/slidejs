@@ -89,12 +89,8 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
       // 重置当前索引
       this.currentIndex = 0;
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      throw new SlideRunnerError(
-        `Failed to run slides: ${errorMessage}`,
-        'RUN_FAILED'
-      );
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new SlideRunnerError(`Failed to run slides: ${errorMessage}`, 'RUN_FAILED');
     }
   }
 
@@ -127,12 +123,8 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
       // 重置当前索引
       this.currentIndex = 0;
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      throw new SlideRunnerError(
-        `Failed to render slides: ${errorMessage}`,
-        'RENDER_FAILED'
-      );
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new SlideRunnerError(`Failed to render slides: ${errorMessage}`, 'RENDER_FAILED');
     }
   }
 
@@ -156,20 +148,16 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
     const toIndex = index;
 
     // 执行 beforeSlideChange 插件钩子（同步）
-    this.executePluginHook('beforeSlideChange', fromIndex, toIndex).then(
-      () => {
-        // 调用适配器导航
-        this.adapter.navigateTo(index);
-        this.currentIndex = index;
+    this.executePluginHook('beforeSlideChange', fromIndex, toIndex).then(() => {
+      // 调用适配器导航
+      this.adapter.navigateTo(index);
+      this.currentIndex = index;
 
-        // 执行 afterSlideChange 插件钩子（异步）
-        this.executePluginHook('afterSlideChange', fromIndex, toIndex).catch(
-          (error) => {
-            console.error('Plugin afterSlideChange hook failed:', error);
-          }
-        );
-      }
-    );
+      // 执行 afterSlideChange 插件钩子（异步）
+      this.executePluginHook('afterSlideChange', fromIndex, toIndex).catch(error => {
+        console.error('Plugin afterSlideChange hook failed:', error);
+      });
+    });
   }
 
   /**
@@ -241,12 +229,8 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
       // 调用适配器更新
       await this.adapter.updateSlide(index, slide);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      throw new SlideRunnerError(
-        `Failed to update slide: ${errorMessage}`,
-        'UPDATE_FAILED'
-      );
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new SlideRunnerError(`Failed to update slide: ${errorMessage}`, 'UPDATE_FAILED');
     }
   }
 
@@ -259,12 +243,8 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
     try {
       await this.adapter.render(this.slides);
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      throw new SlideRunnerError(
-        `Failed to refresh slides: ${errorMessage}`,
-        'REFRESH_FAILED'
-      );
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new SlideRunnerError(`Failed to refresh slides: ${errorMessage}`, 'REFRESH_FAILED');
     }
   }
 
@@ -278,12 +258,8 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
       this.currentIndex = 0;
       this.isInitialized = false;
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      throw new SlideRunnerError(
-        `Failed to destroy runner: ${errorMessage}`,
-        'DESTROY_FAILED'
-      );
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new SlideRunnerError(`Failed to destroy runner: ${errorMessage}`, 'DESTROY_FAILED');
     }
   }
 
@@ -353,10 +329,7 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await (hook as any).apply(plugin, args);
         } catch (error) {
-          console.error(
-            `Plugin "${plugin.name}" ${String(hookName)} hook failed:`,
-            error
-          );
+          console.error(`Plugin "${plugin.name}" ${String(hookName)} hook failed:`, error);
           // 插件错误不应阻止流程继续
         }
       }
@@ -368,7 +341,7 @@ export class SlideRunner<TContext extends SlideContext = SlideContext> {
    */
   private setupAdapterEventListeners(): void {
     // 监听 slideChanged 事件，更新内部状态
-    this.adapter.on('slideChanged', (data) => {
+    this.adapter.on('slideChanged', data => {
       if (typeof data === 'object' && data !== null && 'index' in data) {
         this.currentIndex = data.index as number;
       }

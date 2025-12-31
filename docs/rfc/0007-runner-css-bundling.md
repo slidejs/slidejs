@@ -1,6 +1,7 @@
 # RFC 0007: Runner 包 CSS 打包与自动加载
 
 ## 元数据
+
 - **RFC ID**: 0007
 - **标题**: Runner 包 CSS 打包与自动加载 - 修复构建后 CSS 缺失问题
 - **状态**: 已完成
@@ -75,7 +76,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // 确保 CSS 文件被正确提取
-        assetFileNames: (assetInfo) => {
+        assetFileNames: assetInfo => {
           if (assetInfo.name === 'style.css') {
             return 'style.css';
           }
@@ -137,6 +138,7 @@ private createRevealStructure(container: HTMLElement): void {
 ### 使用方式变更
 
 **修复前**（需要手动导入 CSS）：
+
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 import 'reveal.js/dist/reveal.css'; // 必须手动导入
@@ -144,6 +146,7 @@ import 'reveal.js/dist/theme/black.css';
 ```
 
 **修复后**（CSS 自动加载）：
+
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 // CSS 自动加载，无需手动导入
@@ -213,14 +216,17 @@ cat demos/slidejs-revealjs/dist/index.html
 ## 替代方案
 
 ### 方案 A: 继续要求用户手动导入 CSS
+
 - **优点**: 简单，用户完全控制
 - **缺点**: 容易出错，用户体验差
 
 ### 方案 B: 使用 CDN 链接
+
 - **优点**: 简单
 - **缺点**: 依赖外部资源，不符合包管理最佳实践
 
 **选择**: 我们选择自动打包 CSS（本 RFC），因为：
+
 1. 更好的用户体验
 2. 减少配置错误
 3. 符合现代包管理最佳实践
@@ -234,4 +240,3 @@ cat demos/slidejs-revealjs/dist/index.html
 ## 变更历史
 
 - 2025-12-29: 初始草稿，记录 CSS 打包修复方案
-

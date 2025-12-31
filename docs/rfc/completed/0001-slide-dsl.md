@@ -1,6 +1,7 @@
 # RFC 0001: Slide DSL 规范
 
 ## 元数据
+
 - **RFC ID**: 0001
 - **标题**: Slide DSL - 通用幻灯片演示领域特定语言
 - **状态**: 已完成
@@ -15,11 +16,13 @@ Slide DSL 是一个通用的领域特定语言（DSL），用于从任意数据�
 ## 动机
 
 ### 背景问题
+
 1. **当前限制**: RFC 0006 的 Player 设计过度耦合 Quiz 数据结构
 2. **可扩展性需求**: 需要支持 Quiz 以外的其他数据源（Survey、Form、Assessment 等）
 3. **复用性要求**: 相同的幻灯片生成逻辑应该可以跨多种数据源复用
 
 ### 设计目标
+
 1. **数据源无关**: DSL 不依赖于特定数据结构（Quiz、Survey 等）
 2. **类型安全**: 完整的 TypeScript 类型系统支持
 3. **声明式**: 使用规则引擎而非命令式代码
@@ -65,20 +68,21 @@ Slide DSL 是一个通用的领域特定语言（DSL），用于从任意数据�
 
 ```typescript
 export interface SlideContext {
-  sourceType: string;        // 数据源类型：'quiz', 'survey', 'form', etc.
-  sourceId: string;          // 数据源唯一标识
-  metadata: SlideMetadata;   // 元数据
-  items: ContentItem[];      // 核心抽象：所有数据都提供"items"
-  groups?: ContentGroup[];   // 可选：层级分组
+  sourceType: string; // 数据源类型：'quiz', 'survey', 'form', etc.
+  sourceId: string; // 数据源唯一标识
+  metadata: SlideMetadata; // 元数据
+  items: ContentItem[]; // 核心抽象：所有数据都提供"items"
+  groups?: ContentGroup[]; // 可选：层级分组
   custom?: Record<string, unknown>; // 数据源特定扩展
 }
 
 export interface ContentItem {
   id: string;
-  type: string;              // 由数据源定义（如 'question', 'input-field'）
-  text: string;              // 主要内容文本
-  title?: string;            // 可选标题
-  metadata?: {               // 可选元数据
+  type: string; // 由数据源定义（如 'question', 'input-field'）
+  text: string; // 主要内容文本
+  title?: string; // 可选标题
+  metadata?: {
+    // 可选元数据
     tags?: string[];
     difficulty?: string;
     [key: string]: unknown;
@@ -93,6 +97,7 @@ export interface ContextAdapter<TSource = unknown> {
 ```
 
 **设计原则**:
+
 - `items` 是核心抽象：所有数据源都必须能映射到"项目列表"
 - `groups` 支持层级结构（如 Quiz 的 sections）
 - `custom` 允许数据源特定扩展，保持灵活性
@@ -103,23 +108,23 @@ export interface ContextAdapter<TSource = unknown> {
 
 ```typescript
 export interface SlideDSL<TContext extends SlideContext = SlideContext> {
-  version: string;           // DSL 版本号
-  sourceType: string;        // 支持的数据源类型
-  sourceId: string;          // 目标数据源 ID
+  version: string; // DSL 版本号
+  sourceType: string; // 支持的数据源类型
+  sourceId: string; // 目标数据源 ID
   rules: SlideRule<TContext>[]; // 规则列表
-  config?: SlideConfig;      // 可选配置
+  config?: SlideConfig; // 可选配置
 }
 
 export interface SlideRule<TContext extends SlideContext = SlideContext> {
   type: 'start' | 'content' | 'end'; // 规则类型
-  name: string;              // 规则名称
+  name: string; // 规则名称
   generate: (context: TContext) => SlideDefinition[]; // 生成函数
 }
 
 export interface SlideDefinition {
   id?: string;
-  content: SlideContent;     // 幻灯片内容
-  behavior?: SlideBehavior;  // 可选行为
+  content: SlideContent; // 幻灯片内容
+  behavior?: SlideBehavior; // 可选行为
   metadata?: Record<string, unknown>;
 }
 
@@ -127,7 +132,7 @@ export type SlideContent = DynamicContent | StaticContent;
 
 export interface DynamicContent {
   type: 'dynamic';
-  component: string;         // Web Component 标签名
+  component: string; // Web Component 标签名
   props: Record<string, unknown>;
 }
 
@@ -243,6 +248,7 @@ present quiz "math-quiz" {
 #### 3.3 语法元素说明
 
 **关键字**:
+
 - `present`: 声明 DSL 文档
 - `rules`: 规则块
 - `rule`: 单个规则定义
@@ -256,6 +262,7 @@ present quiz "math-quiz" {
 - `name`, `attrs`: 动态内容属性
 
 **表达式**:
+
 - 字符串字面量: `"text"`
 - 数字字面量: `500`
 - 布尔字面量: `true`, `false`
@@ -263,6 +270,7 @@ present quiz "math-quiz" {
 - 二元运算: `"Section: " + section.title`
 
 **属性语法**:
+
 - 使用 `:` 分隔键值对
 - 格式: `key: value`
 - 示例: `speed: 500`, `speed: "fast"`, `title: section.title`
@@ -296,9 +304,7 @@ export async function parseSlideDSL(source: string): Promise<PresentationNode> {
 export function compile<TContext extends SlideContext = SlideContext>(
   ast: PresentationNode
 ): SlideDSL<TContext> {
-  const rules: SlideRule<TContext>[] = ast.rules.map(ruleNode =>
-    compileRule(ruleNode)
-  );
+  const rules: SlideRule<TContext>[] = ast.rules.map(ruleNode => compileRule(ruleNode));
 
   return {
     version: ast.version,
@@ -513,6 +519,7 @@ console.log(`Generated ${slides.length} slides`);
 ## 实施计划
 
 ### Phase 1: 核心基础设施 ✅ 已完成
+
 - [x] 创建 `@slidejs/context` 包
 - [x] 创建 `@slidejs/core` 包
 - [x] 创建 `@slidejs/dsl` 包
@@ -520,11 +527,13 @@ console.log(`Generated ${slides.length} slides`);
 - [x] 实现 `:` 语法支持（已在 grammar.peggy 中实现）
 
 ### Phase 2: 测试与验证 ✅ 已完成
+
 - [x] 完成 `@slidejs/dsl` 单元测试（基础测试已通过）
 - [x] 完成 `@slidejs/core` SlideEngine 测试（基础功能已验证）
 - [x] 集成测试：通过演示项目验证完整流程（`demos/slidejs-revealjs`, `demos/slidejs-swiper`, `demos/slidejs-splide`）
 
 ### Phase 3: 文档与示例 ✅ 已完成
+
 - [x] 编写 Slide DSL 完整文档（`site/public/docs/guide/dsl-guide.md` 已创建）
 - [x] 创建示例项目（`demos/slidejs-revealjs`, `demos/slidejs-swiper`, `demos/slidejs-splide` 已创建）
 - [x] 编写最佳实践指南（部分内容已在文档中）
@@ -538,6 +547,7 @@ console.log(`Generated ${slides.length} slides`);
 ## 风险评估
 
 ### 技术风险
+
 1. **Peggy 语法复杂性**:
    - 风险等级: 中
    - 缓解: 使用简化的 `:` 语法，逐步增加特性
@@ -551,6 +561,7 @@ console.log(`Generated ${slides.length} slides`);
    - 缓解: DSL 编译是一次性操作，运行时性能由 SlideEngine 优化
 
 ### 迁移风险
+
 1. **现有 Quiz DSL 兼容性**:
    - 风险等级: 高
    - 缓解: 提供自动迁移工具，保持向后兼容
@@ -558,18 +569,22 @@ console.log(`Generated ${slides.length} slides`);
 ## 替代方案
 
 ### 方案 A: 继续使用 Quiz 特定 DSL
+
 - **优点**: 无需重构，短期开发成本低
 - **缺点**: 无法扩展到其他数据源，长期维护成本高
 
 ### 方案 B: 使用现有 DSL 框架（如 Xstate, SCXML）
+
 - **优点**: 成熟的生态系统
 - **缺点**: 过度复杂，不符合我们的特定需求
 
 ### 方案 C: JSON 配置（不使用 DSL）
+
 - **优点**: 简单，无需解析器
 - **缺点**: 缺乏表达能力，难以处理循环和条件逻辑
 
 **选择**: 我们选择自定义 Slide DSL（本 RFC），因为：
+
 1. 完全控制语法和特性
 2. 符合我们的特定需求（循环、表达式、组件化）
 3. 类型安全和可扩展性

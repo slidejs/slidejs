@@ -1,6 +1,7 @@
 # RFC 0003: Slide DSL 增强功能与性能优化
 
 ## 元数据
+
 - **RFC ID**: 0003
 - **标题**: Slide DSL 增强功能与性能优化
 - **状态**: 提案
@@ -62,6 +63,7 @@ rule content "conditional" {
 #### 1.2 实现方案
 
 **AST 节点扩展**:
+
 ```typescript
 export interface IfStatementNode extends ASTNode {
   type: 'if';
@@ -79,17 +81,18 @@ export interface ElseIfClauseNode extends ASTNode {
 ```
 
 **编译逻辑**:
+
 ```typescript
 function compileIfStatement<TContext extends SlideContext = SlideContext>(
   node: IfStatementNode,
   context: TContext
 ): SlideDefinition[] {
   const conditionValue = evaluateExpression(node.condition, context);
-  
+
   if (isTruthy(conditionValue)) {
     return compileRuleBody(node.thenBody, context);
   }
-  
+
   // 检查 else if 子句
   if (node.elseIfClauses) {
     for (const elseIf of node.elseIfClauses) {
@@ -99,12 +102,12 @@ function compileIfStatement<TContext extends SlideContext = SlideContext>(
       }
     }
   }
-  
+
   // 执行 else 分支
   if (node.elseBody) {
     return compileRuleBody(node.elseBody, context);
   }
-  
+
   return [];
 }
 ```
@@ -124,7 +127,7 @@ function compileIfStatement<TContext extends SlideContext = SlideContext>(
 rule content "variables" {
   let title = "Welcome to " + quiz.title;
   let count = quiz.questions.length;
-  
+
   slide {
     content text {
       title
@@ -137,6 +140,7 @@ rule content "variables" {
 #### 2.2 实现方案
 
 **AST 节点扩展**:
+
 ```typescript
 export interface VariableDeclarationNode extends ASTNode {
   type: 'variable';
@@ -147,6 +151,7 @@ export interface VariableDeclarationNode extends ASTNode {
 ```
 
 **作用域管理**:
+
 ```typescript
 interface CompileContext {
   variables: Map<string, unknown>;
@@ -162,16 +167,16 @@ function compileWithContext<TContext extends SlideContext = SlideContext>(
   if (Array.isArray(body) && body[0]?.type === 'variable') {
     const variables = body.filter(n => n.type === 'variable') as VariableDeclarationNode[];
     const slides = body.filter(n => n.type !== 'variable') as SlideNode[];
-    
+
     // 在作用域中定义变量
     for (const varDecl of variables) {
       const value = evaluateExpression(varDecl.value, context, compileContext);
       compileContext.variables.set(varDecl.name, value);
     }
-    
+
     return slides.map(slide => compileSlide(slide, context, compileContext));
   }
-  
+
   // 原有逻辑...
 }
 ```
@@ -197,6 +202,7 @@ rule start "intro" {
 #### 3.2 实现方案
 
 **AST 节点扩展**:
+
 ```typescript
 export interface FunctionDeclarationNode extends ASTNode {
   type: 'function';
@@ -214,14 +220,15 @@ export interface FunctionCallNode extends ASTNode {
 ```
 
 **函数注册表**:
+
 ```typescript
 class FunctionRegistry {
   private functions = new Map<string, FunctionDefinition>();
-  
+
   register(name: string, fn: FunctionDefinition): void {
     this.functions.set(name, fn);
   }
-  
+
   call(name: string, args: unknown[], context: TContext): unknown {
     const fn = this.functions.get(name);
     if (!fn) {
@@ -261,21 +268,22 @@ present quiz "math-quiz" {
 #### 4.2 实现方案
 
 **模块解析器**:
+
 ```typescript
 class ModuleResolver {
   private cache = new Map<string, ModuleDefinition>();
-  
+
   async resolve(modulePath: string, basePath: string): Promise<ModuleDefinition> {
     const fullPath = resolvePath(modulePath, basePath);
-    
+
     if (this.cache.has(fullPath)) {
       return this.cache.get(fullPath)!;
     }
-    
+
     const source = await readFile(fullPath);
     const ast = await parseSlideDSL(source);
     const module = compileModule(ast);
-    
+
     this.cache.set(fullPath, module);
     return module;
   }
@@ -289,6 +297,7 @@ class ModuleResolver {
 **问题**: Peggy 生成的解析器对于大文件可能较慢。
 
 **优化方案**:
+
 1. **增量解析**: 支持解析 DSL 片段，而不是整个文件
 2. **缓存机制**: 缓存已解析的 AST
 3. **懒加载**: 延迟解析未使用的规则
@@ -296,20 +305,20 @@ class ModuleResolver {
 ```typescript
 class CachedParser {
   private cache = new LRUCache<string, PresentationNode>({ max: 100 });
-  
+
   async parse(source: string, options?: { cache?: boolean }): Promise<PresentationNode> {
     const hash = hashString(source);
-    
+
     if (options?.cache !== false && this.cache.has(hash)) {
       return this.cache.get(hash)!;
     }
-    
+
     const ast = await parseSlideDSL(source);
-    
+
     if (options?.cache !== false) {
       this.cache.set(hash, ast);
     }
-    
+
     return ast;
   }
 }
@@ -320,6 +329,7 @@ class CachedParser {
 **问题**: 复杂表达式的重复求值。
 
 **优化方案**:
+
 1. **表达式缓存**: 缓存表达式求值结果
 2. **编译时优化**: 在编译时简化常量表达式
 3. **懒求值**: 延迟求值未使用的表达式
@@ -327,21 +337,21 @@ class CachedParser {
 ```typescript
 class OptimizedCompiler {
   private expressionCache = new Map<string, unknown>();
-  
+
   evaluateExpression(expr: ExpressionValue, context: TContext): unknown {
     const cacheKey = hashExpression(expr);
-    
+
     if (this.expressionCache.has(cacheKey)) {
       return this.expressionCache.get(cacheKey);
     }
-    
+
     // 常量折叠优化
     if (isConstantExpression(expr)) {
       const value = evaluateConstantExpression(expr);
       this.expressionCache.set(cacheKey, value);
       return value;
     }
-    
+
     const value = evaluateExpression(expr, context);
     this.expressionCache.set(cacheKey, value);
     return value;
@@ -354,6 +364,7 @@ class OptimizedCompiler {
 **问题**: 大量幻灯片的生成可能较慢。
 
 **优化方案**:
+
 1. **流式生成**: 支持流式生成幻灯片，而不是一次性生成所有
 2. **并行处理**: 对于独立的规则，支持并行处理
 3. **增量更新**: 支持增量更新已生成的幻灯片
@@ -379,6 +390,7 @@ class StreamingSlideEngine<TContext extends SlideContext = SlideContext> {
 **问题**: 表达式求值可能执行恶意代码。
 
 **解决方案**:
+
 1. **白名单机制**: 只允许访问预定义的对象和属性
 2. **资源限制**: 限制表达式求值的执行时间和内存
 3. **输入验证**: 严格验证所有输入
@@ -388,19 +400,19 @@ class SandboxedEvaluator {
   private allowedProperties = new Set<string>(['quiz', 'section', 'question', 'items']);
   private maxExecutionTime = 1000; // 1秒
   private maxMemoryUsage = 10 * 1024 * 1024; // 10MB
-  
+
   evaluate(expr: ExpressionValue, context: TContext): unknown {
     // 验证属性访问
     if (expr.type === 'member') {
       this.validatePropertyAccess(expr);
     }
-    
+
     // 设置执行超时
     return this.withTimeout(() => {
       return evaluateExpression(expr, context);
     }, this.maxExecutionTime);
   }
-  
+
   private validatePropertyAccess(expr: MemberExpressionNode): void {
     if (!this.allowedProperties.has(expr.object)) {
       throw new SecurityError(`Access to "${expr.object}" is not allowed`);
@@ -414,6 +426,7 @@ class SandboxedEvaluator {
 **问题**: 类型不匹配可能导致运行时错误。
 
 **解决方案**:
+
 1. **编译时类型检查**: 在编译时验证类型
 2. **运行时类型验证**: 在运行时验证类型
 3. **类型推断**: 自动推断表达式类型
@@ -422,11 +435,9 @@ class SandboxedEvaluator {
 class TypeChecker {
   checkExpression(expr: ExpressionValue, expectedType: string): void {
     const actualType = this.inferType(expr);
-    
+
     if (!this.isCompatible(actualType, expectedType)) {
-      throw new TypeError(
-        `Type mismatch: expected ${expectedType}, got ${actualType}`
-      );
+      throw new TypeError(`Type mismatch: expected ${expectedType}, got ${actualType}`);
     }
   }
 }
@@ -435,6 +446,7 @@ class TypeChecker {
 ## 实施计划
 
 ### Phase 1: 条件逻辑支持 (优先级: 高)
+
 - [ ] 扩展 Peggy 语法支持 `if/else if/else`
 - [ ] 实现 AST 节点类型
 - [ ] 实现编译逻辑
@@ -444,6 +456,7 @@ class TypeChecker {
 **预计时间**: 1-2 周
 
 ### Phase 2: 变量定义 (优先级: 高)
+
 - [ ] 扩展语法支持 `let/const`
 - [ ] 实现作用域管理
 - [ ] 实现变量解析
@@ -453,6 +466,7 @@ class TypeChecker {
 **预计时间**: 1 周
 
 ### Phase 3: 函数定义 (优先级: 中)
+
 - [ ] 扩展语法支持函数定义和调用
 - [ ] 实现函数注册表
 - [ ] 实现函数调用逻辑
@@ -463,6 +477,7 @@ class TypeChecker {
 **预计时间**: 2 周
 
 ### Phase 4: 模块化支持 (优先级: 中)
+
 - [ ] 实现模块解析器
 - [ ] 实现导入/导出机制
 - [ ] 实现模块缓存
@@ -472,6 +487,7 @@ class TypeChecker {
 **预计时间**: 2 周
 
 ### Phase 5: 性能优化 (优先级: 中)
+
 - [ ] 实现解析器缓存
 - [ ] 实现表达式缓存和常量折叠
 - [ ] 实现流式生成
@@ -481,6 +497,7 @@ class TypeChecker {
 **预计时间**: 2-3 周
 
 ### Phase 6: 安全性增强 (优先级: 高)
+
 - [ ] 实现沙箱执行环境
 - [ ] 实现白名单机制
 - [ ] 实现资源限制
@@ -519,18 +536,22 @@ class TypeChecker {
 ## 替代方案
 
 ### 方案 A: 不添加新功能
+
 - **优点**: 保持简单，无风险
 - **缺点**: 表达能力受限，无法满足复杂需求
 
 ### 方案 B: 使用外部脚本语言 (如 JavaScript)
+
 - **优点**: 功能强大，无需实现
 - **缺点**: 安全性风险高，类型安全难以保证
 
 ### 方案 C: 使用模板引擎 (如 Handlebars)
+
 - **优点**: 成熟稳定
 - **缺点**: 不符合 DSL 设计理念，难以扩展
 
 **选择**: 我们选择自定义增强功能（本 RFC），因为：
+
 1. 完全控制语法和特性
 2. 类型安全和安全性可控
 3. 符合 DSL 设计理念
@@ -555,4 +576,3 @@ class TypeChecker {
 ## 变更历史
 
 - 2025-01-XX: 初始提案
-

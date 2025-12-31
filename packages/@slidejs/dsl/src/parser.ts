@@ -46,13 +46,14 @@ export async function createParser(): Promise<Parser> {
       } catch (error) {
         if (error && typeof error === 'object' && 'location' in error) {
           const errorMessage =
-            'message' in error && typeof error.message === 'string'
-              ? error.message
-              : String(error);
+            'message' in error && typeof error.message === 'string' ? error.message : String(error);
           throw new ParseError(errorMessage, error.location as ParseError['location']);
         }
         const errorMessage =
-          error && typeof error === 'object' && 'message' in error && typeof error.message === 'string'
+          error &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string'
             ? error.message
             : String(error);
         throw new ParseError(errorMessage);

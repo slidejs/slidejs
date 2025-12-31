@@ -1,6 +1,7 @@
 # RFC 0006: SlideJS 插件生态系统
 
 ## 元数据
+
 - **RFC ID**: 0006
 - **标题**: SlideJS 插件生态系统 - 插件市场与分发机制
 - **状态**: 草案
@@ -103,10 +104,7 @@ my-slidejs-plugin/
   "description": "My awesome plugin",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "keywords": [
-    "slidejs",
-    "slidejs-plugin"
-  ],
+  "keywords": ["slidejs", "slidejs-plugin"],
   "slidejs": {
     "plugin": true,
     "compatibility": {
@@ -189,15 +187,15 @@ export const autoPlayPlugin: SlideRunnerPlugin = {
     interval: 5000, // 5秒切换
     pauseOnHover: true,
   },
-  
+
   initialize(runner) {
     let intervalId: number | null = null;
-    
+
     this.afterRender = () => {
       intervalId = setInterval(() => {
         const current = runner.getCurrentIndex();
         const total = runner.getTotalSlides();
-        
+
         if (current < total - 1) {
           runner.navigateTo(current + 1);
         } else {
@@ -206,7 +204,7 @@ export const autoPlayPlugin: SlideRunnerPlugin = {
         }
       }, this.options?.interval || 5000);
     };
-    
+
     this.destroy = () => {
       if (intervalId) {
         clearInterval(intervalId);
@@ -223,7 +221,7 @@ export const analyticsPlugin: SlideRunnerPlugin = {
   name: '@slidejs/plugin-analytics',
   version: '1.0.0',
   description: '幻灯片分析统计',
-  
+
   afterSlideChange(from, to) {
     // 发送分析事件
     if (typeof window !== 'undefined' && window.gtag) {
@@ -276,26 +274,31 @@ const allPlugins = PluginRegistry.list();
 ## 实施计划
 
 ### Phase 1: 插件规范
+
 - [ ] 定义插件接口扩展
 - [ ] 创建插件包结构规范
 - [ ] 编写插件开发文档
 
 ### Phase 2: 开发工具
+
 - [ ] 创建插件脚手架工具
 - [ ] 开发插件 CLI
 - [ ] 编写开发指南
 
 ### Phase 3: 插件市场（MVP）
+
 - [ ] 创建简单的插件列表页面
 - [ ] 实现插件搜索功能
 - [ ] 集成 npm 包信息
 
 ### Phase 4: 官方插件
+
 - [ ] 开发 Auto Play 插件
 - [ ] 开发 Analytics 插件
 - [ ] 开发其他核心插件
 
 ### Phase 5: 完整市场
+
 - [ ] 插件详情页面
 - [ ] 评分和评论系统
 - [ ] 下载统计
@@ -320,14 +323,17 @@ const allPlugins = PluginRegistry.list();
 ## 替代方案
 
 ### 方案 A: 不建立插件市场
+
 - **优点**: 降低维护成本
 - **缺点**: 插件发现困难，生态系统发展缓慢
 
 ### 方案 B: 仅支持 npm 分发
+
 - **优点**: 简单，利用现有基础设施
 - **缺点**: 缺乏插件特定的功能和体验
 
 **选择**: 我们选择建立完整的插件生态系统（本 RFC），因为：
+
 1. 促进社区贡献
 2. 加速功能扩展
 3. 提升用户体验
@@ -341,4 +347,3 @@ const allPlugins = PluginRegistry.list();
 ## 变更历史
 
 - 2025-12-29: 初始草稿
-

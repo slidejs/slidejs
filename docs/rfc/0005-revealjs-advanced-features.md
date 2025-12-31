@@ -1,6 +1,7 @@
 # RFC 0005: reveal.js 高级功能支持
 
 ## 元数据
+
 - **RFC ID**: 0005
 - **标题**: reveal.js 高级功能支持 - Fragments、Background、Notes 等
 - **状态**: 草案
@@ -40,7 +41,7 @@ Fragments 允许在单张幻灯片中逐步显示内容。
 ```typescript
 export interface SlideDefinition {
   // ... 现有字段
-  
+
   /**
    * Fragments 配置（逐步显示）
    */
@@ -56,15 +57,22 @@ export interface FragmentDefinition {
   /**
    * Fragment 样式
    */
-  style?: 'fade-in' | 'fade-out' | 'fade-up' | 'fade-down' | 
-          'grow' | 'shrink' | 
-          'highlight-red' | 'highlight-blue' | 'highlight-green';
+  style?:
+    | 'fade-in'
+    | 'fade-out'
+    | 'fade-up'
+    | 'fade-down'
+    | 'grow'
+    | 'shrink'
+    | 'highlight-red'
+    | 'highlight-blue'
+    | 'highlight-green';
 
   /**
    * 应用 fragment 的内容选择器或元素
    */
   selector?: string;
-  
+
   /**
    * 或者直接指定内容元素
    */
@@ -101,9 +109,9 @@ slide {
 ```typescript
 private renderFragments(section: HTMLElement, fragments: FragmentDefinition[]): void {
   fragments.forEach((fragment, index) => {
-    const element = fragment.element || 
+    const element = fragment.element ||
                    section.querySelector(fragment.selector || '');
-    
+
     if (element) {
       element.classList.add('fragment');
       if (fragment.style) {
@@ -123,7 +131,7 @@ private renderFragments(section: HTMLElement, fragments: FragmentDefinition[]): 
 ```typescript
 export interface SlideDefinition {
   // ... 现有字段
-  
+
   /**
    * 幻灯片背景配置
    */
@@ -226,7 +234,7 @@ private applyBackground(section: HTMLElement, background: SlideBackground): void
 ```typescript
 export interface SlideDefinition {
   // ... 现有字段
-  
+
   /**
    * 演讲者备注
    */
@@ -254,14 +262,14 @@ slide {
 private renderNotes(section: HTMLElement, notes: string | string[]): void {
   const notesElement = document.createElement('aside');
   notesElement.className = 'notes';
-  
+
   const notesArray = Array.isArray(notes) ? notes : [notes];
   notesArray.forEach(note => {
     const p = document.createElement('p');
     p.textContent = note;
     notesElement.appendChild(p);
   });
-  
+
   section.appendChild(notesElement);
 }
 ```
@@ -275,7 +283,7 @@ private renderNotes(section: HTMLElement, notes: string | string[]): void {
 ```typescript
 export interface SlideDefinition {
   // ... 现有字段
-  
+
   /**
    * 垂直嵌套的子幻灯片（2D 布局）
    */
@@ -310,19 +318,19 @@ slide {
 ```typescript
 private async renderSlideWithChildren(slide: SlideDefinition): Promise<HTMLElement> {
   const section = await this.renderSlide(slide);
-  
+
   if (slide.children && slide.children.length > 0) {
     const verticalContainer = document.createElement('div');
     verticalContainer.className = 'slides';
-    
+
     for (const child of slide.children) {
       const childSection = await this.renderSlide(child);
       verticalContainer.appendChild(childSection);
     }
-    
+
     section.appendChild(verticalContainer);
   }
-  
+
   return section;
 }
 ```
@@ -337,7 +345,7 @@ private async renderSlideWithChildren(slide: SlideDefinition): Promise<HTMLEleme
 private async loadCodeHighlight(): Promise<void> {
   // 动态加载 highlight.js
   const hljs = await import('highlight.js');
-  
+
   // 在渲染后自动高亮所有代码块
   this.reveal?.on('slidechanged', () => {
     const codeBlocks = this.container?.querySelectorAll('pre code');
@@ -350,7 +358,7 @@ private async loadCodeHighlight(): Promise<void> {
 
 #### 5.2 DSL 语法
 
-```slide
+````slide
 slide {
   content text {
     "```javascript"
@@ -358,17 +366,19 @@ slide {
     "```"
   }
 }
-```
+````
 
 ## 实施计划
 
 ### Phase 1: Fragments 支持
+
 - [ ] 扩展 SlideDefinition 类型
 - [ ] 更新 DSL 语法解析器
 - [ ] 实现 RevealJsAdapter 的 fragments 渲染
 - [ ] 编写测试和文档
 
 ### Phase 2: Background 支持
+
 - [ ] 扩展 SlideDefinition 类型
 - [ ] 更新 DSL 语法解析器
 - [ ] 实现 RevealJsAdapter 的 background 渲染
@@ -376,18 +386,21 @@ slide {
 - [ ] 编写测试和文档
 
 ### Phase 3: Speaker Notes 支持
+
 - [ ] 扩展 SlideDefinition 类型
 - [ ] 更新 DSL 语法解析器
 - [ ] 实现 RevealJsAdapter 的 notes 渲染
 - [ ] 编写测试和文档
 
 ### Phase 4: 嵌套幻灯片支持
+
 - [ ] 扩展 SlideDefinition 类型
 - [ ] 更新 DSL 语法解析器
 - [ ] 实现 RevealJsAdapter 的嵌套渲染
 - [ ] 编写测试和文档
 
 ### Phase 5: 代码高亮支持
+
 - [ ] 集成 highlight.js 或 Prism.js
 - [ ] 实现自动检测和高亮
 - [ ] 编写测试和文档
@@ -396,7 +409,7 @@ slide {
 
 ### 技术风险
 
-1. **reveal.js 版本兼容性**: 
+1. **reveal.js 版本兼容性**:
    - 风险等级: 低
    - 缓解: 锁定 reveal.js 版本，提供升级指南
 
@@ -411,14 +424,17 @@ slide {
 ## 替代方案
 
 ### 方案 A: 不实现这些功能
+
 - **优点**: 保持简单
 - **缺点**: 功能受限，无法充分利用 reveal.js 的能力
 
 ### 方案 B: 仅支持部分功能
+
 - **优点**: 降低复杂度
 - **缺点**: 功能不完整
 
 **选择**: 我们选择实现所有核心高级功能（本 RFC），因为：
+
 1. 这些是 reveal.js 的核心功能
 2. 向后兼容，不影响现有代码
 3. 显著增强表现力
@@ -434,4 +450,3 @@ slide {
 ## 变更历史
 
 - 2025-12-29: 初始草稿
-

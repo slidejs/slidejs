@@ -11,20 +11,20 @@
 
 #### 核心依赖（实际使用）
 
-| 库名                  | 版本    | 许可证       | 企业兼容性 | 用途                 | 包位置                                 |
-| --------------------- | ------- | ------------ | ---------- | -------------------- | -------------------------------------- |
-| `@editorjs/editorjs`  | ^2.28.0 | Apache 2.0   | ✅ 兼容    | 块编辑器核心         | `@slidejs/quizerjs`                   |
-| `@editorjs/paragraph` | ^2.11.7 | MIT          | ✅ 兼容    | 段落块工具           | `@slidejs/quizerjs`                   |
-| `@editorjs/header`    | ^2.8.8  | MIT          | ✅ 兼容    | 标题块工具           | `@slidejs/quizerjs`                   |
+| 库名                  | 版本    | 许可证       | 企业兼容性 | 用途                 | 包位置                               |
+| --------------------- | ------- | ------------ | ---------- | -------------------- | ------------------------------------ |
+| `@editorjs/editorjs`  | ^2.28.0 | Apache 2.0   | ✅ 兼容    | 块编辑器核心         | `@slidejs/quizerjs`                  |
+| `@editorjs/paragraph` | ^2.11.7 | MIT          | ✅ 兼容    | 段落块工具           | `@slidejs/quizerjs`                  |
+| `@editorjs/header`    | ^2.8.8  | MIT          | ✅ 兼容    | 标题块工具           | `@slidejs/quizerjs`                  |
 | `marked`              | ^11.0.0 | MIT          | ✅ 兼容    | Markdown → HTML 转换 | `@slidejs/core`, `@slidejs/quizerjs` |
-| `turndown`            | ^7.1.3  | MIT          | ✅ 兼容    | HTML → Markdown 转换 | `@slidejs/core`                       |
-| `@wsxjs/wsx-core`     | ^0.0.5  | MIT          | ✅ 兼容    | Web Components 框架  | `@slidejs/core`                       |
-| `@mixmark-io/domino`  | ^2.2.0  | BSD-2-Clause | ✅ 兼容    | turndown 的 DOM 依赖 | `@slidejs/core` (间接)                |
+| `turndown`            | ^7.1.3  | MIT          | ✅ 兼容    | HTML → Markdown 转换 | `@slidejs/core`                      |
+| `@wsxjs/wsx-core`     | ^0.0.5  | MIT          | ✅ 兼容    | Web Components 框架  | `@slidejs/core`                      |
+| `@mixmark-io/domino`  | ^2.2.0  | BSD-2-Clause | ✅ 兼容    | turndown 的 DOM 依赖 | `@slidejs/core` (间接)               |
 
 #### 框架依赖（Peer Dependencies）
 
-| 库名        | 版本    | 许可证 | 企业兼容性 | 用途       | 包位置                      |
-| ----------- | ------- | ------ | ---------- | ---------- | --------------------------- |
+| 库名        | 版本    | 许可证 | 企业兼容性 | 用途       | 包位置                     |
+| ----------- | ------- | ------ | ---------- | ---------- | -------------------------- |
 | `vue`       | ^3.0.0  | MIT    | ✅ 兼容    | Vue 3 框架 | `@slidejs/vue` (peer)      |
 | `react`     | ^18.0.0 | MIT    | ✅ 兼容    | React 框架 | `@slidejs/quizerjs` (peer) |
 | `react-dom` | ^18.0.0 | MIT    | ✅ 兼容    | React DOM  | `@slidejs/quizerjs` (peer) |

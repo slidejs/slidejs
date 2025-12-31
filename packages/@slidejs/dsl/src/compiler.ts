@@ -195,7 +195,13 @@ function compileBehavior<TContext extends SlideContext = SlideContext>(
 ): SlideDefinition['behavior'] {
   return {
     transition: {
-      type: (node.transition as unknown as { transType: string }).transType as 'slide' | 'zoom' | 'fade' | 'cube' | 'flip' | 'none',
+      type: (node.transition as unknown as { transType: string }).transType as
+        | 'slide'
+        | 'zoom'
+        | 'fade'
+        | 'cube'
+        | 'flip'
+        | 'none',
       ...evaluateProps(node.transition.options, context),
     },
   };
@@ -266,9 +272,7 @@ function evaluateMemberExpression<TContext extends SlideContext = SlideContext>(
   // 如果没有属性，直接返回变量值（单个标识符的情况）
   if (expr.properties.length === 0) {
     if (value === undefined) {
-      throw new CompileError(
-        `Variable "${expr.object}" is not defined in context`
-      );
+      throw new CompileError(`Variable "${expr.object}" is not defined in context`);
     }
     return value;
   }

@@ -8,7 +8,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'SlideJsRevealJs',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+      fileName: format => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
     },
     rollupOptions: {
       external: [
@@ -22,7 +22,7 @@ export default defineConfig({
       ],
       output: {
         // 确保 CSS 文件被正确提取
-        assetFileNames: (assetInfo) => {
+        assetFileNames: assetInfo => {
           if (assetInfo.name === 'style.css') {
             return 'style.css';
           }

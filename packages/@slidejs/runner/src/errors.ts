@@ -12,7 +12,10 @@ export class SlideRunnerError extends Error {
    * @param message - 错误消息
    * @param code - 错误代码（可选）
    */
-  constructor(message: string, public code?: string) {
+  constructor(
+    message: string,
+    public code?: string
+  ) {
     super(message);
     this.name = 'SlideRunnerError';
     // 保持正确的原型链

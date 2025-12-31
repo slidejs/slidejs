@@ -21,7 +21,10 @@ export default defineConfig({
             '@slidejs/runner': path.resolve(__dirname, '../../packages/@slidejs/runner/src'),
             '@slidejs/context': path.resolve(__dirname, '../../packages/@slidejs/context/src'),
             '@slidejs/dsl': path.resolve(__dirname, '../../packages/@slidejs/dsl/src'),
-            '@slidejs/runner-revealjs': path.resolve(__dirname, '../../packages/@slidejs/runner-revealjs/src'),
+            '@slidejs/runner-revealjs': path.resolve(
+              __dirname,
+              '../../packages/@slidejs/runner-revealjs/src'
+            ),
           }
         : {}),
     },

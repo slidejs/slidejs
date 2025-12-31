@@ -1,6 +1,7 @@
 # RFC 0004: Slide DSL 语言服务器与开发工具
 
 ## 元数据
+
 - **RFC ID**: 0004
 - **标题**: Slide DSL 语言服务器、VSCode 语法高亮与 CLI 工具
 - **状态**: 草稿
@@ -11,6 +12,7 @@
 ## 摘要
 
 本 RFC 定义了为 Slide DSL 提供开发工具支持的设计方案，包括：
+
 1. **Language Server Protocol (LSP)** 实现，提供代码补全、错误诊断、跳转定义等功能
 2. **VSCode 扩展**，提供语法高亮、代码片段、错误提示等
 3. **CLI 工具**，用于编译、验证和格式化 Slide DSL 文件
@@ -46,18 +48,18 @@ flowchart TD
     C --> D["DSL Parser<br/>(@slidejs/dsl)"]
     C --> E["DSL Compiler<br/>(@slidejs/dsl)"]
     C --> F["DSL Validator<br/>(@slidejs/dsl)"]
-    
+
     G["命令行工具"] --> H["CLI<br/>(@slidejs/cli)"]
     H --> D
     H --> E
     H --> F
-    
+
     I["其他编辑器<br/>(Vim, Emacs, etc.)"] --> C
-    
+
     classDef editorClass fill:#4a90e2,stroke:#2c5aa0,stroke-width:2px,color:#ffffff
     classDef toolClass fill:#28a745,stroke:#1e7e34,stroke-width:2px,color:#ffffff
     classDef coreClass fill:#6c757d,stroke:#495057,stroke-width:2px,color:#ffffff
-    
+
     class A,I editorClass
     class B,C,H toolClass
     class D,E,F coreClass
@@ -70,6 +72,7 @@ flowchart TD
 **职责**：实现 Language Server Protocol (LSP)，提供核心语言服务功能
 
 **功能**：
+
 - 语法解析和 AST 生成
 - 错误诊断（语法错误、语义错误）
 - 代码补全（关键字、属性、值建议）
@@ -79,6 +82,7 @@ flowchart TD
 - 符号搜索
 
 **包结构**：
+
 ```
 packages/@slidejs/language-server/
 ├── src/
@@ -97,6 +101,7 @@ packages/@slidejs/language-server/
 ```
 
 **依赖**：
+
 - `vscode-languageserver` - LSP 服务器实现
 - `vscode-languageserver-textdocument` - 文档管理
 - `@slidejs/dsl` - DSL 解析器和编译器
@@ -107,6 +112,7 @@ packages/@slidejs/language-server/
 **职责**：VSCode 扩展，提供语法高亮、代码片段、错误提示等
 
 **功能**：
+
 - 语法高亮（TextMate grammar）
 - 代码片段（Snippets）
 - 文件关联（`.slide` 文件）
@@ -114,6 +120,7 @@ packages/@slidejs/language-server/
 - 主题支持（亮色/暗色）
 
 **包结构**：
+
 ```
 packages/@slidejs/vscode-extension/
 ├── src/
@@ -130,6 +137,7 @@ packages/@slidejs/vscode-extension/
 ```
 
 **依赖**：
+
 - `vscode` - VSCode API
 - `vscode-languageclient` - LSP 客户端
 - `@slidejs/language-server` - 语言服务器
@@ -139,6 +147,7 @@ packages/@slidejs/vscode-extension/
 **职责**：命令行工具，用于编译、验证和格式化 Slide DSL 文件
 
 **功能**：
+
 - `compile` - 编译 DSL 文件为 JSON
 - `validate` - 验证 DSL 文件语法和语义
 - `format` - 格式化 DSL 文件
@@ -146,6 +155,7 @@ packages/@slidejs/vscode-extension/
 - `watch` - 监听文件变化并自动编译/验证
 
 **包结构**：
+
 ```
 packages/@slidejs/cli/
 ├── src/
@@ -167,6 +177,7 @@ packages/@slidejs/cli/
 ```
 
 **依赖**：
+
 - `commander` - 命令行参数解析
 - `chalk` - 终端颜色输出
 - `ora` - 加载动画
@@ -180,6 +191,7 @@ packages/@slidejs/cli/
 #### 3.1 核心功能
 
 **文档管理**：
+
 ```typescript
 import { TextDocuments } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -187,13 +199,14 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 const documents = new TextDocuments(TextDocument);
 
 // 监听文档变化
-documents.onDidChangeContent((change) => {
+documents.onDidChangeContent(change => {
   // 重新解析和验证
   validateDocument(change.document);
 });
 ```
 
 **错误诊断**：
+
 ```typescript
 import { parseSlideDSL, compile } from '@slidejs/dsl';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver';
@@ -205,7 +218,7 @@ async function validateDocument(document: TextDocument): Promise<Diagnostic[]> {
   try {
     // 解析 DSL
     const ast = await parseSlideDSL(source);
-    
+
     // 编译验证
     compile(ast);
   } catch (error) {
@@ -233,13 +246,11 @@ async function validateDocument(document: TextDocument): Promise<Diagnostic[]> {
 ```
 
 **代码补全**：
+
 ```typescript
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver';
 
-function provideCompletion(
-  document: TextDocument,
-  position: Position
-): CompletionItem[] {
+function provideCompletion(document: TextDocument, position: Position): CompletionItem[] {
   const completions: CompletionItem[] = [];
   const line = document.getText({
     start: { line: position.line, character: 0 },
@@ -297,13 +308,11 @@ function provideCompletion(
 ```
 
 **悬停提示**：
+
 ```typescript
 import { Hover } from 'vscode-languageserver';
 
-function provideHover(
-  document: TextDocument,
-  position: Position
-): Hover | null {
+function provideHover(document: TextDocument, position: Position): Hover | null {
   const word = getWordAtPosition(document, position);
 
   // 关键字文档
@@ -369,19 +378,19 @@ connection.onInitialize((params: InitializeParams): InitializeResult => {
 });
 
 // 文档变化时验证
-documents.onDidChangeContent((change) => {
+documents.onDidChangeContent(change => {
   validateDocument(change.document);
 });
 
 // 代码补全
-connection.onCompletion((params) => {
+connection.onCompletion(params => {
   const document = documents.get(params.textDocument.uri);
   if (!document) return null;
   return provideCompletion(document, params.position);
 });
 
 // 悬停提示
-connection.onHover((params) => {
+connection.onHover(params => {
   const document = documents.get(params.textDocument.uri);
   if (!document) return null;
   return provideHover(document, params.position);
@@ -398,11 +407,7 @@ connection.listen();
 
 ```typescript
 import * as vscode from 'vscode';
-import {
-  LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-} from 'vscode-languageclient/node';
+import { LanguageClient, LanguageClientOptions, ServerOptions } from 'vscode-languageclient/node';
 
 export function activate(context: vscode.ExtensionContext) {
   // 语言服务器选项
@@ -591,10 +596,7 @@ import { watchCommand } from './commands/watch';
 
 const program = new Command();
 
-program
-  .name('slidejs')
-  .description('Slide DSL CLI tool')
-  .version('0.1.0');
+program.name('slidejs').description('Slide DSL CLI tool').version('0.1.0');
 
 program
   .command('compile')
@@ -645,10 +647,7 @@ import { resolve } from 'path';
 import chalk from 'chalk';
 import ora from 'ora';
 
-export async function compileCommand(
-  file: string,
-  options: { output?: string; watch?: boolean }
-) {
+export async function compileCommand(file: string, options: { output?: string; watch?: boolean }) {
   const spinner = ora('Compiling DSL file...').start();
 
   try {
@@ -684,10 +683,7 @@ import { readFile } from 'fs/promises';
 import chalk from 'chalk';
 import ora from 'ora';
 
-export async function validateCommand(
-  file: string,
-  options: { strict?: boolean }
-) {
+export async function validateCommand(file: string, options: { strict?: boolean }) {
   const spinner = ora('Validating DSL file...').start();
 
   try {
@@ -704,15 +700,11 @@ export async function validateCommand(
     spinner.fail(chalk.red('Validation failed'));
     if (error instanceof Error) {
       console.error(chalk.red(error.message));
-      
+
       // 如果是 ParseError，显示位置信息
       if (error.name === 'ParseError' && 'location' in error) {
         const loc = (error as any).location;
-        console.error(
-          chalk.yellow(
-            `At line ${loc.start.line}, column ${loc.start.column}`
-          )
-        );
+        console.error(chalk.yellow(`At line ${loc.start.line}, column ${loc.start.column}`));
       }
     }
     process.exit(1);
@@ -728,10 +720,7 @@ import { readFile, writeFile } from 'fs/promises';
 import chalk from 'chalk';
 import ora from 'ora';
 
-export async function formatCommand(
-  file: string,
-  options: { write?: boolean }
-) {
+export async function formatCommand(file: string, options: { write?: boolean }) {
   const spinner = ora('Formatting DSL file...').start();
 
   try {
@@ -775,11 +764,13 @@ function formatSlideDSL(source: string): string {
 #### 6.1 错误诊断
 
 **语法错误**：
+
 - 使用 Peggy parser 的错误位置信息
 - 提供精确的行号和列号
 - 显示错误消息和建议修复
 
 **语义错误**：
+
 - 验证规则类型（start/end 必须存在）
 - 验证属性值（transition 类型、content 类型等）
 - 验证循环变量和表达式
@@ -787,32 +778,38 @@ function formatSlideDSL(source: string): string {
 #### 6.2 代码补全
 
 **关键字补全**：
+
 - `present`, `rule`, `slide`, `content`, `behavior`, `transition`
 - `for`, `in`, `if`, `else`
 
 **类型补全**：
+
 - Source types: `quiz`, `survey`, `form`, `assessment`
 - Rule types: `start`, `content`, `end`
 - Content types: `text`, `dynamic`
 - Transition types: `slide`, `fade`, `zoom`, `none`
 
 **属性补全**：
+
 - 根据上下文提供相关属性
 - 例如：在 `content dynamic` 后提供 `name`, `attrs`
 
 #### 6.3 跳转定义
 
 **规则跳转**：
+
 - 从规则引用跳转到规则定义
 - 支持跨文件跳转（如果支持多文件）
 
 **变量跳转**：
+
 - 从变量使用跳转到变量定义
 - 在循环中跳转到循环变量定义
 
 #### 6.4 代码格式化
 
 **格式化规则**：
+
 - 统一的缩进（2 空格）
 - 关键字后添加空格
 - 大括号换行规则
@@ -865,6 +862,7 @@ packages/
 #### 8.1 VSCode 扩展使用
 
 1. **安装扩展**：
+
    ```bash
    code --install-extension slidejs.slide-dsl
    ```
@@ -881,6 +879,7 @@ packages/
 #### 8.2 CLI 工具使用
 
 **编译 DSL 文件**：
+
 ```bash
 slidejs compile demo.slide
 # 输出: demo.json
@@ -889,6 +888,7 @@ slidejs compile demo.slide -o output.json
 ```
 
 **验证 DSL 文件**：
+
 ```bash
 slidejs validate demo.slide
 # ✓ Validation passed
@@ -897,6 +897,7 @@ slidejs validate demo.slide --strict
 ```
 
 **格式化 DSL 文件**：
+
 ```bash
 slidejs format demo.slide
 # 输出格式化后的内容
@@ -906,6 +907,7 @@ slidejs format demo.slide --write
 ```
 
 **检查错误**：
+
 ```bash
 slidejs check demo.slide
 # 显示所有错误和警告
@@ -915,6 +917,7 @@ slidejs check demo.slide --json
 ```
 
 **监听文件变化**：
+
 ```bash
 slidejs watch demo.slide --compile
 # 文件变化时自动编译
@@ -926,12 +929,14 @@ slidejs watch *.slide --validate
 ### 9. 实施计划
 
 #### Phase 1: 核心基础设施
+
 - [ ] 创建 `@slidejs/language-server` 包
 - [ ] 实现基础 LSP 服务器
 - [ ] 实现文档管理和错误诊断
 - [ ] 编写单元测试
 
 #### Phase 2: 语言服务功能
+
 - [ ] 实现代码补全
 - [ ] 实现悬停提示
 - [ ] 实现跳转定义
@@ -939,6 +944,7 @@ slidejs watch *.slide --validate
 - [ ] 实现符号搜索
 
 #### Phase 3: VSCode 扩展
+
 - [ ] 创建 `@slidejs/vscode-extension` 包
 - [ ] 实现 TextMate 语法高亮
 - [ ] 创建代码片段
@@ -946,6 +952,7 @@ slidejs watch *.slide --validate
 - [ ] 测试扩展功能
 
 #### Phase 4: CLI 工具
+
 - [ ] 创建 `@slidejs/cli` 包
 - [ ] 实现 `compile` 命令
 - [ ] 实现 `validate` 命令
@@ -954,6 +961,7 @@ slidejs watch *.slide --validate
 - [ ] 实现 `watch` 命令
 
 #### Phase 5: 测试与文档
+
 - [ ] 编写集成测试
 - [ ] 创建使用文档
 - [ ] 创建示例项目

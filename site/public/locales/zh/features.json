@@ -20,7 +20,12 @@
     "multipleTypes": {
       "title": "多种渲染引擎",
       "description": "支持多种流行的幻灯片渲染引擎，满足不同的展示需求。",
-      "details": ["reveal.js - HTML 演示框架", "Swiper - 现代触摸滑块", "Splide - 轻量级轮播组件", "可扩展的适配器系统"],
+      "details": [
+        "reveal.js - HTML 演示框架",
+        "Swiper - 现代触摸滑块",
+        "Splide - 轻量级轮播组件",
+        "可扩展的适配器系统"
+      ],
       "codeExample": "import { createSlideRunner } from '@slidejs/runner-revealjs';\n// 或\nimport { createSlideRunner } from '@slidejs/runner-swiper';\n// 或\nimport { createSlideRunner } from '@slidejs/runner-splide';"
     },
     "dsl": {

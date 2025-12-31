@@ -55,6 +55,7 @@ present quiz "my-quiz" {
 ```
 
 支持的数据源类型：
+
 - `quiz` - 测验数据
 - `survey` - 调查数据
 - `form` - 表单数据
@@ -218,6 +219,7 @@ behavior {
 ```
 
 支持的过渡类型：
+
 - `slide` - 滑动
 - `zoom` - 缩放
 - `fade` - 淡入淡出
@@ -300,7 +302,7 @@ present quiz "comprehensive-quiz" {
             section.title
           }
         }
-        
+
         for question in section.questions {
           slide {
             content dynamic {
@@ -407,7 +409,7 @@ rule end "thank-you-slide" { ... }
 for section in quiz.sections {
   // 章节标题
   slide { ... }
-  
+
   // 章节内容
   for question in section.questions {
     slide { ... }
