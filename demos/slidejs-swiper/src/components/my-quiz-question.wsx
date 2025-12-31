@@ -3,7 +3,7 @@ import { LightComponent, autoRegister, state } from '@wsxjs/wsx-core';
 
 @autoRegister({ tagName: 'my-quiz-question' })
 export class MyQuizQuestion extends LightComponent {
-  @state private selectedOption: number | null = null;
+  @state private selectedOption: number | null = -1;
 
   static get observedAttributes() {
     return ['question', 'options'];

@@ -442,7 +442,5 @@ content dynamic {
 
 ## 相关资源
 
-- [RFC 0010: Slide DSL 规范](../../../rfc/0010-slide-dsl.md)
-- [RFC 0011: Slide Runner 与 reveal.js 集成](../../../rfc/0011-slide-runner.md)
 - [GitHub 仓库](https://github.com/slidejs/slidejs)
 - [npm 包](https://www.npmjs.com/package/@slidejs/dsl)

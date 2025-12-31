@@ -53,5 +53,13 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    // 确保资源路径使用相对路径，以便在子目录中正确加载
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        // 使用相对路径，避免在子目录部署时路径错误
+        assetFileNames: 'assets/[name].[ext]',
+      },
+    },
   },
 });

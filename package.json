@@ -43,7 +43,7 @@
     "site:test": "pnpm --filter @slidejs/site test",
     "build:pages": "pnpm build:swiper && pnpm build:splide && pnpm build:revealjs && pnpm --filter @slidejs/site build:pages",
     "deploy:pages": "pnpm build:pages && pnpm --filter @slidejs/site deploy:pages",
-    "release": "node scripts/publish.mjs"
+    "release": "qingniao"
   },
   "keywords": [
     "slide",
@@ -58,12 +58,13 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@systembug/qingniao": "^0.0.7",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "@vue/eslint-config-typescript": "^14.6.0",
-    "@wsxjs/wsx-press": "^0.0.19",
+    "@wsxjs/wsx-press": "^0.0.20",
     "chalk": "^5.6.2",
     "cross-env": "^7.0.3",
     "eslint": "^9.39.2",

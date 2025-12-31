@@ -4,6 +4,7 @@
 
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 import type { SlideContext } from '@slidejs/context';
+// 导入主题样式（可选，核心 CSS 已由 runner 包自动加载）
 import 'reveal.js/dist/theme/black.css';
 import './style.css';
 

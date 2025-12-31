@@ -5,7 +5,7 @@
  */
 
 import Reveal from 'reveal.js';
-import 'reveal.js/dist/reveal.css';
+// CSS 现在通过 index.ts 中的 style.css 导入，不需要在这里重复导入
 import type { SlideDefinition } from '@slidejs/core';
 import type { SlideAdapter, AdapterEvent, EventHandler } from '@slidejs/runner';
 import type { RevealJsOptions } from './types';
@@ -215,9 +215,22 @@ export class RevealJsAdapter implements SlideAdapter {
   /**
    * 创建 reveal.js DOM 结构
    *
+   * reveal.js 5.x 需要以下 DOM 结构：
+   * <div class="reveal-viewport">
+   *   <div class="reveal">
+   *     <div class="slides">
+   *       <section>...</section>
+   *     </div>
+   *   </div>
+   * </div>
+   *
    * @param container - 容器元素
    */
   private createRevealStructure(container: HTMLElement): void {
+    // 创建 .reveal-viewport 包装器（reveal.js 5.x 要求）
+    const viewportDiv = document.createElement('div');
+    viewportDiv.className = 'reveal-viewport';
+
     // 创建 .reveal 容器
     const revealDiv = document.createElement('div');
     revealDiv.className = 'reveal';
@@ -227,7 +240,8 @@ export class RevealJsAdapter implements SlideAdapter {
     slidesDiv.className = 'slides';
 
     revealDiv.appendChild(slidesDiv);
-    container.appendChild(revealDiv);
+    viewportDiv.appendChild(revealDiv);
+    container.appendChild(viewportDiv);
 
     this.revealContainer = revealDiv;
     this.slidesContainer = slidesDiv;

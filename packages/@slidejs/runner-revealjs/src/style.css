@@ -1,0 +1,17 @@
+/**
+ * @slidejs/runner-revealjs - reveal.js 核心样式
+ *
+ * 此文件导入 reveal.js 的核心 CSS，用户只需导入此包即可获得所有必需的样式。
+ * 主题样式需要单独导入（可选）。
+ *
+ * 使用示例：
+ * ```typescript
+ * import '@slidejs/runner-revealjs';
+ * // 或显式导入样式
+ * import '@slidejs/runner-revealjs/style.css';
+ * ```
+ */
+
+/* 导入 reveal.js 核心 CSS */
+@import 'reveal.js/dist/reveal.css';
+

@@ -1,12 +1,12 @@
-# RFC 0012: Slide DSL 增强功能与性能优化
+# RFC 0003: Slide DSL 增强功能与性能优化
 
 ## 元数据
-- **RFC ID**: 0012
+- **RFC ID**: 0003
 - **标题**: Slide DSL 增强功能与性能优化
 - **状态**: 提案
 - **创建日期**: 2025-01-XX
 - **作者**: AI Assistant
-- **相关 RFC**: RFC 0010 (Slide DSL 规范)
+- **相关 RFC**: RFC 0001 (Slide DSL 规范)
 
 ## 摘要
 
@@ -547,7 +547,7 @@ class TypeChecker {
 
 ## 参考资料
 
-- RFC 0010: Slide DSL 规范
+- RFC 0001: Slide DSL 规范
 - [Peggy 文档](https://peggyjs.org/)
 - [领域特定语言设计模式](https://martinfowler.com/books/dsl.html)
 - [表达式求值安全最佳实践](https://owasp.org/www-community/vulnerabilities/Code_Injection)

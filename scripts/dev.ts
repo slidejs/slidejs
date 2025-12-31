@@ -9,37 +9,28 @@ import { spawn } from 'child_process';
 import inquirer from 'inquirer';
 import ora from 'ora';
 
+// 命令行参数常量
+const HELP_FLAGS = ['--help', '-h'] as const;
+
 // Demo 选项配置
 const DEMO_OPTIONS = [
   {
-    name: 'Vue',
-    value: 'vue',
-    description: 'Vue 3 演示项目',
-    package: '@slidejs/demo-vue',
+    name: 'SlideJS (reveal.js)',
+    value: 'revealjs',
+    description: 'Slide DSL + reveal.js 演示',
+    package: '@slidejs/demo-revealjs',
   },
   {
-    name: 'React',
-    value: 'react',
-    description: 'React 18 演示项目',
-    package: '@slidejs/demo-react',
+    name: 'SlideJS (Swiper)',
+    value: 'swiper',
+    description: 'Slide DSL + Swiper.js 演示',
+    package: '@slidejs/demo-swiper',
   },
   {
-    name: 'Svelte',
-    value: 'svelte',
-    description: 'Svelte 4 演示项目',
-    package: '@slidejs/demo-svelte',
-  },
-  {
-    name: 'Vanilla',
-    value: 'vanilla',
-    description: 'Vanilla JS 演示项目',
-    package: '@slidejs/demo-vanilla',
-  },
-  {
-    name: 'Theme',
-    value: 'theme',
-    description: '主题系统预览页面',
-    package: '@slidejs/theme',
+    name: 'SlideJS (Splide)',
+    value: 'splide',
+    description: 'Slide DSL + Splide 轻量级轮播演示',
+    package: '@slidejs/demo-splide',
   },
   {
     name: 'Site',
@@ -47,25 +38,10 @@ const DEMO_OPTIONS = [
     description: 'SlideJS 开源网站',
     package: '@slidejs/site',
   },
-  {
-    name: 'SlideJS (reveal.js)',
-    value: 'slidejs',
-    description: 'Slide DSL + reveal.js 演示',
-    package: 'slidejs-revealjs-demo',
-  },
-  {
-    name: 'SlideJS (Swiper)',
-    value: 'slidejs-swiper',
-    description: 'Slide DSL + Swiper.js 演示',
-    package: 'slidejs-swiper-demo',
-  },
-  {
-    name: 'SlideJS (Splide)',
-    value: 'slidejs-splide',
-    description: 'Slide DSL + Splide 轻量级轮播演示',
-    package: 'slidejs-splide-demo',
-  },
 ] as const;
+
+// 类型定义
+type DemoOption = (typeof DEMO_OPTIONS)[number];
 
 /**
  * 获取命令行参数
@@ -82,6 +58,13 @@ function isValidDemo(demo: string): boolean {
 }
 
 /**
+ * 查找 demo 选项
+ */
+function findDemoOption(demo: string): DemoOption | undefined {
+  return DEMO_OPTIONS.find(opt => opt.value === demo.toLowerCase());
+}
+
+/**
  * 显示帮助信息
  */
 function showHelp(): void {
@@ -93,32 +76,29 @@ function showHelp(): void {
     console.log(`  ${option.value.padEnd(10)} - ${option.description}`);
   });
   console.log('\n示例:');
-  console.log('  pnpm dev vue');
-  console.log('  pnpm dev react');
-  console.log('  pnpm dev svelte');
-  console.log('  pnpm dev vanilla');
-  console.log('  pnpm dev theme');
-  console.log('  pnpm dev site\n');
-}
-
-/**
- * 显示欢迎信息
- */
-function showWelcome(): void {
-  console.log('\n🚀 slidejs 开发服务器\n');
+  DEMO_OPTIONS.forEach(option => {
+    console.log(`  pnpm dev ${option.value}`);
+  });
+  console.log();
 }
 
 /**
  * 显示选择菜单并获取用户选择
  */
 async function selectDemo(): Promise<string> {
+  const spinner = ora('加载演示项目列表').start();
+
+  // 模拟加载过程，提供更好的用户体验
+  await new Promise(resolve => setTimeout(resolve, 300));
+  spinner.stop();
+
   const { demo } = await inquirer.prompt([
     {
       type: 'list',
       name: 'demo',
       message: '请选择要启动的演示项目：',
       choices: DEMO_OPTIONS.map(option => ({
-        name: `${option.name.padEnd(10)} - ${option.description}`,
+        name: `${option.name.padEnd(15)} - ${option.description}`,
         value: option.value,
       })),
     },
@@ -131,11 +111,11 @@ async function selectDemo(): Promise<string> {
  * 启动开发服务器
  */
 function startDevServer(demo: string): void {
-  // 确保 demo 名称是小写的
-  const demoLower = demo.toLowerCase();
-  const option = DEMO_OPTIONS.find(opt => opt.value === demoLower);
+  const option = findDemoOption(demo);
   if (!option) {
-    console.error(`❌ 未找到演示项目: ${demo}`);
+    const errorSpinner = ora();
+    errorSpinner.fail(`未找到演示项目: ${demo}`);
+    console.error('\n请使用 --help 查看可用的演示项目。\n');
     process.exit(1);
   }
 
@@ -144,39 +124,55 @@ function startDevServer(demo: string): void {
     color: 'cyan',
   }).start();
 
-  // 执行 pnpm 命令启动开发服务器
-  const command = `pnpm --filter ${option.package} dev`;
-  spinner.succeed(`✅ 正在启动 ${option.name} 开发服务器`);
-  console.log(`\n📦 包名: ${option.package}`);
-  console.log(`🔧 命令: ${command}\n`);
-
   // 使用 spawn 启动开发服务器（非阻塞，支持长时间运行）
   const childProcess = spawn('pnpm', ['--filter', option.package, 'dev'], {
     stdio: 'inherit',
     cwd: process.cwd(),
-    shell: process.platform === 'win32', // Windows 需要 shell
+    shell: process.platform === 'win32',
   });
+
+  // 监听进程启动
+  let serverStarted = false;
+  const startTimeout = setTimeout(() => {
+    if (!serverStarted) {
+      spinner.succeed(`${option.name} 开发服务器正在启动`);
+      console.log(`📦 包名: ${option.package}`);
+      console.log('💡 提示: 开发服务器输出将显示在下方\n');
+      serverStarted = true;
+    }
+  }, 1500);
 
   // 处理进程退出
   childProcess.on('exit', code => {
+    clearTimeout(startTimeout);
+    spinner.stop();
     if (code !== 0 && code !== null) {
-      console.error(`\n❌ 开发服务器退出，代码: ${code}`);
+      const exitSpinner = ora();
+      exitSpinner.fail(`开发服务器退出，代码: ${code}`);
       process.exit(code);
     }
   });
 
   // 处理错误
   childProcess.on('error', error => {
-    spinner.fail(`❌ 启动 ${option.name} 开发服务器失败`);
-    console.error(error);
+    clearTimeout(startTimeout);
+    spinner.fail(`启动 ${option.name} 开发服务器失败`);
+    const errorSpinner = ora();
+    errorSpinner.fail(`错误详情: ${error.message}`);
     process.exit(1);
   });
 
   // 处理 Ctrl+C
   process.on('SIGINT', () => {
-    console.log('\n\n👋 正在关闭开发服务器...');
+    clearTimeout(startTimeout);
+    spinner.stop();
+    const stopSpinner = ora('正在关闭开发服务器...');
+    stopSpinner.start();
     childProcess.kill('SIGINT');
-    process.exit(0);
+    setTimeout(() => {
+      stopSpinner.succeed('开发服务器已关闭');
+      process.exit(0);
+    }, 500);
   });
 }
 
@@ -188,7 +184,7 @@ async function main(): Promise<void> {
     const args = getCommandLineArgs();
 
     // 检查是否需要显示帮助
-    if (args.includes('--help') || args.includes('-h')) {
+    if (args.some(arg => HELP_FLAGS.includes(arg as (typeof HELP_FLAGS)[number]))) {
       showHelp();
       process.exit(0);
     }
@@ -197,33 +193,44 @@ async function main(): Promise<void> {
     if (args.length > 0) {
       const demoArg = args[0].toLowerCase();
       if (isValidDemo(demoArg)) {
-        // 直接启动指定的 demo
+        const option = findDemoOption(demoArg);
+        const welcomeSpinner = ora(`准备启动 ${option?.name || demoArg}`).start();
+        await new Promise(resolve => setTimeout(resolve, 500));
+        welcomeSpinner.stop();
         startDevServer(demoArg);
         return;
-      } else {
-        // 参数无效，显示错误和帮助
-        console.error(`\n❌ 无效的 demo 名称: ${args[0]}\n`);
-        showHelp();
-        process.exit(1);
       }
+      // 参数无效，显示错误和帮助
+      const errorSpinner = ora();
+      errorSpinner.fail(`无效的 demo 名称: ${args[0]}`);
+      console.log();
+      showHelp();
+      process.exit(1);
     }
 
     // 没有提供参数，显示交互式菜单
-    showWelcome();
+    const welcomeSpinner = ora('欢迎使用 SlideJS 开发服务器').start();
+    await new Promise(resolve => setTimeout(resolve, 500));
+    welcomeSpinner.stop();
+    console.log('\n🚀 SlideJS 开发服务器\n');
+
     const selectedDemo = await selectDemo();
     startDevServer(selectedDemo);
   } catch (error) {
     if (error instanceof Error && error.message.includes('User force closed')) {
-      console.log('\n👋 已取消');
+      const cancelSpinner = ora();
+      cancelSpinner.info('已取消');
       process.exit(0);
     }
-    console.error('❌ 发生错误:', error);
+    const errorSpinner = ora();
+    errorSpinner.fail(`发生错误: ${error instanceof Error ? error.message : String(error)}`);
     process.exit(1);
   }
 }
 
 // 运行主函数
 main().catch(error => {
-  console.error('❌ 未处理的错误:', error);
+  const errorSpinner = ora();
+  errorSpinner.fail(`未处理的错误: ${error instanceof Error ? error.message : String(error)}`);
   process.exit(1);
 });

@@ -1,12 +1,12 @@
-# RFC 0013: Slide DSL 语言服务器与开发工具
+# RFC 0004: Slide DSL 语言服务器与开发工具
 
 ## 元数据
-- **RFC ID**: 0013
+- **RFC ID**: 0004
 - **标题**: Slide DSL 语言服务器、VSCode 语法高亮与 CLI 工具
 - **状态**: 草稿
 - **创建日期**: 2025-12-26
 - **作者**: Claude Code
-- **相关 RFC**: RFC 0010 (Slide DSL), RFC 0011 (Slide Runner)
+- **相关 RFC**: RFC 0001 (Slide DSL), RFC 0002 (Slide Runner)
 
 ## 摘要
 

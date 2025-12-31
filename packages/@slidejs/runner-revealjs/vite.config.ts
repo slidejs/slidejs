@@ -20,8 +20,19 @@ export default defineConfig({
         // Only externalize JS modules from reveal.js, NOT CSS
         /^reveal\.js\/.*\.js$/,
       ],
+      output: {
+        // 确保 CSS 文件被正确提取
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') {
+            return 'style.css';
+          }
+          return assetInfo.name || 'assets/[name].[ext]';
+        },
+      },
     },
     sourcemap: true,
+    // 确保 CSS 被提取到单独的文件
+    cssCodeSplit: false,
   },
   plugins: [
     dts({
