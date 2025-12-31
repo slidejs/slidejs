@@ -1,6 +1,6 @@
 {
   "name": "@slidejs/dsl",
-  "version": "0.1.0",
+  "version": "0.0.3",
   "description": "Slide DSL 语法解析器和编译器",
   "type": "module",
   "main": "./dist/index.cjs",
