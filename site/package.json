@@ -1,6 +1,6 @@
 {
   "name": "@slidejs/site",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "SlideJS 开源网站",
   "private": true,
   "type": "module",
