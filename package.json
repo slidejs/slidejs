@@ -1,6 +1,6 @@
 {
   "name": "slidejs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "一个使用 DSL 构建幻灯片的开源库",
   "private": true,
   "workspaces": [
