@@ -84,9 +84,9 @@
     "vitepress": "^1.0.0",
     "vue-eslint-parser": "^10.2.0"
   },
-  "packageManager": "pnpm@8.15.0",
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": ">=16.0.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=10.0.0"
   }
 }
