@@ -3,6 +3,8 @@ import { wsx } from '@wsxjs/wsx-vite-plugin';
 import path from 'path';
 
 export default defineConfig({
+  // 使用相对路径，确保在子目录部署时资源路径正确
+  base: './',
   plugins: [
     // wsx 插件 - 处理 .wsx 文件
     wsx({
