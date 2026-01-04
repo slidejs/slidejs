@@ -8,9 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@systembug/pangu':
+        specifier: ^0.0.8
+        version: 0.0.8(@types/node@20.19.27)
       '@systembug/qingniao':
-        specifier: ^0.0.7
-        version: 0.0.7(@changesets/cli@2.29.8(@types/node@20.19.27))(@types/node@20.19.27)(typescript@5.9.3)
+        specifier: ^0.0.8
+        version: 0.0.8(@changesets/cli@2.29.8(@types/node@20.19.27))(@types/node@20.19.27)(typescript@5.9.3)
       '@types/inquirer':
         specifier: ^9.0.7
         version: 9.0.9
@@ -1556,12 +1559,16 @@ packages:
   '@splidejs/splide@4.1.4':
     resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
 
-  '@systembug/diting@0.0.7':
-    resolution: {integrity: sha512-uqZ3C3duW0f0NLg74axDSCG69IxwUlo7q6crXL1/ZAHcTDudMMmBeYP3BYd3/DBhM6SOcZ8e38teXwyE35/8WQ==}
+  '@systembug/diting@0.0.8':
+    resolution: {integrity: sha512-bBqy71awTwKq7ZR2thf5XdJOWB4kWJKs80xGFZ++eVtzQSTJzKoRaKcS4E0pqvHEKKTONsrm9MMGL7aopSInKA==}
     engines: {node: '>=16.0.0'}
 
-  '@systembug/qingniao@0.0.7':
-    resolution: {integrity: sha512-825jwxm07uIbH5S1ovSkhsnmFiV4BfBfQxKsjVHv4GS5WOPtugPTlmI72dId8ai8JYRndgBdxpE4P/iHd6n6EA==}
+  '@systembug/pangu@0.0.8':
+    resolution: {integrity: sha512-xREwJATEvUhEVeI5lDpEmugIJmLJDWXEufD2ZEI2m6WBGSZmGczDent171Q7kavdCsp7PQVmoLkez4nCHiOlzA==}
+    hasBin: true
+
+  '@systembug/qingniao@0.0.8':
+    resolution: {integrity: sha512-Gx4WztFj/PVfpyul+qh0r7jh7fDAv+dKrBz1UZ8uw8k9+0eKmZFl/RHh75pHNPhFRFlTc5Qge68q6TxOlFWpFw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:
@@ -5434,15 +5441,23 @@ snapshots:
 
   '@splidejs/splide@4.1.4': {}
 
-  '@systembug/diting@0.0.7':
+  '@systembug/diting@0.0.8':
     dependencies:
       chalk: 5.6.2
       pino: 9.14.0
 
-  '@systembug/qingniao@0.0.7(@changesets/cli@2.29.8(@types/node@20.19.27))(@types/node@20.19.27)(typescript@5.9.3)':
+  '@systembug/pangu@0.0.8(@types/node@20.19.27)':
+    dependencies:
+      inquirer: 9.3.8(@types/node@20.19.27)
+      js-yaml: 4.1.1
+      ora: 8.2.0
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@systembug/qingniao@0.0.8(@changesets/cli@2.29.8(@types/node@20.19.27))(@types/node@20.19.27)(typescript@5.9.3)':
     dependencies:
       '@changesets/cli': 2.29.8(@types/node@20.19.27)
-      '@systembug/diting': 0.0.7
+      '@systembug/diting': 0.0.8
       chalk: 4.1.2
       commander: 9.5.0
       inquirer: 13.1.0(@types/node@20.19.27)

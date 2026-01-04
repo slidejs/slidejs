@@ -58,7 +58,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@systembug/qingniao": "^0.0.7",
+    "@systembug/qingniao": "^0.0.8",
+    "@systembug/pangu": "^0.0.8",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
