@@ -19,10 +19,11 @@
  * ```typescript
  * import { setTheme, useTheme } from '@slidejs/theme';
  *
- * // 高级 API：使用标准变量名（推荐）
+ * // 设置抽象主题属性
  * setTheme({
  *   navigationColor: '#ff0000',
  *   paginationColor: '#00ff00',
+ *   backgroundColor: '#ffffff',
  * });
  *
  * // 作用域设置

@@ -13,7 +13,7 @@ SlideJS 主题系统 - 运行时 CSS 变量 Hook API
 
 ## 设计理念
 
-### 高级 API（官方支持）
+## 高级 API（官方支持）
 
 使用标准变量名，不针对特定 runner：
 
@@ -258,45 +258,31 @@ interface StandardTheme {
 - `--slidejs-heading-color`
 - `--slidejs-code-background`
 
-## Runner 映射
+## 抽象主题属性
 
-每个 runner 会自动将标准变量映射到自己的变量：
-
-### Swiper
-
-- `--slidejs-navigation-color` → `--slidejs-swiper-navigation-color`
-- `--slidejs-pagination-color` → `--slidejs-swiper-pagination-color`
-
-### Reveal.js
-
-- `--slidejs-background-color` → `--slidejs-revealjs-background-color`
-- `--slidejs-text-color` → `--slidejs-revealjs-text-color`
-
-### Splide
-
-- `--slidejs-arrow-color` → `--slidejs-splide-arrow-color`
-- `--slidejs-pagination-color` → `--slidejs-splide-pagination-color`
-
-## 低级 API（自行使用，风险自负）
-
-如果需要直接设置 runner 特定变量，请自行使用 DOM API：
+主题系统定义了从 Slide 抽象角度的通用主题属性：
 
 ```typescript
-// 不推荐：直接设置 runner 特定变量
-document.documentElement.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
-
-// 或使用作用域
-const container = document.getElementById('slides');
-if (container) {
-  container.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
+interface StandardTheme {
+  navigationColor?: string;      // 导航控件颜色
+  paginationColor?: string;      // 分页控件颜色
+  paginationActiveColor?: string; // 分页控件激活状态颜色
+  scrollbarBg?: string;          // 滚动条背景色
+  scrollbarDragBg?: string;      // 滚动条拖拽颜色
+  arrowColor?: string;           // 导航箭头颜色
+  progressBarColor?: string;     // 进度指示器颜色
+  backgroundColor?: string;      // 幻灯片背景色
+  textColor?: string;            // 文本颜色
+  linkColor?: string;            // 链接颜色
+  headingColor?: string;         // 标题颜色
+  codeBackground?: string;        // 代码块背景色
 }
 ```
 
-**警告**：
-
-- 这些变量不在 SlideJS 官方支持范围内
-- 可能导致兼容性问题
-- 不推荐使用
+**重要**：
+- 这些是抽象主题属性，不涉及具体的 runner 实现
+- 各个 runner 可以自由决定如何应用这些抽象属性
+- 例如，`navigationColor` 可能被应用到按钮、箭头或其他导航控件，取决于 runner 的实现
 
 ## 预设主题详情
 

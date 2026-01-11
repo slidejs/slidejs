@@ -27,8 +27,8 @@ function setCSSVariable(
 }
 
 /**
- * 应用标准主题（高级 API）
- * 设置标准 CSS 变量，runner 会将这些变量映射到自己的变量
+ * 应用抽象主题
+ * 设置抽象主题 CSS 变量，各个 runner 可以自由决定如何应用这些变量
  */
 function applyStandardTheme(element: HTMLElement | Document, theme: StandardTheme): void {
   if (theme.navigationColor) {
