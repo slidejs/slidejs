@@ -2,7 +2,7 @@
 title: 安装指南
 order: 2
 category: guide
-description: "详细的安装说明，包括环境要求、包管理器选择和 TypeScript 支持"
+description: '详细的安装说明，包括环境要求、包管理器选择和 TypeScript 支持'
 ---
 
 # 安装指南

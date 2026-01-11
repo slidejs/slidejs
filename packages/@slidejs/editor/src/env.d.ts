@@ -86,10 +86,7 @@ declare module 'monaco-editor' {
      * @param options - 编辑器选项
      * @returns 编辑器实例
      */
-    export function create(
-      container: HTMLElement,
-      options?: IEditorOptions
-    ): IStandaloneCodeEditor;
+    export function create(container: HTMLElement, options?: IEditorOptions): IStandaloneCodeEditor;
 
     /**
      * 设置主题
@@ -106,23 +103,27 @@ declare module 'monaco-editor' {
      * 注册语言
      * @param language - 语言定义
      */
-    export function register(language: { id: string; extensions?: string[]; aliases?: string[] }): void;
+    export function register(language: {
+      id: string;
+      extensions?: string[];
+      aliases?: string[];
+    }): void;
 
     /**
      * 设置 Monarch 词法分析器
      * @param languageId - 语言 ID
      * @param languageDef - Monarch 语言定义
      */
-    export function setMonarchTokensProvider(
-      languageId: string,
-      languageDef: any
-    ): IDisposable;
+    export function setMonarchTokensProvider(languageId: string, languageDef: any): IDisposable;
 
     /**
      * 获取所有已注册的语言
      * @returns 语言列表
      */
-    export function getLanguages(): Array<{ id: string; extensions?: string[]; aliases?: string[] }>;
+    export function getLanguages(): Array<{
+      id: string;
+      extensions?: string[];
+      aliases?: string[];
+    }>;
   }
-
 }

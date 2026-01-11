@@ -24,18 +24,12 @@ export default defineConfig({
             '@slidejs/runner': path.resolve(__dirname, '../../packages/@slidejs/runner/src'),
             '@slidejs/context': path.resolve(__dirname, '../../packages/@slidejs/context/src'),
             '@slidejs/dsl': path.resolve(__dirname, '../../packages/@slidejs/dsl/src'),
-          '@slidejs/runner-swiper': path.resolve(
-            __dirname,
-            '../../packages/@slidejs/runner-swiper/src'
-          ),
-          '@slidejs/editor': path.resolve(
-            __dirname,
-            '../../packages/@slidejs/editor/src'
-          ),
-          '@slidejs/theme': path.resolve(
-            __dirname,
-            '../../packages/@slidejs/theme/src'
-          ),
+            '@slidejs/runner-swiper': path.resolve(
+              __dirname,
+              '../../packages/@slidejs/runner-swiper/src'
+            ),
+            '@slidejs/editor': path.resolve(__dirname, '../../packages/@slidejs/editor/src'),
+            '@slidejs/theme': path.resolve(__dirname, '../../packages/@slidejs/theme/src'),
           }
         : {}),
     },
@@ -44,15 +38,15 @@ export default defineConfig({
   optimizeDeps: {
     exclude: [
       '@slidejs/core',
-             '@slidejs/runner',
-             '@slidejs/context',
-             '@slidejs/dsl',
-             '@slidejs/runner-swiper',
-             '@slidejs/editor',
-             '@slidejs/theme',
-             '@wsxjs/wsx-core',
-             'monaco-editor',
-           ],
+      '@slidejs/runner',
+      '@slidejs/context',
+      '@slidejs/dsl',
+      '@slidejs/runner-swiper',
+      '@slidejs/editor',
+      '@slidejs/theme',
+      '@wsxjs/wsx-core',
+      'monaco-editor',
+    ],
   },
   server: {
     port: 3001,

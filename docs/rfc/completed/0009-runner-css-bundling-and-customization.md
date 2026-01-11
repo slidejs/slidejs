@@ -56,7 +56,7 @@
 
 所有 runner 包都应包含 `src/style.css` 文件，结构如下：
 
-```css
+````css
 /**
  * @slidejs/runner-{name} - {库名} 核心样式
  *
@@ -91,7 +91,7 @@
 .{library-class} {
   property: var(--slidejs-{name}-{property}, fallback-value);
 }
-```
+````
 
 ### 2. CSS 变量命名规范
 
@@ -187,13 +187,16 @@ import './style.css';
 #### 1. `@slidejs/runner-swiper`
 
 **新增文件**：
+
 - `packages/@slidejs/runner-swiper/src/style.css`
 
 **修改文件**：
+
 - `packages/@slidejs/runner-swiper/src/index.ts` - 添加 CSS 导入
 - `packages/@slidejs/runner-swiper/vite.config.ts` - 更新构建配置
 
 **CSS 变量**：
+
 - `--slidejs-swiper-navigation-color`: 导航按钮颜色
 - `--slidejs-swiper-pagination-color`: 分页器颜色
 - `--slidejs-swiper-pagination-bullet-active-color`: 分页器激活颜色
@@ -203,13 +206,16 @@ import './style.css';
 #### 2. `@slidejs/runner-splide`
 
 **新增文件**：
+
 - `packages/@slidejs/runner-splide/src/style.css`
 
 **修改文件**：
+
 - `packages/@slidejs/runner-splide/src/index.ts` - 添加 CSS 导入
 - `packages/@slidejs/runner-splide/vite.config.ts` - 更新构建配置
 
 **CSS 变量**：
+
 - `--slidejs-splide-arrow-color`: 箭头颜色
 - `--slidejs-splide-pagination-color`: 分页器颜色
 - `--slidejs-splide-pagination-active-color`: 分页器激活颜色
@@ -218,9 +224,11 @@ import './style.css';
 #### 3. `@slidejs/runner-revealjs`
 
 **已存在**（参考实现）：
+
 - `packages/@slidejs/runner-revealjs/src/style.css` - 已包含 CSS 变量
 
 **CSS 变量**：
+
 - `--slidejs-revealjs-background-color`: 背景色
 - `--slidejs-revealjs-text-color`: 文本颜色
 - `--slidejs-revealjs-link-color`: 链接颜色
@@ -307,20 +315,20 @@ import { createSlideRunner } from '@slidejs/runner-swiper';
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <style>
-    :root {
-      --slidejs-swiper-navigation-color: #ff0000;
-    }
-  </style>
-</head>
-<body>
-  <div id="slides"></div>
-  <script type="module">
-    import { createSlideRunner } from '@slidejs/runner-swiper';
-    // 验证 CSS 变量是否生效
-  </script>
-</body>
+  <head>
+    <style>
+      :root {
+        --slidejs-swiper-navigation-color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slides"></div>
+    <script type="module">
+      import { createSlideRunner } from '@slidejs/runner-swiper';
+      // 验证 CSS 变量是否生效
+    </script>
+  </body>
 </html>
 ```
 

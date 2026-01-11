@@ -55,14 +55,8 @@ export default defineConfig({
               __dirname,
               '../../packages/@slidejs/runner-revealjs/src'
             ),
-            '@slidejs/editor': path.resolve(
-              __dirname,
-              '../../packages/@slidejs/editor/src'
-            ),
-            '@slidejs/theme': path.resolve(
-              __dirname,
-              '../../packages/@slidejs/theme/src'
-            ),
+            '@slidejs/editor': path.resolve(__dirname, '../../packages/@slidejs/editor/src'),
+            '@slidejs/theme': path.resolve(__dirname, '../../packages/@slidejs/theme/src'),
           }
         : {}),
     },

@@ -9,7 +9,7 @@ import { getWorker } from './workers';
 /**
  * 配置 Monaco Editor Worker
  * 必须在创建编辑器之前调用
- * 
+ *
  * 使用 Vite 的 ?worker 导入方式，这是官方推荐的最佳实践
  * Vite 会自动处理 Worker 的打包和路径，无需手动配置
  */

@@ -14,6 +14,7 @@
 本 RFC 定义了 SlideJS 的 CSS Hook API，提供一个标准的、类型安全的运行时主题自定义系统。通过 `@slidejs/theme` 包，开发者可以在运行时动态设置标准 CSS 变量，无需手动操作 DOM 或编写 CSS。
 
 **设计原则**：
+
 - **只提供高级 API**：使用标准变量名（如 `navigationColor`），不针对特定 runner
 - **Runner 自动映射**：每个 runner 会将自己的标准变量映射到自己的特定变量
 - **低级 API 自行使用**：如果需要直接设置 runner 特定变量，请自行使用 DOM API，风险自负
@@ -26,12 +27,10 @@
 虽然 RFC 0009 已经实现了 CSS 变量系统，但用户仍然需要：
 
 1. **手动操作 CSS 变量**：
+
    ```typescript
    // 用户需要手动设置 CSS 变量
-   document.documentElement.style.setProperty(
-     '--slidejs-swiper-navigation-color',
-     '#ff0000'
-   );
+   document.documentElement.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
    ```
 
 2. **记住变量名**：
@@ -75,10 +74,10 @@ setTheme(Preset.SolarizedLight);
 
 // 或设置自定义标准主题（使用标准变量名）
 setTheme({
-  navigationColor: '#ff0000',  // 标准变量名，所有 runner 会自动映射
+  navigationColor: '#ff0000', // 标准变量名，所有 runner 会自动映射
   paginationColor: '#00ff00', // 标准变量名
-  backgroundColor: '#ffffff',  // 标准变量名
-  textColor: '#000000',       // 标准变量名
+  backgroundColor: '#ffffff', // 标准变量名
+  textColor: '#000000', // 标准变量名
 });
 ```
 
@@ -97,8 +96,8 @@ theme.set(Preset.SolarizedDark);
 
 // 或设置自定义主题
 theme.set({
-  navigationColor: '#ff0000',  // 标准变量名
-  paginationColor: '#00ff00',  // 标准变量名
+  navigationColor: '#ff0000', // 标准变量名
+  paginationColor: '#00ff00', // 标准变量名
 });
 
 // 通过 HTMLElement 创建作用域 Hook
@@ -121,13 +120,13 @@ theme.set(Preset.SolarizedDark);
 
 // 或设置自定义标准主题
 theme.set({
-  navigationColor: '#ff0000',  // 标准变量名
-  paginationColor: '#00ff00',  // 标准变量名
+  navigationColor: '#ff0000', // 标准变量名
+  paginationColor: '#00ff00', // 标准变量名
 });
 
 // 获取 CSS 变量值（标准变量或 runner 特定变量）
-const color = theme.get('--slidejs-navigation-color');  // 标准变量
-const swiperColor = theme.get('--slidejs-swiper-navigation-color');  // runner 特定变量
+const color = theme.get('--slidejs-navigation-color'); // 标准变量
+const swiperColor = theme.get('--slidejs-swiper-navigation-color'); // runner 特定变量
 
 // 移除 CSS 变量
 theme.remove('--slidejs-navigation-color');
@@ -140,18 +139,12 @@ theme.clear();
 
 ```typescript
 // 不推荐：直接设置 runner 特定变量（不在官方支持范围内）
-document.documentElement.style.setProperty(
-  '--slidejs-swiper-navigation-color',
-  '#ff0000'
-);
+document.documentElement.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
 
 // 或使用作用域
 const container = document.getElementById('slides');
 if (container) {
-  container.style.setProperty(
-    '--slidejs-swiper-navigation-color',
-    '#ff0000'
-  );
+  container.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
 }
 ```
 
@@ -160,18 +153,18 @@ if (container) {
 ```typescript
 // 标准主题配置（高级 API）
 interface StandardTheme {
-  navigationColor?: string;        // 导航按钮颜色（标准变量）
-  paginationColor?: string;        // 分页器颜色（标准变量）
-  paginationActiveColor?: string;  // 分页器激活颜色（标准变量）
-  scrollbarBg?: string;            // 滚动条背景色（标准变量）
-  scrollbarDragBg?: string;       // 滚动条拖拽颜色（标准变量）
-  arrowColor?: string;             // 箭头颜色（标准变量，用于 Splide）
-  progressBarColor?: string;       // 进度条颜色（标准变量）
-  backgroundColor?: string;       // 背景色（标准变量）
-  textColor?: string;             // 文本颜色（标准变量）
-  linkColor?: string;             // 链接颜色（标准变量）
-  headingColor?: string;          // 标题颜色（标准变量）
-  codeBackground?: string;         // 代码背景色（标准变量）
+  navigationColor?: string; // 导航按钮颜色（标准变量）
+  paginationColor?: string; // 分页器颜色（标准变量）
+  paginationActiveColor?: string; // 分页器激活颜色（标准变量）
+  scrollbarBg?: string; // 滚动条背景色（标准变量）
+  scrollbarDragBg?: string; // 滚动条拖拽颜色（标准变量）
+  arrowColor?: string; // 箭头颜色（标准变量，用于 Splide）
+  progressBarColor?: string; // 进度条颜色（标准变量）
+  backgroundColor?: string; // 背景色（标准变量）
+  textColor?: string; // 文本颜色（标准变量）
+  linkColor?: string; // 链接颜色（标准变量）
+  headingColor?: string; // 标题颜色（标准变量）
+  codeBackground?: string; // 代码背景色（标准变量）
 }
 ```
 
@@ -180,14 +173,17 @@ interface StandardTheme {
 每个 runner 会自动将标准变量映射到自己的变量：
 
 **Swiper**:
+
 - `--slidejs-navigation-color` → `--slidejs-swiper-navigation-color`
 - `--slidejs-pagination-color` → `--slidejs-swiper-pagination-color`
 
 **Reveal.js**:
+
 - `--slidejs-background-color` → `--slidejs-revealjs-background-color`
 - `--slidejs-text-color` → `--slidejs-revealjs-text-color`
 
 **Splide**:
+
 - `--slidejs-arrow-color` → `--slidejs-splide-arrow-color`
 - `--slidejs-pagination-color` → `--slidejs-splide-pagination-color`
 
@@ -210,6 +206,7 @@ packages/@slidejs/theme/
 ```
 
 **注意**：
+
 - 不包含 `variables.ts` 文件
 - CSS 变量映射在 runner 的 CSS 文件中通过 CSS `var()` 函数完成
 - 本包只提供高级 API（标准变量），不提供低级 API（runner 特定变量）
@@ -257,7 +254,9 @@ export const STANDARD_CSS_VARIABLES = {
 ```
 
 **设计决策**：
+
 - 不在 JavaScript 中维护映射关系（已移除 `variables.ts`）
+
 5. **CSS 注入规范**：
    - **第三方库 CSS**：必须注入到 `document.head`（全局，使用唯一的 ID 避免重复注入）
    - **自定义 style.css**：必须注入到用户提供的容器中（作用域化，使用唯一的 ID 避免重复注入）
@@ -318,7 +317,3 @@ export async function createSlideRunner<TContext extends SlideContext = SlideCon
   // ...
 }
 ```
-
-
-
-

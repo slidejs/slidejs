@@ -39,7 +39,7 @@ if (container) {
 }`,
     theme: 'vs-dark',
     fontSize: 14,
-    onChange: (value) => {
+    onChange: value => {
       console.log('DSL changed:', value);
     },
   });
@@ -105,6 +105,7 @@ const editor2 = createSlideDSLEditor(container2, { value: '...' });
 创建 Slide DSL 编辑器实例。
 
 **参数**:
+
 - `container`: `HTMLElement` - 容器元素
 - `options`: `SlideDSLEditorOptions` - 编辑器选项
 
@@ -119,6 +120,7 @@ const editor2 = createSlideDSLEditor(container2, { value: '...' });
 更新编辑器内容。
 
 **参数**:
+
 - `editor`: `monaco.editor.IStandaloneCodeEditor` - 编辑器实例
 - `value`: `string` - 新内容
 
@@ -127,6 +129,7 @@ const editor2 = createSlideDSLEditor(container2, { value: '...' });
 设置编辑器主题。
 
 **参数**:
+
 - `editor`: `monaco.editor.IStandaloneCodeEditor` - 编辑器实例
 - `theme`: `'vs' | 'vs-dark' | 'hc-black'` - 主题名称
 
@@ -155,6 +158,7 @@ export default defineConfig({
 编辑器包使用 **Vite 的 `?worker` 导入方式**，这是官方推荐的最佳实践。
 
 **工作原理**：
+
 - 使用 `?worker` 后缀导入 Worker 文件（如 `monaco-editor/esm/vs/editor/editor.worker?worker`）
 - Vite 会自动：
   1. 在构建时将 Worker 文件打包到 `dist/assets/` 目录
@@ -162,15 +166,18 @@ export default defineConfig({
   3. 处理开发和生产环境的路径差异
 
 **开发环境**：
+
 - Vite 开发服务器自动处理 Worker 文件
 - 支持 HMR（热模块替换）
 
 **生产环境**：
+
 - Worker 文件自动打包到 `dist/assets/` 目录
 - 使用正确的相对路径，无需额外配置
 - 完全自包含，无需 CDN 或外部依赖
 
 **优势**：
+
 - ✅ 无需手动配置 Worker 路径
 - ✅ 自动处理开发和生产环境
 - ✅ Worker 文件自动打包，无需复制

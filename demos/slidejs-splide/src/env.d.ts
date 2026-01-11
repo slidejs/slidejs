@@ -38,9 +38,6 @@ declare namespace monaco {
       wordWrap?: 'on' | 'off';
     }
 
-    export function create(
-      container: HTMLElement,
-      options?: IEditorOptions
-    ): IStandaloneCodeEditor;
+    export function create(container: HTMLElement, options?: IEditorOptions): IStandaloneCodeEditor;
   }
 }

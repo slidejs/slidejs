@@ -83,9 +83,6 @@ declare module 'monaco-editor' {
      * @param options - 编辑器选项
      * @returns 编辑器实例
      */
-    export function create(
-      container: HTMLElement,
-      options?: IEditorOptions
-    ): IStandaloneCodeEditor;
+    export function create(container: HTMLElement, options?: IEditorOptions): IStandaloneCodeEditor;
   }
 }

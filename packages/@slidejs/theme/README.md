@@ -19,12 +19,13 @@ SlideJS 主题系统 - 运行时 CSS 变量 Hook API
 
 ```typescript
 setTheme({
-  navigationColor: '#ff0000',  // 标准变量名
-  paginationColor: '#00ff00',  // 标准变量名
+  navigationColor: '#ff0000', // 标准变量名
+  paginationColor: '#00ff00', // 标准变量名
 });
 ```
 
 所有 runner 会自动将这些标准变量映射到自己的变量：
+
 - `--slidejs-navigation-color` → `--slidejs-swiper-navigation-color` (Swiper)
 - `--slidejs-navigation-color` → `--slidejs-splide-arrow-color` (Splide)
 
@@ -34,13 +35,11 @@ setTheme({
 
 ```typescript
 // 不推荐：直接设置 runner 特定变量（风险自负）
-document.documentElement.style.setProperty(
-  '--slidejs-swiper-navigation-color',
-  '#ff0000'
-);
+document.documentElement.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
 ```
 
 **注意**：
+
 - 低级 API 不在 SlideJS 官方支持范围内
 - 可能导致兼容性问题
 - 不推荐使用
@@ -203,12 +202,12 @@ setTheme(solarizedLight);
 ### 预设主题导出
 
 ```typescript
-import { 
+import {
   Preset,
-  solarizedDark, 
-  solarizedLight, 
+  solarizedDark,
+  solarizedLight,
   presets,
-  type PresetThemeName 
+  type PresetThemeName,
 } from '@slidejs/theme';
 
 // 使用命名空间常量（推荐）
@@ -227,18 +226,18 @@ Object.keys(presets); // ['solarized-dark', 'solarized-light']
 
 ```typescript
 interface StandardTheme {
-  navigationColor?: string;        // 导航按钮颜色
-  paginationColor?: string;        // 分页器颜色
-  paginationActiveColor?: string;  // 分页器激活颜色
-  scrollbarBg?: string;            // 滚动条背景色
-  scrollbarDragBg?: string;        // 滚动条拖拽颜色
-  arrowColor?: string;             // 箭头颜色（用于 Splide）
-  progressBarColor?: string;       // 进度条颜色
-  backgroundColor?: string;        // 背景色
-  textColor?: string;              // 文本颜色
-  linkColor?: string;              // 链接颜色
-  headingColor?: string;          // 标题颜色
-  codeBackground?: string;         // 代码背景色
+  navigationColor?: string; // 导航按钮颜色
+  paginationColor?: string; // 分页器颜色
+  paginationActiveColor?: string; // 分页器激活颜色
+  scrollbarBg?: string; // 滚动条背景色
+  scrollbarDragBg?: string; // 滚动条拖拽颜色
+  arrowColor?: string; // 箭头颜色（用于 Splide）
+  progressBarColor?: string; // 进度条颜色
+  backgroundColor?: string; // 背景色
+  textColor?: string; // 文本颜色
+  linkColor?: string; // 链接颜色
+  headingColor?: string; // 标题颜色
+  codeBackground?: string; // 代码背景色
 }
 ```
 
@@ -264,14 +263,17 @@ interface StandardTheme {
 每个 runner 会自动将标准变量映射到自己的变量：
 
 ### Swiper
+
 - `--slidejs-navigation-color` → `--slidejs-swiper-navigation-color`
 - `--slidejs-pagination-color` → `--slidejs-swiper-pagination-color`
 
 ### Reveal.js
+
 - `--slidejs-background-color` → `--slidejs-revealjs-background-color`
 - `--slidejs-text-color` → `--slidejs-revealjs-text-color`
 
 ### Splide
+
 - `--slidejs-arrow-color` → `--slidejs-splide-arrow-color`
 - `--slidejs-pagination-color` → `--slidejs-splide-pagination-color`
 
@@ -281,22 +283,17 @@ interface StandardTheme {
 
 ```typescript
 // 不推荐：直接设置 runner 特定变量
-document.documentElement.style.setProperty(
-  '--slidejs-swiper-navigation-color',
-  '#ff0000'
-);
+document.documentElement.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
 
 // 或使用作用域
 const container = document.getElementById('slides');
 if (container) {
-  container.style.setProperty(
-    '--slidejs-swiper-navigation-color',
-    '#ff0000'
-  );
+  container.style.setProperty('--slidejs-swiper-navigation-color', '#ff0000');
 }
 ```
 
 **警告**：
+
 - 这些变量不在 SlideJS 官方支持范围内
 - 可能导致兼容性问题
 - 不推荐使用
@@ -308,6 +305,7 @@ if (container) {
 基于 Solarized 配色方案的深色主题，适合在暗光环境下使用。
 
 **颜色方案**：
+
 - 背景：`#002b36` (base03)
 - 文本：`#839496` (base0)
 - 链接/导航：`#268bd2` (blue)
@@ -318,6 +316,7 @@ if (container) {
 基于 Solarized 配色方案的浅色主题，适合在明亮环境下使用。
 
 **颜色方案**：
+
 - 背景：`#fdf6e3` (base3)
 - 文本：`#657b83` (base00)
 - 链接/导航：`#268bd2` (blue)

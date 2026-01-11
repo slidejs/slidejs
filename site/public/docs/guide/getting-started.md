@@ -2,7 +2,7 @@
 title: 快速开始
 order: 1
 category: guide
-description: "5 分钟快速上手 SlideJS，学习如何创建第一个 Slide DSL 文件和运行幻灯片演示"
+description: '5 分钟快速上手 SlideJS，学习如何创建第一个 Slide DSL 文件和运行幻灯片演示'
 ---
 
 # 快速开始

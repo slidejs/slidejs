@@ -2,7 +2,7 @@
 title: Slide DSL 完整指南
 order: 3
 category: guide
-description: "深入了解 Slide DSL 语法、规则引擎、API 使用方法和最佳实践"
+description: '深入了解 Slide DSL 语法、规则引擎、API 使用方法和最佳实践'
 ---
 
 # Slide DSL 完整指南
@@ -575,6 +575,7 @@ behavior {
 ```
 
 **建议**：
+
 - 标题页使用 `fade` 或 `zoom`
 - 内容页使用 `slide`
 - 结束页使用 `fade` 或 `zoom`
@@ -631,7 +632,7 @@ function getCompiledDSL(source: string): SlideDSL {
   if (cache.has(hash)) {
     return cache.get(hash)!;
   }
-  
+
   const ast = await parseSlideDSL(source);
   const slideDSL = compile(ast);
   cache.set(hash, slideDSL);
@@ -659,6 +660,7 @@ rule content "data-access" {
 ### Q: 支持哪些数据类型？
 
 A: 支持的数据源类型：
+
 - `quiz` - 测验数据
 - `survey` - 调查数据
 - `form` - 表单数据
@@ -691,7 +693,7 @@ A: 使用解析和编译错误信息：
 try {
   const ast = await parseSlideDSL(dslSource);
   console.log('AST:', ast);
-  
+
   const slideDSL = compile(ast);
   console.log('Compiled DSL:', slideDSL);
 } catch (error) {

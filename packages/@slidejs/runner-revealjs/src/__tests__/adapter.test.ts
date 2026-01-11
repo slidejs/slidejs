@@ -134,9 +134,7 @@ describe('RevealJsAdapter', () => {
     it('应该在未初始化时抛出错误', async () => {
       const slides = [createTestSlide('slide-1', ['Test'])];
 
-      await expect(adapter.render(slides)).rejects.toThrow(
-        'RevealJsAdapter not initialized'
-      );
+      await expect(adapter.render(slides)).rejects.toThrow('RevealJsAdapter not initialized');
     });
 
     it('应该成功渲染幻灯片', async () => {
@@ -224,11 +222,11 @@ describe('RevealJsAdapter', () => {
 
     it('应该清理 DOM 结构', async () => {
       await adapter.initialize(container);
-      
+
       // 验证 DOM 结构存在
       const reveal = container.querySelector('.reveal');
       expect(reveal).toBeTruthy();
-      
+
       await adapter.destroy();
 
       // 验证 reveal 实例被销毁
