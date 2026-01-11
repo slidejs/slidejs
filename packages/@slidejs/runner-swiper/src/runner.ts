@@ -10,9 +10,7 @@ import type { SlideContext } from '@slidejs/context';
 import { SwiperAdapter } from './adapter';
 import type { SwiperAdapterOptions } from './types';
 // 导入 CSS 内容用于注入
-import swiperCSS from 'swiper/css?inline';
-import swiperNavigationCSS from 'swiper/css/navigation?inline';
-import swiperPaginationCSS from 'swiper/css/pagination?inline';
+import swiperBundleCSS from 'swiper/css/bundle?inline';
 import customCSS from './style.css?inline';
 
 /**
@@ -70,31 +68,13 @@ export async function createSlideRunner<TContext extends SlideContext = SlideCon
   // 2. 编译为 SlideDSL
   const slideDSL = compile<TContext>(ast);
 
-  // 2.1 注入 Swiper CSS 到 document.head（全局，如果尚未注入）
-  // 注入基础 CSS
-  const baseStyleId = 'swiper-styles';
-  if (!document.head.querySelector(`#${baseStyleId}`)) {
+  // 2.1 注入 Swiper Bundle CSS 到 document.head（全局，如果尚未注入）
+  // Bundle CSS 包含所有模块（核心、Navigation、Pagination 等）
+  const swiperStyleId = 'swiper-bundle-styles';
+  if (!document.head.querySelector(`#${swiperStyleId}`)) {
     const style = document.createElement('style');
-    style.id = baseStyleId;
-    style.textContent = swiperCSS;
-    document.head.appendChild(style);
-  }
-
-  // 注入 Navigation CSS
-  const navigationStyleId = 'swiper-navigation-styles';
-  if (!document.head.querySelector(`#${navigationStyleId}`)) {
-    const style = document.createElement('style');
-    style.id = navigationStyleId;
-    style.textContent = swiperNavigationCSS;
-    document.head.appendChild(style);
-  }
-
-  // 注入 Pagination CSS
-  const paginationStyleId = 'swiper-pagination-styles';
-  if (!document.head.querySelector(`#${paginationStyleId}`)) {
-    const style = document.createElement('style');
-    style.id = paginationStyleId;
-    style.textContent = swiperPaginationCSS;
+    style.id = swiperStyleId;
+    style.textContent = swiperBundleCSS;
     document.head.appendChild(style);
   }
 

@@ -27,6 +27,9 @@ export class SwiperAdapter implements SlideAdapter {
   private swiper?: Swiper;
   private swiperContainer?: HTMLElement;
   private swiperWrapper?: HTMLElement;
+  private prevButton?: HTMLElement;
+  private nextButton?: HTMLElement;
+  private paginationEl?: HTMLElement;
   private eventHandlers: Map<AdapterEvent, Set<EventHandler>> = new Map();
 
   /**
@@ -54,14 +57,14 @@ export class SwiperAdapter implements SlideAdapter {
         slidesPerView: 1,
         // 注册模块
         modules: [Navigation, Pagination, Keyboard],
-        // 导航配置
+        // 导航配置 - 使用元素引用而不是选择器，确保在 Vue 组件中也能正常工作
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: this.nextButton || undefined,
+          prevEl: this.prevButton || undefined,
         },
-        // 分页配置
+        // 分页配置 - 使用元素引用而不是选择器
         pagination: {
-          el: '.swiper-pagination',
+          el: this.paginationEl || undefined,
           clickable: true,
         },
         // 键盘控制配置
@@ -256,19 +259,19 @@ export class SwiperAdapter implements SlideAdapter {
     wrapperDiv.className = 'swiper-wrapper';
 
     // 创建导航按钮
-    const prevButton = document.createElement('div');
-    prevButton.className = 'swiper-button-prev';
-    const nextButton = document.createElement('div');
-    nextButton.className = 'swiper-button-next';
+    this.prevButton = document.createElement('div');
+    this.prevButton.className = 'swiper-button-prev';
+    this.nextButton = document.createElement('div');
+    this.nextButton.className = 'swiper-button-next';
 
     // 创建分页器
-    const pagination = document.createElement('div');
-    pagination.className = 'swiper-pagination';
+    this.paginationEl = document.createElement('div');
+    this.paginationEl.className = 'swiper-pagination';
 
     container.appendChild(wrapperDiv);
-    container.appendChild(prevButton);
-    container.appendChild(nextButton);
-    container.appendChild(pagination);
+    container.appendChild(this.prevButton);
+    container.appendChild(this.nextButton);
+    container.appendChild(this.paginationEl);
 
     this.swiperContainer = container;
     this.swiperWrapper = wrapperDiv;

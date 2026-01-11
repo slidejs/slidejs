@@ -13,8 +13,8 @@ type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
 /**
  * SwiperAdapter 选项
  *
- * 注意：所有必需的 Swiper CSS（包括核心 CSS、Navigation CSS 和 Pagination CSS）
- * 都会在创建 runner 时自动注入，无需手动导入。
+ * 注意：Swiper Bundle CSS（包含所有模块的 CSS）会在创建 runner 时自动注入，
+ * 无需手动导入。
  *
  * Keyboard、Navigation 和 Pagination 模块已在适配器中自动注册，
  * 无需在配置中再次指定 modules。
