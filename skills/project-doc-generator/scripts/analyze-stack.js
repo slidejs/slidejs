@@ -21,22 +21,22 @@ const stackInfo = {
     framework: null,
     libraries: [],
     buildTool: null,
-    cssFramework: null
+    cssFramework: null,
   },
   backend: {
     runtime: null,
     framework: null,
-    database: []
+    database: [],
   },
   testing: {
     unitTest: [],
-    e2eTest: []
+    e2eTest: [],
   },
   tools: {
     linter: [],
     formatter: [],
-    bundler: []
-  }
+    bundler: [],
+  },
 };
 
 function analyzePackageJson() {

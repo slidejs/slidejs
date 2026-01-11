@@ -31,15 +31,25 @@ const IGNORE_PATTERNS = [
   '__pycache__',
   '.pytest_cache',
   'venv',
-  'env'
+  'env',
 ];
 
 // 代码文件扩展名
 const CODE_EXTENSIONS = [
-  '.js', '.jsx', '.ts', '.tsx',
-  '.py', '.java', '.go', '.rs',
-  '.c', '.cpp', '.h', '.hpp',
-  '.vue', '.svelte'
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.py',
+  '.java',
+  '.go',
+  '.rs',
+  '.c',
+  '.cpp',
+  '.h',
+  '.hpp',
+  '.vue',
+  '.svelte',
 ];
 
 // 配置文件
@@ -57,7 +67,7 @@ const CONFIG_FILES = [
   'tailwind.config.js',
   'next.config.js',
   'nuxt.config.js',
-  'vue.config.js'
+  'vue.config.js',
 ];
 
 /**
@@ -76,7 +86,7 @@ const projectStructure = {
     codeFiles: 0,
     configFiles: 0,
     totalLines: 0,
-    codeLines: 0
+    codeLines: 0,
   },
 
   // 目录树
@@ -88,7 +98,7 @@ const projectStructure = {
     config: [],
     documentation: [],
     tests: [],
-    assets: []
+    assets: [],
   },
 
   // 模块信息
@@ -98,8 +108,8 @@ const projectStructure = {
   techStack: {
     languages: new Set(),
     frameworks: new Set(),
-    tools: new Set()
-  }
+    tools: new Set(),
+  },
 };
 
 /**
@@ -121,31 +131,35 @@ function isCodeFile(fileName) {
  * 判断是否是配置文件
  */
 function isConfigFile(fileName) {
-  return CONFIG_FILES.includes(fileName) ||
-         fileName.endsWith('.config.js') ||
-         fileName.endsWith('.config.ts') ||
-         fileName.startsWith('.');
+  return (
+    CONFIG_FILES.includes(fileName) ||
+    fileName.endsWith('.config.js') ||
+    fileName.endsWith('.config.ts') ||
+    fileName.startsWith('.')
+  );
 }
 
 /**
  * 判断是否是测试文件
  */
 function isTestFile(fileName) {
-  return fileName.includes('.test.') ||
-         fileName.includes('.spec.') ||
-         fileName.includes('__tests__');
+  return (
+    fileName.includes('.test.') || fileName.includes('.spec.') || fileName.includes('__tests__')
+  );
 }
 
 /**
  * 判断是否是文档文件
  */
 function isDocFile(fileName) {
-  return fileName.endsWith('.md') ||
-         fileName.endsWith('.mdx') ||
-         fileName.endsWith('.txt') ||
-         fileName === 'README' ||
-         fileName === 'CHANGELOG' ||
-         fileName === 'LICENSE';
+  return (
+    fileName.endsWith('.md') ||
+    fileName.endsWith('.mdx') ||
+    fileName.endsWith('.txt') ||
+    fileName === 'README' ||
+    fileName === 'CHANGELOG' ||
+    fileName === 'LICENSE'
+  );
 }
 
 /**
@@ -162,7 +176,7 @@ function countLines(filePath) {
 
     return {
       total: lines.length,
-      code: codeLines
+      code: codeLines,
     };
   } catch (error) {
     return { total: 0, code: 0 };
@@ -186,7 +200,7 @@ function detectLanguage(fileName) {
     '.c': 'C',
     '.cpp': 'C++',
     '.vue': 'Vue',
-    '.svelte': 'Svelte'
+    '.svelte': 'Svelte',
   };
   return langMap[ext] || 'Unknown';
 }
@@ -218,7 +232,7 @@ function scanDirectory(dirPath, depth = 0) {
       const fileInfo = {
         name: entry.name,
         path: relativePath,
-        size: fs.statSync(fullPath).size
+        size: fs.statSync(fullPath).size,
       };
 
       // 分类文件
@@ -286,7 +300,7 @@ function analyzeModules() {
             name: entry.name,
             path: relativePath,
             fileCount: moduleFiles.length,
-            files: moduleFiles
+            files: moduleFiles,
           });
         }
       });
@@ -307,22 +321,22 @@ function detectTechStack() {
       // 检测框架
       const deps = {
         ...packageJson.dependencies,
-        ...packageJson.devDependencies
+        ...packageJson.devDependencies,
       };
 
       const frameworks = {
-        'react': 'React',
-        'vue': 'Vue.js',
-        'angular': 'Angular',
-        'svelte': 'Svelte',
-        'next': 'Next.js',
-        'nuxt': 'Nuxt.js',
-        'express': 'Express',
-        'fastify': 'Fastify',
-        'nest': 'NestJS',
-        'vite': 'Vite',
-        'webpack': 'Webpack',
-        'rollup': 'Rollup'
+        react: 'React',
+        vue: 'Vue.js',
+        angular: 'Angular',
+        svelte: 'Svelte',
+        next: 'Next.js',
+        nuxt: 'Nuxt.js',
+        express: 'Express',
+        fastify: 'Fastify',
+        nest: 'NestJS',
+        vite: 'Vite',
+        webpack: 'Webpack',
+        rollup: 'Rollup',
       };
 
       Object.keys(deps).forEach(dep => {
@@ -335,12 +349,12 @@ function detectTechStack() {
 
       // 检测工具
       const tools = {
-        'eslint': 'ESLint',
-        'prettier': 'Prettier',
-        'jest': 'Jest',
-        'vitest': 'Vitest',
-        'typescript': 'TypeScript',
-        'babel': 'Babel'
+        eslint: 'ESLint',
+        prettier: 'Prettier',
+        jest: 'Jest',
+        vitest: 'Vitest',
+        typescript: 'TypeScript',
+        babel: 'Babel',
       };
 
       Object.keys(deps).forEach(dep => {
@@ -370,7 +384,7 @@ function generateTree() {
       if (!current[part]) {
         current[part] = {
           type: index === parts.length - 1 ? (isDir ? 'directory' : 'file') : 'directory',
-          children: {}
+          children: {},
         };
       }
       current = current[part].children;
@@ -418,14 +432,12 @@ function main() {
   projectStructure.scanDuration = `${duration}ms`;
 
   // 输出结果
-  fs.writeFileSync(
-    options.output,
-    JSON.stringify(projectStructure, null, 2),
-    'utf-8'
-  );
+  fs.writeFileSync(options.output, JSON.stringify(projectStructure, null, 2), 'utf-8');
 
   console.log('✅ 扫描完成');
-  console.log(`📊 统计: ${projectStructure.statistics.totalFiles} 个文件, ${projectStructure.statistics.codeFiles} 个代码文件`);
+  console.log(
+    `📊 统计: ${projectStructure.statistics.totalFiles} 个文件, ${projectStructure.statistics.codeFiles} 个代码文件`
+  );
   console.log(`📝 代码行数: ${projectStructure.statistics.codeLines} 行`);
   console.log(`🎯 模块数: ${projectStructure.modules.length} 个`);
   console.log(`💾 结果已保存到: ${options.output}`);

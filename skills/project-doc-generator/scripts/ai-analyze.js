@@ -24,7 +24,7 @@ function analyzeArchitecture(structureData) {
   const insights = {
     patterns: [],
     recommendations: [],
-    metrics: {}
+    metrics: {},
   };
 
   // 识别架构模式
@@ -32,17 +32,15 @@ function analyzeArchitecture(structureData) {
     const moduleNames = structureData.modules.map(m => m.name.toLowerCase());
 
     // 检测 MVC 模式
-    if (moduleNames.some(n => n.includes('model')) &&
-        moduleNames.some(n => n.includes('view')) &&
-        moduleNames.some(n => n.includes('controller'))) {
+    if (
+      moduleNames.some(n => n.includes('model')) &&
+      moduleNames.some(n => n.includes('view')) &&
+      moduleNames.some(n => n.includes('controller'))
+    ) {
       insights.patterns.push({
         name: 'MVC (Model-View-Controller)',
         description: '项目采用了 MVC 架构模式，实现了关注点分离',
-        benefits: [
-          '清晰的职责划分',
-          '便于测试和维护',
-          '支持并行开发'
-        ]
+        benefits: ['清晰的职责划分', '便于测试和维护', '支持并行开发'],
       });
     }
 
@@ -51,26 +49,20 @@ function analyzeArchitecture(structureData) {
       insights.patterns.push({
         name: '微服务架构',
         description: '项目采用了微服务架构，将功能拆分为独立的服务',
-        benefits: [
-          '独立部署和扩展',
-          '技术栈灵活',
-          '故障隔离'
-        ]
+        benefits: ['独立部署和扩展', '技术栈灵活', '故障隔离'],
       });
     }
 
     // 检测分层架构
-    if (moduleNames.some(n => n.includes('domain')) ||
-        moduleNames.some(n => n.includes('infrastructure')) ||
-        moduleNames.some(n => n.includes('application'))) {
+    if (
+      moduleNames.some(n => n.includes('domain')) ||
+      moduleNames.some(n => n.includes('infrastructure')) ||
+      moduleNames.some(n => n.includes('application'))
+    ) {
       insights.patterns.push({
         name: '分层架构',
         description: '项目采用了分层架构，清晰地划分了不同层次的职责',
-        benefits: [
-          '职责明确',
-          '易于维护',
-          '支持测试'
-        ]
+        benefits: ['职责明确', '易于维护', '支持测试'],
       });
     }
   }
@@ -82,7 +74,7 @@ function analyzeArchitecture(structureData) {
     insights.metrics = {
       codeQuality: calculateCodeQuality(stats),
       modularity: calculateModularity(structureData),
-      maintainability: calculateMaintainability(stats)
+      maintainability: calculateMaintainability(stats),
     };
 
     // 基于指标生成建议
@@ -93,7 +85,7 @@ function analyzeArchitecture(structureData) {
         insights.recommendations.push({
           title: '文件过大',
           description: `平均每个文件有 ${avgLinesPerFile.toFixed(0)} 行代码，建议拆分大文件以提高可维护性`,
-          priority: 'medium'
+          priority: 'medium',
         });
       }
     }
@@ -102,7 +94,7 @@ function analyzeArchitecture(structureData) {
       insights.recommendations.push({
         title: '模块化不足',
         description: '建议将代码组织成更多的模块，以提高代码的组织性和可维护性',
-        priority: 'high'
+        priority: 'high',
       });
     }
 
@@ -110,7 +102,7 @@ function analyzeArchitecture(structureData) {
       insights.recommendations.push({
         title: '缺少测试',
         description: '项目中未发现测试文件，建议添加单元测试和集成测试',
-        priority: 'high'
+        priority: 'high',
       });
     }
   }

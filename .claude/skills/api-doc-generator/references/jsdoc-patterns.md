@@ -98,19 +98,19 @@ async function apiCall<T>(url: string): Promise<T> {
 
 ## 常用 JSDoc 标签
 
-| 标签 | 用途 | 示例 |
-|------|------|------|
-| `@param` | 参数说明 | `@param {string} name - 参数名称` |
-| `@returns` | 返回值说明 | `@returns {number} 返回值说明` |
-| `@throws` | 异常说明 | `@throws {Error} 错误描述` |
-| `@example` | 使用示例 | `@example add(1, 2) // 3` |
-| `@deprecated` | 标记为已废弃 | `@deprecated 使用 newFunc 替代` |
-| `@see` | 相关链接 | `@see https://example.com` |
-| `@since` | 版本信息 | `@since 1.2.0` |
-| `@author` | 作者信息 | `@author John Doe` |
-| `@async` | 异步函数 | `@async` |
-| `@private` | 私有成员 | `@private` |
-| `@public` | 公共成员 | `@public` |
+| 标签          | 用途         | 示例                              |
+| ------------- | ------------ | --------------------------------- |
+| `@param`      | 参数说明     | `@param {string} name - 参数名称` |
+| `@returns`    | 返回值说明   | `@returns {number} 返回值说明`    |
+| `@throws`     | 异常说明     | `@throws {Error} 错误描述`        |
+| `@example`    | 使用示例     | `@example add(1, 2) // 3`         |
+| `@deprecated` | 标记为已废弃 | `@deprecated 使用 newFunc 替代`   |
+| `@see`        | 相关链接     | `@see https://example.com`        |
+| `@since`      | 版本信息     | `@since 1.2.0`                    |
+| `@author`     | 作者信息     | `@author John Doe`                |
+| `@async`      | 异步函数     | `@async`                          |
+| `@private`    | 私有成员     | `@private`                        |
+| `@public`     | 公共成员     | `@public`                         |
 
 ## 复杂类型示例
 

@@ -304,22 +304,22 @@ security:
 
 ## 数据类型
 
-| 类型 | 格式 | 描述 |
-|------|------|------|
-| `integer` | `int32` | 32位整数 |
-| `integer` | `int64` | 64位整数 |
-| `number` | `float` | 浮点数 |
-| `number` | `double` | 双精度浮点数 |
-| `string` | - | 字符串 |
-| `string` | `byte` | Base64编码 |
-| `string` | `binary` | 二进制数据 |
-| `string` | `date` | 日期 (RFC3339) |
-| `string` | `date-time` | 日期时间 (RFC3339) |
-| `string` | `password` | 密码 |
-| `string` | `email` | 邮箱地址 |
-| `string` | `uuid` | UUID |
-| `string` | `uri` | URI |
-| `boolean` | - | 布尔值 |
+| 类型      | 格式        | 描述               |
+| --------- | ----------- | ------------------ |
+| `integer` | `int32`     | 32位整数           |
+| `integer` | `int64`     | 64位整数           |
+| `number`  | `float`     | 浮点数             |
+| `number`  | `double`    | 双精度浮点数       |
+| `string`  | -           | 字符串             |
+| `string`  | `byte`      | Base64编码         |
+| `string`  | `binary`    | 二进制数据         |
+| `string`  | `date`      | 日期 (RFC3339)     |
+| `string`  | `date-time` | 日期时间 (RFC3339) |
+| `string`  | `password`  | 密码               |
+| `string`  | `email`     | 邮箱地址           |
+| `string`  | `uuid`      | UUID               |
+| `string`  | `uri`       | URI                |
+| `boolean` | -           | 布尔值             |
 
 ## 最佳实践
 

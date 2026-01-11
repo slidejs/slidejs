@@ -112,6 +112,7 @@ vue/
 ## 参考
 
 本 demo 参考了 `slidejs-swiper` demo 的实现方式，包括：
+
 - Monaco 编辑器的集成
 - 可调整分割器的实现
 - 布局结构和样式设计

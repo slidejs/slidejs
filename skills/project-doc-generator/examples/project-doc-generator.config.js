@@ -38,24 +38,19 @@ module.exports = {
     '**/coverage/**',
     '**/__tests__/**',
     '**/*.test.js',
-    '**/*.spec.ts'
+    '**/*.spec.ts',
   ],
 
   // 模块识别规则
   modules: {
     // 模块目录模式
-    patterns: [
-      'src/*',
-      'lib/*',
-      'packages/*',
-      'apps/*'
-    ],
+    patterns: ['src/*', 'lib/*', 'packages/*', 'apps/*'],
 
     // 最小文件数（少于此数不算模块）
     minFiles: 2,
 
     // 是否递归查找子模块
-    recursive: true
+    recursive: true,
   },
 
   // 架构图配置
@@ -73,20 +68,20 @@ module.exports = {
     generateImages: false,
 
     // 最大节点数（避免图表过于复杂）
-    maxNodes: 50
+    maxNodes: 50,
   },
 
   // 文档内容配置
   content: {
     // 包含的章节
     sections: [
-      'overview',      // 项目概览
-      'techStack',     // 技术栈
-      'architecture',  // 架构设计
-      'modules',       // 模块说明
-      'dependencies',  // 依赖关系
-      'deployment',    // 部署说明
-      'testing'        // 测试说明
+      'overview', // 项目概览
+      'techStack', // 技术栈
+      'architecture', // 架构设计
+      'modules', // 模块说明
+      'dependencies', // 依赖关系
+      'deployment', // 部署说明
+      'testing', // 测试说明
     ],
 
     // 是否包含目录
@@ -99,7 +94,7 @@ module.exports = {
     showTimestamp: true,
 
     // 是否显示项目统计
-    showStatistics: true
+    showStatistics: true,
   },
 
   // AI 分析配置
@@ -109,18 +104,18 @@ module.exports = {
 
     // 分析维度
     dimensions: [
-      'patterns',        // 架构模式识别
-      'quality',         // 代码质量评估
+      'patterns', // 架构模式识别
+      'quality', // 代码质量评估
       'maintainability', // 可维护性分析
-      'scalability',     // 可扩展性分析
-      'security'         // 安全性检查
+      'scalability', // 可扩展性分析
+      'security', // 安全性检查
     ],
 
     // 是否生成改进建议
     recommendations: true,
 
     // 建议的最小优先级: low | medium | high
-    minPriority: 'medium'
+    minPriority: 'medium',
   },
 
   // 技术栈识别配置
@@ -133,8 +128,8 @@ module.exports = {
       languages: [],
       frameworks: [],
       tools: [],
-      databases: []
-    }
+      databases: [],
+    },
   },
 
   // 依赖分析配置
@@ -155,26 +150,26 @@ module.exports = {
     checkCycles: true,
 
     // 是否显示依赖大小
-    showSize: false
+    showSize: false,
   },
 
   // 代码统计配置
   statistics: {
     // 统计的指标
     metrics: [
-      'fileCount',       // 文件数量
-      'lineCount',       // 代码行数
-      'moduleCount',     // 模块数量
-      'functionCount',   // 函数数量
-      'classCount',      // 类数量
-      'complexity'       // 复杂度
+      'fileCount', // 文件数量
+      'lineCount', // 代码行数
+      'moduleCount', // 模块数量
+      'functionCount', // 函数数量
+      'classCount', // 类数量
+      'complexity', // 复杂度
     ],
 
     // 是否按语言分类
     byLanguage: true,
 
     // 是否按模块分类
-    byModule: true
+    byModule: true,
   },
 
   // 输出格式配置
@@ -187,7 +182,7 @@ module.exports = {
       gfm: true,
 
       // 代码块语言
-      codeBlockLanguage: 'javascript'
+      codeBlockLanguage: 'javascript',
     },
 
     html: {
@@ -201,7 +196,7 @@ module.exports = {
       includeJs: false,
 
       // 是否生成单页面
-      singlePage: true
+      singlePage: true,
     },
 
     pdf: {
@@ -215,8 +210,8 @@ module.exports = {
       pageNumbers: true,
 
       // 是否包含目录
-      toc: true
-    }
+      toc: true,
+    },
   },
 
   // 模板配置
@@ -231,33 +226,33 @@ module.exports = {
     vars: {
       author: 'Your Name',
       copyright: '© 2024 Your Company',
-      license: 'MIT'
-    }
+      license: 'MIT',
+    },
   },
 
   // 钩子函数
   hooks: {
     // 生成前执行
-    beforeGenerate: async (context) => {
+    beforeGenerate: async context => {
       console.log('开始生成文档...');
       // 可以在这里执行预处理
     },
 
     // 生成后执行
-    afterGenerate: async (context) => {
+    afterGenerate: async context => {
       console.log('文档生成完成！');
       // 可以在这里执行后处理，如发送通知
     },
 
     // 分析前执行
-    beforeAnalyze: async (context) => {
+    beforeAnalyze: async context => {
       // 可以在这里执行预分析处理
     },
 
     // 分析后执行
-    afterAnalyze: async (context) => {
+    afterAnalyze: async context => {
       // 可以在这里处理分析结果
-    }
+    },
   },
 
   // 日志配置
@@ -272,7 +267,7 @@ module.exports = {
     verbose: false,
 
     // 日志文件路径（null 表示不写入文件）
-    file: null
+    file: null,
   },
 
   // 性能配置
@@ -284,7 +279,7 @@ module.exports = {
     maxFileSize: 10,
 
     // 超时时间（秒）
-    timeout: 300
+    timeout: 300,
   },
 
   // 缓存配置
@@ -296,6 +291,6 @@ module.exports = {
     dir: '.cache/project-doc-generator',
 
     // 缓存有效期（小时）
-    ttl: 24
-  }
+    ttl: 24,
+  },
 };

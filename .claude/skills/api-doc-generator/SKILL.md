@@ -1,6 +1,6 @@
 ---
 name: api-doc-generator
-description: "Comprehensive API documentation generator for code projects. Automatically scans source code to extract API information (functions, classes, interfaces, endpoints) and generates professional documentation in multiple formats (Markdown, HTML, OpenAPI). Use when Claude needs to: (1) Generate API documentation for a project, (2) Extract API information from source files, (3) Create OpenAPI/Swagger specifications, (4) Document TypeScript/JavaScript/Python APIs, (5) Scan code and produce structured API references, or (6) Any task involving automatic API documentation generation."
+description: 'Comprehensive API documentation generator for code projects. Automatically scans source code to extract API information (functions, classes, interfaces, endpoints) and generates professional documentation in multiple formats (Markdown, HTML, OpenAPI). Use when Claude needs to: (1) Generate API documentation for a project, (2) Extract API information from source files, (3) Create OpenAPI/Swagger specifications, (4) Document TypeScript/JavaScript/Python APIs, (5) Scan code and produce structured API references, or (6) Any task involving automatic API documentation generation.'
 ---
 
 # API Documentation Generator
@@ -80,6 +80,7 @@ Use when the user wants to update existing documentation:
 ### JavaScript/TypeScript
 
 **Extractable elements:**
+
 - Functions (regular, arrow, async)
 - Classes and methods
 - Interfaces
@@ -88,6 +89,7 @@ Use when the user wants to update existing documentation:
 - Export statements
 
 **Example:**
+
 ```typescript
 /**
  * Fetch user data from API
@@ -102,6 +104,7 @@ export async function fetchUser(userId: string): Promise<User> {
 ### Python
 
 **Extractable elements:**
+
 - Functions and methods
 - Classes
 - Docstrings (Google, NumPy, Sphinx styles)
@@ -109,6 +112,7 @@ export async function fetchUser(userId: string): Promise<User> {
 - Decorators (e.g., `@app.route`, `@dataclass`)
 
 **Example:**
+
 ```python
 def calculate_total(items: List[Item]) -> float:
     """
@@ -175,6 +179,7 @@ def calculate_total(items: List[Item]) -> float:
 Extract API information from a source file.
 
 **Usage:**
+
 ```bash
 python3 scripts/extract_api_info.py <file_path>
 ```
@@ -188,6 +193,7 @@ python3 scripts/extract_api_info.py <file_path>
 Generate Markdown documentation from extracted API information.
 
 **Usage:**
+
 ```bash
 python3 scripts/generate_markdown.py <api_info.json> [output.md]
 ```
@@ -200,6 +206,7 @@ python3 scripts/generate_markdown.py <api_info.json> [output.md]
 ### Markdown Template
 
 Located at `assets/templates/markdown-api.md`. Contains:
+
 - Header with metadata
 - Overview section
 - Quick start guide
@@ -207,6 +214,7 @@ Located at `assets/templates/markdown-api.md`. Contains:
 - Examples and FAQ
 
 **Variables:**
+
 - `{{API_NAME}}` - Project/API name
 - `{{TIMESTAMP}}` - Generation timestamp
 - `{{VERSION}}` - API version
@@ -216,12 +224,14 @@ Located at `assets/templates/markdown-api.md`. Contains:
 ### OpenAPI Template
 
 Located at `assets/templates/openapi-base.yaml`. Contains:
+
 - OpenAPI 3.0 structure
 - Standard error responses
 - Security schemes
 - Reusable components
 
 **Variables:**
+
 - `{{API_TITLE}}` - API title
 - `{{API_VERSION}}` - Version number
 - `{{SERVER_URL}}` - API base URL
@@ -272,6 +282,7 @@ For detailed information on documentation standards:
 - **OpenAPI spec**: See [references/openapi-spec.md](references/openapi-spec.md)
 
 Load these references when you need detailed guidance on:
+
 - JSDoc comment syntax and best practices
 - OpenAPI 3.0 specification format
 - Complex type definitions

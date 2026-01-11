@@ -178,11 +178,7 @@ function main() {
 你也可以复制图表代码到 [Mermaid Live Editor](https://mermaid.live/) 在线查看和编辑。
 `;
 
-  fs.writeFileSync(
-    path.join(options.output, 'README.md'),
-    indexContent,
-    'utf-8'
-  );
+  fs.writeFileSync(path.join(options.output, 'README.md'), indexContent, 'utf-8');
 
   console.log('✅ 架构图生成完成');
   console.log(`  • modules.md - 模块架构图`);

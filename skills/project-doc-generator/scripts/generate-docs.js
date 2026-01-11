@@ -237,9 +237,11 @@ function generateDependenciesDoc(data) {
         content += `### 开发依赖\n\n`;
         content += `| 包名 | 版本 |\n`;
         content += `|------|------|\n`;
-        Object.entries(packageJson.devDependencies).slice(0, 20).forEach(([name, version]) => {
-          content += `| ${name} | ${version} |\n`;
-        });
+        Object.entries(packageJson.devDependencies)
+          .slice(0, 20)
+          .forEach(([name, version]) => {
+            content += `| ${name} | ${version} |\n`;
+          });
 
         const total = Object.keys(packageJson.devDependencies).length;
         if (total > 20) {
@@ -314,23 +316,11 @@ function main() {
   const dependenciesDoc = generateDependenciesDoc(data);
 
   // 写入文件
-  fs.writeFileSync(
-    path.join(options.output, 'ARCHITECTURE.md'),
-    architectureDoc,
-    'utf-8'
-  );
+  fs.writeFileSync(path.join(options.output, 'ARCHITECTURE.md'), architectureDoc, 'utf-8');
 
-  fs.writeFileSync(
-    path.join(options.output, 'MODULES.md'),
-    modulesDoc,
-    'utf-8'
-  );
+  fs.writeFileSync(path.join(options.output, 'MODULES.md'), modulesDoc, 'utf-8');
 
-  fs.writeFileSync(
-    path.join(options.output, 'DEPENDENCIES.md'),
-    dependenciesDoc,
-    'utf-8'
-  );
+  fs.writeFileSync(path.join(options.output, 'DEPENDENCIES.md'), dependenciesDoc, 'utf-8');
 
   console.log('✅ 文档生成完成');
   console.log(`  • ARCHITECTURE.md`);
