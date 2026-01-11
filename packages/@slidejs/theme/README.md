@@ -264,22 +264,23 @@ interface StandardTheme {
 
 ```typescript
 interface StandardTheme {
-  navigationColor?: string;      // 导航控件颜色
-  paginationColor?: string;      // 分页控件颜色
+  navigationColor?: string; // 导航控件颜色
+  paginationColor?: string; // 分页控件颜色
   paginationActiveColor?: string; // 分页控件激活状态颜色
-  scrollbarBg?: string;          // 滚动条背景色
-  scrollbarDragBg?: string;      // 滚动条拖拽颜色
-  arrowColor?: string;           // 导航箭头颜色
-  progressBarColor?: string;     // 进度指示器颜色
-  backgroundColor?: string;      // 幻灯片背景色
-  textColor?: string;            // 文本颜色
-  linkColor?: string;            // 链接颜色
-  headingColor?: string;         // 标题颜色
-  codeBackground?: string;        // 代码块背景色
+  scrollbarBg?: string; // 滚动条背景色
+  scrollbarDragBg?: string; // 滚动条拖拽颜色
+  arrowColor?: string; // 导航箭头颜色
+  progressBarColor?: string; // 进度指示器颜色
+  backgroundColor?: string; // 幻灯片背景色
+  textColor?: string; // 文本颜色
+  linkColor?: string; // 链接颜色
+  headingColor?: string; // 标题颜色
+  codeBackground?: string; // 代码块背景色
 }
 ```
 
 **重要**：
+
 - 这些是抽象主题属性，不涉及具体的 runner 实现
 - 各个 runner 可以自由决定如何应用这些抽象属性
 - 例如，`navigationColor` 可能被应用到按钮、箭头或其他导航控件，取决于 runner 的实现
