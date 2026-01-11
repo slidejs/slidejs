@@ -19,7 +19,7 @@
     "copy:404": "tsx scripts/copy-404.ts",
     "lint": "eslint src --ext .ts,.wsx",
     "lint:fix": "eslint src --ext .ts,.wsx --fix",
-    "build:pages": "cross-env NODE_ENV=production GITHUB_PAGES=true CUSTOM_DOMAIN=true vite build && pnpm copy:demos && pnpm copy:404",
+    "build:pages": "cross-env NODE_ENV=production GITHUB_PAGES=true CUSTOM_DOMAIN=true vite build && pnpm copy:demos",
     "deploy:pages": "pnpm build:pages && gh-pages -d dist"
   },
   "dependencies": {

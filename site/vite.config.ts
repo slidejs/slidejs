@@ -4,35 +4,43 @@ import { wsxPress } from '@wsxjs/wsx-press/node';
 import UnoCSS from 'unocss/vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { copyFileSync, existsSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * Vite 插件：处理 pino 浏览器版本的导入问题
+ * Vite 插件：复制 index.html 到 404.html
  *
- * 问题：pino/browser.js 是 CommonJS 模块，使用 module.exports，但某些代码可能尝试默认导入
- * 解决：拦截 pino 的导入，重定向到 pino/browser，并确保正确的导出处理
+ * GitHub Pages 使用 404.html 来处理客户端路由（SPA）
+ * 当用户直接访问不存在的路径时，GitHub Pages 会返回 404.html
+ * 如果 404.html 和 index.html 内容相同，SPA 路由就能正常工作
  */
-function pinoBrowserPlugin(): Plugin {
+function copy404Plugin(): Plugin {
   return {
-    name: 'pino-browser-fix',
-    enforce: 'pre',
-    resolveId(id, importer) {
-      // 如果导入的是 pino，重定向到 pino/browser
-      if (id === 'pino' && importer) {
-        return {
-          id: 'pino/browser',
-          external: false,
-        };
+    name: 'copy-404',
+    enforce: 'post',
+    closeBundle() {
+      // 只在生产构建时执行
+      if (process.env.NODE_ENV !== 'production') {
+        return;
       }
-      return null;
-    },
-    load(id) {
-      // 如果加载的是 pino/browser，确保正确处理 CommonJS 导出
-      if (id.includes('pino/browser')) {
-        return null; // 让 Vite 正常处理
+
+      // 使用 vite.config.ts 中定义的 outDir
+      const outDir = path.resolve(__dirname, 'dist');
+      const indexHtml = path.resolve(outDir, 'index.html');
+      const notFoundHtml = path.resolve(outDir, '404.html');
+
+      if (!existsSync(indexHtml)) {
+        console.warn(`⚠️  index.html 不存在: ${indexHtml}`);
+        return;
       }
-      return null;
+
+      try {
+        copyFileSync(indexHtml, notFoundHtml);
+        console.log(`✅ 已复制 index.html 到 404.html`);
+      } catch (error) {
+        console.error(`❌ 复制 404.html 失败:`, error);
+      }
     },
   };
 }
@@ -48,8 +56,6 @@ export default defineConfig({
       : '/', // 开发模式
 
   plugins: [
-    // pino 浏览器版本修复插件 - 必须在最前面
-    pinoBrowserPlugin(),
     // wsx-press 插件 - 构建文档页面（必须在其他插件之前）
     // 注意：当前版本 (0.0.19) 存在 glob 导入问题，需要等待上游修复
     // 如果遇到 "Named export 'glob' not found" 错误，请暂时注释掉此插件
@@ -65,6 +71,8 @@ export default defineConfig({
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
     }),
+    // 复制 404.html 插件 - 在构建完成后执行
+    copy404Plugin(),
   ],
 
   build: {
