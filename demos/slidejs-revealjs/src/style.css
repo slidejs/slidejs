@@ -1,72 +1,173 @@
-/**
- * Slide DSL + reveal.js Demo Styles
- */
-
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #1e1e1e;
+  overflow: hidden;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-/* 幻灯片内容样式 */
-.slide-content {
+/* 主题切换工具栏 */
+.theme-toolbar {
+  width: 100%;
+  height: 40px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.theme-toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.theme-label {
+  font-size: 0.85em;
+  color: #cccccc;
+  margin-right: 0.5em;
+}
+
+.theme-btn {
+  padding: 0.4em 0.8em;
+  background: #3c3c3c;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  color: #cccccc;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-btn:hover {
+  background: #4a4a4a;
+  border-color: #4a90e2;
+  color: #ffffff;
+}
+
+.theme-btn.active {
+  background: #4a90e2;
+  border-color: #4a90e2;
+  color: #ffffff;
+}
+
+/* 顶部播放器区域 (3/4) */
+.player-container {
+  width: 100%;
+  height: 75%;
+  position: relative;
+}
+
+#player {
   width: 100%;
   height: 100%;
+}
+
+/* 底部编辑器区域 (1/4) */
+.editor-container {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  background: #1e1e1e;
+  position: relative;
+}
+
+/* 分割器样式 */
+.splitter-horizontal {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  cursor: row-resize;
+  z-index: 10;
+  background: transparent;
+}
+
+.splitter-vertical {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+}
+
+.splitter-handle {
+  width: 100%;
+  height: 100%;
+  background: #3c3c3c;
+  transition: background 0.2s;
+}
+
+.splitter-handle:hover {
+  background: #4a90e2;
+}
+
+.splitter-horizontal .splitter-handle {
+  height: 2px;
+  margin: 3px 0;
+}
+
+.splitter-vertical .splitter-handle {
+  width: 2px;
+  margin: 0 3px;
+}
+
+/* 编辑器面板 */
+.editor-panel,
+.json-panel {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2em;
+  background: #1e1e1e;
+  overflow: hidden;
 }
 
-.slide-content p {
-  font-size: 1.8em;
-  margin: 0.5em 0;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 800px;
+.panel-header {
+  padding: 0.5em 1em;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
 }
 
-.slide-content p:first-child {
-  font-size: 2.5em;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-
-/* reveal.js 自定义样式 */
-.reveal .slides {
-  text-align: center;
-}
-
-.reveal h1,
-.reveal h2,
-.reveal h3,
-.reveal h4,
-.reveal h5,
-.reveal h6 {
+.panel-header h3 {
+  margin: 0;
+  font-size: 0.9em;
   font-weight: 600;
+  color: #cccccc;
 }
 
-/* 加载提示 */
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-size: 2em;
-  color: #666;
+.editor-content,
+.json-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* JSON 面板特定样式 */
+.json-panel {
+  border-left: 1px solid #3c3c3c;
 }

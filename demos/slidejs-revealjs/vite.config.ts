@@ -1,6 +1,32 @@
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { wsx } from '@wsxjs/wsx-vite-plugin';
 import path from 'path';
+
+/**
+ * Vite 插件：修复 CSS 中的绝对路径为相对路径
+ * 将 url(/assets/...) 转换为 url(./assets/...) 以便在子目录部署时正确加载
+ */
+function fixCssAbsolutePaths(): Plugin {
+  return {
+    name: 'fix-css-absolute-paths',
+    enforce: 'post',
+    generateBundle(options, bundle) {
+      // 处理所有 CSS 文件
+      for (const fileName in bundle) {
+        const file = bundle[fileName];
+        if (file.type === 'asset' && fileName.endsWith('.css')) {
+          // 修复 CSS 中的绝对路径
+          if (typeof file.source === 'string') {
+            file.source = file.source.replace(
+              /url\(["']?\/assets\/([^"')]+)["']?\)/g,
+              'url("./assets/$1")'
+            );
+          }
+        }
+      }
+    },
+  };
+}
 
 export default defineConfig({
   // 使用相对路径，确保在子目录部署时资源路径正确
@@ -8,10 +34,12 @@ export default defineConfig({
   plugins: [
     // wsx 插件 - 处理 .wsx 文件
     wsx({
-      debug: process.env.NODE_ENV === 'development',
+      debug: false,
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
     }),
+    // 修复 CSS 中的绝对路径
+    fixCssAbsolutePaths(),
   ],
   resolve: {
     alias: {
@@ -27,6 +55,14 @@ export default defineConfig({
               __dirname,
               '../../packages/@slidejs/runner-revealjs/src'
             ),
+            '@slidejs/editor': path.resolve(
+              __dirname,
+              '../../packages/@slidejs/editor/src'
+            ),
+            '@slidejs/theme': path.resolve(
+              __dirname,
+              '../../packages/@slidejs/theme/src'
+            ),
           }
         : {}),
     },
@@ -39,7 +75,10 @@ export default defineConfig({
       '@slidejs/context',
       '@slidejs/dsl',
       '@slidejs/runner-revealjs',
+      '@slidejs/editor',
+      '@slidejs/theme',
       '@wsxjs/wsx-core',
+      'monaco-editor',
     ],
   },
   server: {

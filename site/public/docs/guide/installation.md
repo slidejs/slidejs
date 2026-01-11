@@ -1,92 +1,91 @@
+---
+title: 安装指南
+order: 2
+category: guide
+description: "详细的安装说明，包括环境要求、包管理器选择和 TypeScript 支持"
+---
+
 # 安装指南
 
 本指南将帮助您安装 SlideJS 及其依赖。
 
 ## 环境要求
 
-- **Node.js**: >= 16.0.0
-- **浏览器**: 支持 Web Components 的现代浏览器
+- **Node.js**: >= 22.12.0
+- **浏览器**: 支持 Web Components 的现代浏览器（Chrome、Firefox、Safari、Edge 最新版本）
 
 ## 安装步骤
 
-### 步骤 1: 选择安装方式
+### 步骤 1: 安装核心包
 
-根据您的使用场景，选择以下安装方式之一：
-
-#### 方式 A: 使用编辑器 + 播放器（推荐）
-
-如果您需要创建和展示测验：
+所有 SlideJS 项目都需要核心包：
 
 ```bash
-npm install @slidejs/quizerjs @slidejs/core @slidejs/dsl
+npm install @slidejs/core @slidejs/dsl @slidejs/context
 ```
 
-#### 方式 B: 仅使用播放器
+### 步骤 2: 选择运行器（必需）
 
-如果您只需要展示测验：
+根据您的需求，选择一个或多个运行器：
+
+#### Reveal.js 运行器（推荐用于演示文稿）
 
 ```bash
-npm install @slidejs/core @slidejs/dsl
+npm install @slidejs/runner-revealjs
 ```
 
-#### 方式 C: 仅使用 DSL 验证
-
-如果您只需要验证 DSL 数据：
+#### Swiper 运行器（推荐用于移动端）
 
 ```bash
-npm install @slidejs/dsl
+npm install @slidejs/runner-swiper
 ```
 
-### 步骤 2: 安装框架集成包（可选）
-
-根据您使用的框架，安装相应的集成包：
-
-#### React
+#### Splide 运行器（轻量级）
 
 ```bash
-npm install @slidejs/react @slidejs/dsl
-npm install react react-dom
+npm install @slidejs/runner-splide
 ```
 
-#### Vue
+### 步骤 3: 安装主题系统（可选）
+
+如果需要自定义主题：
 
 ```bash
-npm install @slidejs/vue @slidejs/dsl
-npm install vue@^3.0.0
+npm install @slidejs/theme
 ```
 
-#### Svelte
-
-```bash
-npm install @slidejs/svelte @slidejs/dsl
-npm install svelte@^4.0.0
-```
-
-#### Vanilla JS
-
-无需安装额外包，直接使用 `@slidejs/quizerjs` 和 `@slidejs/core`。
-
-### 步骤 3: 验证安装
+### 步骤 4: 验证安装
 
 安装完成后，验证安装是否成功：
 
 ```typescript
-import { validateQuizDSL } from '@slidejs/dsl';
+import { parseSlideDSL, compile } from '@slidejs/dsl';
+import type { SlideContext } from '@slidejs/context';
 
-console.log('✅ SlideJS DSL 已安装！');
+console.log('✅ SlideJS 已安装！');
 
-// 测试验证功能
-const testDSL = {
-  version: '1.0.0',
-  quiz: {
-    id: 'test',
-    title: '测试',
-    questions: [],
-  },
-};
+// 测试 DSL 解析功能
+const testDSL = `
+present quiz "test" {
+  rules {
+    rule start "intro" {
+      slide {
+        content text {
+          "Hello, SlideJS!"
+        }
+      }
+    }
+  }
+}
+`;
 
-const result = validateQuizDSL(testDSL);
-console.log('验证功能:', result.valid ? '✅ 正常' : '❌ 异常');
+try {
+  const ast = await parseSlideDSL(testDSL);
+  const slideDSL = compile(ast);
+  console.log('✅ DSL 解析和编译功能正常');
+} catch (error) {
+  console.error('❌ 错误:', error);
+}
 ```
 
 ## TypeScript 支持
@@ -94,8 +93,9 @@ console.log('验证功能:', result.valid ? '✅ 正常' : '❌ 异常');
 所有包都包含完整的 TypeScript 类型定义，无需额外安装类型包。
 
 ```typescript
-import type { QuizDSL, Question, QuestionType } from '@slidejs/dsl';
-import type { QuizEditorOptions } from '@slidejs/quizerjs';
+import type { SlideDSL, SlideContext } from '@slidejs/core';
+import type { PresentationNode } from '@slidejs/dsl';
+import type { SlideRunner } from '@slidejs/runner';
 ```
 
 ## 使用包管理器
@@ -103,23 +103,41 @@ import type { QuizEditorOptions } from '@slidejs/quizerjs';
 ### npm
 
 ```bash
-npm install @slidejs/quizerjs @slidejs/core @slidejs/dsl
+npm install @slidejs/core @slidejs/dsl @slidejs/context @slidejs/runner-revealjs
 ```
 
 ### pnpm
 
 ```bash
-pnpm add @slidejs/quizerjs @slidejs/core @slidejs/dsl
+pnpm add @slidejs/core @slidejs/dsl @slidejs/context @slidejs/runner-revealjs
 ```
 
 ### yarn
 
 ```bash
-yarn add @slidejs/quizerjs @slidejs/core @slidejs/dsl
+yarn add @slidejs/core @slidejs/dsl @slidejs/context @slidejs/runner-revealjs
+```
+
+## 完整安装示例
+
+### 最小安装（仅核心功能）
+
+```bash
+npm install @slidejs/core @slidejs/dsl @slidejs/context @slidejs/runner-revealjs
+```
+
+### 完整安装（包含所有功能）
+
+```bash
+npm install @slidejs/core @slidejs/dsl @slidejs/context \
+  @slidejs/runner-revealjs \
+  @slidejs/runner-swiper \
+  @slidejs/runner-splide \
+  @slidejs/theme
 ```
 
 ## 下一步
 
 - [快速开始](./getting-started.md) - 5 分钟快速上手
-- [DSL 指南](./dsl-guide.md) - 了解 DSL 数据格式
-- [框架集成](./vue-integration.md) - 在 Vue、React、Svelte 中使用
+- [Slide DSL 完整指南](./dsl-guide.md) - 深入了解 DSL 语法和功能
+- [示例项目](https://github.com/slidejs/slidejs/tree/main/demos) - 查看完整示例代码

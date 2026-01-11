@@ -9,6 +9,10 @@ import { SlideRunner } from '@slidejs/runner';
 import type { SlideContext } from '@slidejs/context';
 import { SplideAdapter } from './adapter';
 import type { SplideAdapterOptions } from './types';
+// 导入 CSS 内容用于注入
+// 注意：根据 @splidejs/splide 的 package.json exports，使用 '@splidejs/splide/css'
+import splideCSS from '@splidejs/splide/css?inline';
+import customCSS from './style.css?inline';
 
 /**
  * SlideRunner 配置选项
@@ -67,10 +71,48 @@ export async function createSlideRunner<TContext extends SlideContext = SlideCon
   // 2. 编译为 SlideDSL
   const slideDSL = compile<TContext>(ast);
 
-  // 3. 创建适配器和 Runner
+  // 2.1 注入 Splide CSS 到 document.head（全局，如果尚未注入）
+  const globalStyleId = 'splide-styles';
+  const globalStyles = document.head.querySelector(`#${globalStyleId}`);
+  if (!globalStyles) {
+    const style = document.createElement('style');
+    style.id = globalStyleId;
+    style.textContent = splideCSS;
+    document.head.appendChild(style);
+  }
+
+  // 2.2 获取用户提供的容器元素
+  let userContainer: HTMLElement;
+  if (typeof config.container === 'string') {
+    const element = document.querySelector(config.container);
+    if (!element) {
+      throw new Error(`Container not found: ${config.container}`);
+    }
+    userContainer = element as HTMLElement;
+  } else {
+    userContainer = config.container;
+  }
+
+  // 2.3 注入自定义 CSS 样式到容器
+  const styleId = 'slidejs-runner-splide-styles';
+  if (!userContainer.querySelector(`#${styleId}`)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = customCSS;
+    userContainer.appendChild(style);
+  }
+
+  // 2.4 创建一个新的 div 节点用于 Splide（Splide 会接管这个 div）
+  const splideContainer = document.createElement('div');
+  // 确保容器占满父元素的高度和宽度
+  splideContainer.style.width = '100%';
+  splideContainer.style.height = '100%';
+  userContainer.appendChild(splideContainer);
+
+  // 3. 创建适配器和 Runner（将 splideContainer 传给 Runner，而不是 userContainer）
   const adapter = new SplideAdapter();
   const runner = new SlideRunner<TContext>({
-    container: config.container,
+    container: splideContainer,
     adapter,
     adapterOptions: {
       splideConfig: config.splideOptions,

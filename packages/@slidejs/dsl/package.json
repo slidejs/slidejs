@@ -26,14 +26,14 @@
     "clean": "rm -rf dist src/generated"
   },
   "dependencies": {
-    "@slidejs/core": "workspace:*",
-    "@slidejs/context": "workspace:*"
+    "@slidejs/context": "workspace:*",
+    "@slidejs/core": "workspace:*"
   },
   "devDependencies": {
     "peggy": "^4.0.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.0",
-    "vite-plugin-dts": "^3.0.0",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.0.0"
   },
   "keywords": [

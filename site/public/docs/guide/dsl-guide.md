@@ -1,3 +1,10 @@
+---
+title: Slide DSL 完整指南
+order: 3
+category: guide
+description: "深入了解 Slide DSL 语法、规则引擎、API 使用方法和最佳实践"
+---
+
 # Slide DSL 完整指南
 
 > 本指南将帮助您理解和使用 SlideJS 的 Slide DSL（领域特定语言），包括语法、规则引擎和 API 使用方法。
@@ -209,23 +216,23 @@ for section in quiz.sections {
 
 ```
 behavior {
-  transition zoom {
+  transition slide {
     speed: 500
-  }
-  background {
-    color: "#ffffff"
+    direction: "horizontal"
   }
 }
 ```
 
 支持的过渡类型：
 
-- `slide` - 滑动
+- `slide` - 滑动（默认）
 - `zoom` - 缩放
 - `fade` - 淡入淡出
-- `cube` - 立方体
-- `flip` - 翻转
+- `cube` - 立方体（部分运行器支持）
+- `flip` - 翻转（部分运行器支持）
 - `none` - 无过渡
+
+**注意**：不同运行器支持的过渡类型可能不同。`slide` 和 `fade` 是通用支持的，其他类型取决于运行器的能力。
 
 ## 完整示例
 
@@ -378,15 +385,149 @@ const slides = engine.generate(context);
 ### 使用 Runner
 
 ```typescript
-import { createRunner } from '@slidejs/runner-revealjs';
+import { createSlideRunner } from '@slidejs/runner-revealjs';
+import type { SlideContext } from '@slidejs/context';
 
-const runner = createRunner({
-  container: document.getElementById('slides')!,
-  dsl: slideDSL,
-  context: context,
+// DSL 源代码
+const dslSource = `
+present quiz "my-quiz" {
+  rules {
+    rule start "intro" {
+      slide {
+        content text {
+          "Welcome!"
+        }
+      }
+    }
+  }
+}
+`;
+
+// 上下文数据
+const context: SlideContext = {
+  sourceType: 'quiz',
+  sourceId: 'my-quiz',
+  metadata: { title: 'My Quiz' },
+  items: [],
+};
+
+// 创建并运行
+const runner = await createSlideRunner(dslSource, context, {
+  container: '#slides',
+  revealOptions: {
+    controls: true,
+    progress: true,
+  },
 });
 
-await runner.init();
+// 开始播放
+runner.play();
+```
+
+## 实际使用场景
+
+### 场景 1: 从数据源生成幻灯片
+
+```slide
+present quiz "math-quiz" {
+  rules {
+    rule content "questions" {
+      for item in quiz.items {
+        slide {
+          content dynamic {
+            name: "quiz-question"
+            attrs {
+              question: item.text
+              options: item.data.options
+            }
+          }
+          behavior {
+            transition slide {}
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### 场景 2: 嵌套结构处理
+
+```slide
+present quiz "comprehensive-quiz" {
+  rules {
+    rule content "sections" {
+      for section in quiz.groups {
+        // 章节标题页
+        slide {
+          content text {
+            section.title
+          }
+          behavior {
+            transition fade {}
+          }
+        }
+
+        // 章节内容
+        for item in section.items {
+          slide {
+            content dynamic {
+              name: "question-slide"
+              attrs {
+                section: section.title
+                question: item.text
+              }
+            }
+            behavior {
+              transition slide {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### 场景 3: 混合静态和动态内容
+
+```slide
+present quiz "mixed-content" {
+  rules {
+    rule start "intro" {
+      slide {
+        content text {
+          "# 欢迎"
+          ""
+          "这是一个混合内容的演示"
+        }
+      }
+    }
+
+    rule content "dynamic" {
+      for item in quiz.items {
+        slide {
+          content dynamic {
+            name: "custom-component"
+            attrs {
+              data: item
+            }
+          }
+        }
+      }
+    }
+
+    rule end "conclusion" {
+      slide {
+        content text {
+          "# 总结"
+          ""
+          "感谢观看！"
+        }
+      }
+    }
+  }
+}
 ```
 
 ## 最佳实践
@@ -406,12 +547,16 @@ rule end "thank-you-slide" { ... }
 将相关的内容组织在一起，使用嵌套循环处理层次结构：
 
 ```slide
-for section in quiz.sections {
+for section in quiz.groups {
   // 章节标题
-  slide { ... }
+  slide {
+    content text {
+      section.title
+    }
+  }
 
   // 章节内容
-  for question in section.questions {
+  for item in section.items {
     slide { ... }
   }
 }
@@ -424,10 +569,15 @@ for section in quiz.sections {
 ```slide
 behavior {
   transition slide {
-    speed: "default"
+    speed: 300
   }
 }
 ```
+
+**建议**：
+- 标题页使用 `fade` 或 `zoom`
+- 内容页使用 `slide`
+- 结束页使用 `fade` 或 `zoom`
 
 ### 4. 组件复用
 
@@ -438,6 +588,115 @@ content dynamic {
   name: "reusable-component"
   attrs {
     data: item
+    config: quiz.metadata
+  }
+}
+```
+
+### 5. 错误处理
+
+在代码中处理解析和编译错误：
+
+```typescript
+import { parseSlideDSL, compile, ParseError, CompileError } from '@slidejs/dsl';
+
+try {
+  const ast = await parseSlideDSL(dslSource);
+  const slideDSL = compile(ast);
+} catch (error) {
+  if (error instanceof ParseError) {
+    console.error('解析错误:', error.message, error.location);
+  } else if (error instanceof CompileError) {
+    console.error('编译错误:', error.message);
+  } else {
+    console.error('未知错误:', error);
+  }
+}
+```
+
+### 6. 性能优化
+
+对于大量数据，考虑：
+
+1. **分页加载**：只生成当前需要的幻灯片
+2. **懒加载**：延迟加载动态组件
+3. **缓存**：缓存编译后的 DSL 对象
+
+```typescript
+// 缓存编译结果
+const cache = new Map<string, SlideDSL>();
+
+function getCompiledDSL(source: string): SlideDSL {
+  const hash = hashString(source);
+  if (cache.has(hash)) {
+    return cache.get(hash)!;
+  }
+  
+  const ast = await parseSlideDSL(source);
+  const slideDSL = compile(ast);
+  cache.set(hash, slideDSL);
+  return slideDSL;
+}
+```
+
+## 常见问题
+
+### Q: 如何访问上下文数据？
+
+A: 在 DSL 中，可以通过路径表达式访问上下文数据：
+
+```slide
+rule content "data-access" {
+  slide {
+    content text {
+      quiz.metadata.title
+      "Total items: " + quiz.items.length
+    }
+  }
+}
+```
+
+### Q: 支持哪些数据类型？
+
+A: 支持的数据源类型：
+- `quiz` - 测验数据
+- `survey` - 调查数据
+- `form` - 表单数据
+- `assessment` - 评估数据
+
+### Q: 如何自定义主题？
+
+A: 使用 `@slidejs/theme` 包：
+
+```typescript
+import { setTheme } from '@slidejs/theme';
+
+setTheme({
+  navigationColor: '#ff0000',
+  paginationColor: '#00ff00',
+  backgroundColor: '#ffffff',
+  textColor: '#000000',
+});
+```
+
+### Q: 可以在 DSL 中使用条件逻辑吗？
+
+A: 当前版本不支持条件逻辑（`if/else`），但可以通过数据源预处理来实现条件效果。条件逻辑支持计划在未来的版本中添加（参见 RFC 0003）。
+
+### Q: 如何调试 DSL？
+
+A: 使用解析和编译错误信息：
+
+```typescript
+try {
+  const ast = await parseSlideDSL(dslSource);
+  console.log('AST:', ast);
+  
+  const slideDSL = compile(ast);
+  console.log('Compiled DSL:', slideDSL);
+} catch (error) {
+  if (error instanceof ParseError) {
+    console.error('位置:', error.location);
   }
 }
 ```
@@ -446,3 +705,5 @@ content dynamic {
 
 - [GitHub 仓库](https://github.com/slidejs/slidejs)
 - [npm 包](https://www.npmjs.com/package/@slidejs/dsl)
+- [RFC 文档](../../../docs/rfc/) - 技术规范和架构设计
+- [示例项目](https://github.com/slidejs/slidejs/tree/main/demos) - 完整示例代码

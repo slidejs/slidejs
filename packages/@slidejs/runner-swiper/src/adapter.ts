@@ -243,12 +243,11 @@ export class SwiperAdapter implements SlideAdapter {
   /**
    * 创建 Swiper DOM 结构
    *
-   * @param container - 容器元素
+   * @param container - 容器元素（这是 runner.ts 创建的独立 div，Swiper 会接管它）
    */
   private createSwiperStructure(container: HTMLElement): void {
-    // 创建 .swiper 容器
-    const swiperDiv = document.createElement('div');
-    swiperDiv.className = 'swiper';
+    // 创建 .swiper 容器（直接在传入的 container 上设置 class）
+    container.className = 'swiper';
 
     // 创建 .swiper-wrapper 容器
     const wrapperDiv = document.createElement('div');
@@ -264,13 +263,12 @@ export class SwiperAdapter implements SlideAdapter {
     const pagination = document.createElement('div');
     pagination.className = 'swiper-pagination';
 
-    swiperDiv.appendChild(wrapperDiv);
-    swiperDiv.appendChild(prevButton);
-    swiperDiv.appendChild(nextButton);
-    swiperDiv.appendChild(pagination);
-    container.appendChild(swiperDiv);
+    container.appendChild(wrapperDiv);
+    container.appendChild(prevButton);
+    container.appendChild(nextButton);
+    container.appendChild(pagination);
 
-    this.swiperContainer = swiperDiv;
+    this.swiperContainer = container;
     this.swiperWrapper = wrapperDiv;
   }
 

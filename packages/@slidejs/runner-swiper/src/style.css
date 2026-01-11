@@ -1,0 +1,154 @@
+/**
+ * @slidejs/runner-swiper - Swiper 核心样式
+ *
+ * 此文件导入 Swiper 的核心 CSS，用户只需导入此包即可获得所有必需的样式。
+ * 可选样式（如 navigation、pagination）需要单独导入。
+ *
+ * 使用示例：
+ * ```typescript
+ * import '@slidejs/runner-swiper';
+ * // 或显式导入样式
+ * import '@slidejs/runner-swiper/style.css';
+ * ```
+ *
+ * 自定义样式：
+ * 可以通过 CSS 变量自定义样式，例如：
+ * ```css
+ * :root {
+ *   --slidejs-swiper-navigation-color: #007aff;
+ *   --slidejs-swiper-pagination-color: #007aff;
+ * }
+ * ```
+ */
+
+/* Swiper 容器基础样式 */
+.swiper {
+  width: 100%;
+  height: 100%;
+
+  /* Runner 特定变量映射 - 将标准变量映射到 Swiper 特定变量 */
+  /* 注意：标准变量的默认值由 @slidejs/theme 包定义，runner 只消费这些变量 */
+
+  /* Swiper 导航按钮颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-swiper-navigation-color: var(--slidejs-navigation-color, #007aff);
+  /* Swiper 分页器颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-swiper-pagination-color: var(--slidejs-pagination-color, #007aff);
+  /* Swiper 分页器激活颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-swiper-pagination-bullet-active-color: var(--slidejs-pagination-active-color, #007aff);
+  /* Swiper 滚动条颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-swiper-scrollbar-bg: var(--slidejs-scrollbar-bg, rgba(0, 0, 0, 0.1));
+  --slidejs-swiper-scrollbar-drag-bg: var(--slidejs-scrollbar-drag-bg, rgba(0, 0, 0, 0.5));
+
+  /* 同时设置 Swiper 自己的 CSS 变量（Swiper 的 CSS 使用这些变量） */
+  /* 注意：标准变量的默认值由 @slidejs/theme 包定义 */
+  --swiper-navigation-color: var(--slidejs-navigation-color, #007aff);
+  --swiper-pagination-color: var(--slidejs-pagination-color, #007aff);
+  --swiper-pagination-bullet-active-color: var(--slidejs-pagination-active-color, #007aff);
+  --swiper-theme-color: var(--slidejs-navigation-color, #007aff);
+}
+
+/* 应用 CSS 变量到 Swiper 组件 */
+/* 使用更具体的选择器确保能够覆盖 Swiper 的默认样式 */
+.swiper .swiper-button-next,
+.swiper .swiper-button-prev {
+  color: var(--swiper-navigation-color, var(--slidejs-swiper-navigation-color, #007aff)) !important;
+}
+
+.swiper .swiper-pagination-bullet {
+  background-color: var(
+    --swiper-pagination-color,
+    var(--slidejs-swiper-pagination-color, #007aff)
+  ) !important;
+}
+
+.swiper .swiper-pagination-bullet-active {
+  background-color: var(
+    --swiper-pagination-bullet-active-color,
+    var(--slidejs-swiper-pagination-bullet-active-color, #007aff)
+  ) !important;
+}
+
+.swiper .swiper-scrollbar {
+  background: var(--slidejs-swiper-scrollbar-bg, rgba(0, 0, 0, 0.1)) !important;
+}
+
+.swiper .swiper-scrollbar-drag {
+  background: var(--slidejs-swiper-scrollbar-drag-bg, rgba(0, 0, 0, 0.5)) !important;
+}
+
+/* Swiper Slide 样式 - 确保内容垂直和水平居中 */
+/* 注意：标准变量的默认值由 @slidejs/theme 包定义，fallback 仅作为临时默认值 */
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--slidejs-background-color, #fff);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Slide Content 容器样式 - 允许通过 CSS 变量自定义 */
+/* 注意：标准变量的默认值由 @slidejs/theme 包定义，fallback 仅作为临时默认值 */
+.slide-content {
+  width: 100%;
+  text-align: center;
+}
+
+.slide-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--slidejs-heading-color, #333);
+}
+
+.slide-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--slidejs-heading-color, #666);
+}
+
+.slide-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--slidejs-heading-color, #666);
+}
+
+.slide-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--slidejs-text-color, #555);
+  margin-bottom: 1rem;
+}
+
+.slide-content ul {
+  text-align: left;
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--slidejs-text-color, #555);
+}
+
+.slide-content li {
+  margin-bottom: 0.5rem;
+}
+
+.slide-content img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 导航按钮样式 */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 24px;
+}
+
+/* 分页器样式 */
+.swiper-pagination-bullet {
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}

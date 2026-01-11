@@ -9,6 +9,9 @@ import { SlideRunner } from '@slidejs/runner';
 import type { SlideContext } from '@slidejs/context';
 import { SwiperAdapter } from './adapter';
 import type { SwiperAdapterOptions } from './types';
+// 导入 CSS 内容用于注入
+import swiperCSS from 'swiper/css?inline';
+import customCSS from './style.css?inline';
 
 /**
  * SlideRunner 配置选项
@@ -65,10 +68,44 @@ export async function createSlideRunner<TContext extends SlideContext = SlideCon
   // 2. 编译为 SlideDSL
   const slideDSL = compile<TContext>(ast);
 
-  // 3. 创建适配器和 Runner
+  // 2.1 Set to Global
+  const globalStyles = document.head.querySelector('#swiper-styles');
+  if (!globalStyles) {
+    const style = document.createElement('style');
+    style.id = 'swiper-styles';
+    style.textContent = swiperCSS;
+    document.head.appendChild(style);
+  }
+
+  // 2.2 获取用户提供的容器元素
+  let userContainer: HTMLElement;
+  if (typeof config.container === 'string') {
+    const element = document.querySelector(config.container);
+    if (!element) {
+      throw new Error(`Container not found: ${config.container}`);
+    }
+    userContainer = element as HTMLElement;
+  } else {
+    userContainer = config.container;
+  }
+
+  // 2.3 注入自定义 CSS 样式到容器
+  const styleId = 'slidejs-runner-swiper-styles';
+  if (!userContainer.querySelector(`#${styleId}`)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = customCSS;
+    userContainer.appendChild(style);
+  }
+
+  // 2.4 创建一个新的 div 节点用于 Swiper（Swiper 会接管这个 div）
+  const swiperContainer = document.createElement('div');
+  userContainer.appendChild(swiperContainer);
+
+  // 3. 创建适配器和 Runner（将 swiperContainer 传给 Runner，而不是 userContainer）
   const adapter = new SwiperAdapter();
   const runner = new SlideRunner<TContext>({
-    container: config.container,
+    container: swiperContainer,
     adapter,
     adapterOptions: {
       swiperConfig: config.swiperOptions,

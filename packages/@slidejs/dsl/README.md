@@ -26,7 +26,7 @@ present quiz "my-quiz" {
         }
         behavior {
           transition zoom {
-            duration 500
+            duration: 500
           }
         }
       }

@@ -8,11 +8,12 @@ export default defineConfig({
   plugins: [
     // wsx 插件 - 处理 .wsx 文件
     wsx({
-      debug: process.env.NODE_ENV === 'development',
+      debug: false,
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
     }),
   ],
+  // Monaco Editor 配置
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -23,10 +24,18 @@ export default defineConfig({
             '@slidejs/runner': path.resolve(__dirname, '../../packages/@slidejs/runner/src'),
             '@slidejs/context': path.resolve(__dirname, '../../packages/@slidejs/context/src'),
             '@slidejs/dsl': path.resolve(__dirname, '../../packages/@slidejs/dsl/src'),
-            '@slidejs/runner-swiper': path.resolve(
-              __dirname,
-              '../../packages/@slidejs/runner-swiper/src'
-            ),
+          '@slidejs/runner-swiper': path.resolve(
+            __dirname,
+            '../../packages/@slidejs/runner-swiper/src'
+          ),
+          '@slidejs/editor': path.resolve(
+            __dirname,
+            '../../packages/@slidejs/editor/src'
+          ),
+          '@slidejs/theme': path.resolve(
+            __dirname,
+            '../../packages/@slidejs/theme/src'
+          ),
           }
         : {}),
     },
@@ -35,12 +44,15 @@ export default defineConfig({
   optimizeDeps: {
     exclude: [
       '@slidejs/core',
-      '@slidejs/runner',
-      '@slidejs/context',
-      '@slidejs/dsl',
-      '@slidejs/runner-swiper',
-      '@wsxjs/wsx-core',
-    ],
+             '@slidejs/runner',
+             '@slidejs/context',
+             '@slidejs/dsl',
+             '@slidejs/runner-swiper',
+             '@slidejs/editor',
+             '@slidejs/theme',
+             '@wsxjs/wsx-core',
+             'monaco-editor',
+           ],
   },
   server: {
     port: 3001,
@@ -58,5 +70,11 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      output: {
+        // 确保 Worker 文件被正确处理
+        // Vite 会自动处理 new URL() 中的 Worker 导入
+      },
+    },
   },
 });

@@ -1,8 +1,8 @@
 /**
  * @slidejs/runner-revealjs - reveal.js 核心样式
  *
- * 此文件导入 reveal.js 的核心 CSS，用户只需导入此包即可获得所有必需的样式。
- * 主题样式需要单独导入（可选）。
+ * 注意：reveal.js 的核心 CSS 通过 runner.ts 注入到 document.head
+ * 此文件只包含自定义样式和 CSS 变量映射
  *
  * 使用示例：
  * ```typescript
@@ -10,8 +10,111 @@
  * // 或显式导入样式
  * import '@slidejs/runner-revealjs/style.css';
  * ```
+ *
+ * 自定义样式：
+ * 可以通过 CSS 变量自定义样式，例如：
+ * ```css
+ * :root {
+ *   --slidejs-background-color: #191919;
+ *   --slidejs-text-color: #ffffff;
+ * }
+ * ```
  */
 
-/* 导入 reveal.js 核心 CSS */
-@import 'reveal.js/dist/reveal.css';
+/* Reveal.js 容器基础样式 */
+.reveal {
+  width: 100%;
+  height: 100%;
 
+  /* Runner 特定变量映射 - 将标准变量映射到 Reveal.js 特定变量 */
+  /* 注意：标准变量的默认值由 @slidejs/theme 包定义，runner 只消费这些变量 */
+
+  /* Reveal.js 背景色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-revealjs-background-color: var(--slidejs-background-color, #191919);
+  /* Reveal.js 文本颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-revealjs-text-color: var(--slidejs-text-color, #ffffff);
+  /* Reveal.js 链接颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-revealjs-link-color: var(--slidejs-link-color, #42affa);
+  /* Reveal.js 标题颜色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-revealjs-heading-color: var(--slidejs-heading-color, #ffffff);
+  /* Reveal.js 代码背景色 - 从标准变量映射（fallback 仅作为临时默认值） */
+  --slidejs-revealjs-code-background: var(--slidejs-code-background, #3f3f3f);
+}
+
+/* 应用 CSS 变量到 Reveal.js 组件 */
+.reveal {
+  background-color: var(--slidejs-revealjs-background-color, #191919);
+  color: var(--slidejs-revealjs-text-color, #ffffff);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  color: var(--slidejs-revealjs-heading-color, #ffffff);
+}
+
+.reveal a {
+  color: var(--slidejs-revealjs-link-color, #42affa);
+}
+
+.reveal pre code {
+  background-color: var(--slidejs-revealjs-code-background, #3f3f3f);
+}
+
+/* Slide Content 容器样式 - 允许通过 CSS 变量自定义 */
+/* 注意：标准变量的默认值由 @slidejs/theme 包定义，fallback 仅作为临时默认值 */
+.slide-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.slide-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--slidejs-heading-color, #ffffff);
+}
+
+.slide-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--slidejs-heading-color, #ffffff);
+}
+
+.slide-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--slidejs-heading-color, #ffffff);
+}
+
+.slide-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--slidejs-text-color, #ffffff);
+  margin-bottom: 1rem;
+}
+
+.slide-content ul {
+  text-align: left;
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--slidejs-text-color, #ffffff);
+}
+
+.slide-content li {
+  margin-bottom: 0.5rem;
+}
+
+.slide-content img {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

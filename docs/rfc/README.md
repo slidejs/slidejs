@@ -8,7 +8,10 @@
 
 - [RFC 0001: Slide DSL 规范](./completed/0001-slide-dsl.md) - 通用幻灯片演示领域特定语言设计 ✅
 - [RFC 0002: Slide Runner 与多渲染引擎集成](./completed/0002-slide-runner.md) - 可扩展的幻灯片执行引擎与多渲染引擎适配器（reveal.js、Swiper、Splide）✅
-- [RFC 0007: Runner 包 CSS 打包与自动加载](./0007-runner-css-bundling.md) - 修复构建后 CSS 缺失问题 ✅
+- [RFC 0007: Runner 包 CSS 打包与自动加载](./completed/0007-runner-css-bundling.md) - 修复构建后 CSS 缺失问题 ✅
+- [RFC 0008: 统一包构建格式](./completed/0008-unified-build-formats.md) - CJS 和 ESM 双格式支持 ✅
+- [RFC 0009: Runner 包 CSS 打包与 CSS 变量自定义](./0009-runner-css-bundling-and-customization.md) - CSS 打包策略和 CSS 变量自定义机制 ✅
+- [RFC 0010: CSS Hook API - 运行时主题自定义系统](./0010-css-hook-api.md) - 统一的运行时主题自定义 API ✅
 
 ### 草案中
 
@@ -16,11 +19,10 @@
 - [RFC 0004: Slide DSL 语言服务器与开发工具](./0004-slide-dsl-language-server.md) - LSP 服务器、VSCode 扩展与 CLI 工具
 - [RFC 0005: reveal.js 高级功能支持](./0005-revealjs-advanced-features.md) - Fragments、Background、Notes 等功能
 - [RFC 0006: SlideJS 插件生态系统](./0006-plugin-ecosystem.md) - 插件市场与分发机制
-- [RFC 0008: 统一包构建格式](./0008-unified-build-formats.md) - CJS 和 ESM 双格式支持 🔄
 
 ### 计划中
 
-- RFC 0009: Vue 集成设计
+- RFC 0011: Vue 集成设计
 
 ## RFC 流程
 

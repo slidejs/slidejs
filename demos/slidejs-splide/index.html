@@ -6,7 +6,54 @@
     <title>Slide DSL + Splide Demo</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- 主题切换工具栏 -->
+      <div class="theme-toolbar">
+        <div class="theme-toolbar-content">
+          <span class="theme-label">Theme:</span>
+          <button type="button" id="theme-dark" class="theme-btn active" title="Solarized Dark">
+            🌙 Dark
+          </button>
+          <button type="button" id="theme-light" class="theme-btn" title="Solarized Light">
+            ☀️ Light
+          </button>
+        </div>
+      </div>
+
+      <!-- 顶部播放器区域 (3/4) -->
+      <div class="player-container">
+        <div id="player"></div>
+      </div>
+
+      <!-- 底部编辑器区域 (1/4) -->
+      <div class="editor-container">
+        <!-- 水平分割器 -->
+        <div class="splitter-horizontal" id="splitter-h">
+          <div class="splitter-handle"></div>
+        </div>
+
+        <!-- 左侧 DSL 编辑器 -->
+        <div class="editor-panel">
+          <div class="panel-header">
+            <h3>DSL Editor</h3>
+          </div>
+          <div id="dsl-editor" class="editor-content"></div>
+        </div>
+
+        <!-- 垂直分割器 -->
+        <div class="splitter-vertical" id="splitter-v">
+          <div class="splitter-handle"></div>
+        </div>
+
+        <!-- 右侧 JSON 显示 -->
+        <div class="json-panel">
+          <div class="panel-header">
+            <h3>Compiled JSON</h3>
+          </div>
+          <div id="json-viewer" class="json-content"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

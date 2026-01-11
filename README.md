@@ -33,42 +33,96 @@ npm install @slidejs/runner-splide      # Splide 运行器
 
 ## 快速开始
 
-### 使用运行器（Runner）
+### 使用 Slide DSL 创建幻灯片
+
+SlideJS 使用声明式的 DSL（领域特定语言）来定义幻灯片。首先创建一个 `.slide` 文件：
+
+```slide
+present quiz "my-presentation" {
+  rules {
+    rule start "intro" {
+      slide {
+        content text {
+          "# 欢迎使用 SlideJS"
+          "## 一个强大的幻灯片 DSL"
+        }
+        behavior {
+          transition fade {}
+        }
+      }
+    }
+
+    rule content "main-content" {
+      slide {
+        content text {
+          "# 特性"
+          ""
+          "- 支持多种渲染引擎"
+          "- 简洁的 DSL 语法"
+          "- 类型安全"
+        }
+        behavior {
+          transition slide {}
+        }
+      }
+    }
+
+    rule end "thanks" {
+      slide {
+        content text {
+          "# 谢谢！"
+        }
+        behavior {
+          transition zoom {}
+        }
+      }
+    }
+  }
+}
+```
+
+### 在代码中使用
 
 ```typescript
-import { createRunner } from '@slidejs/runner-revealjs';
-import type { SlideDSL } from '@slidejs/dsl';
+import { createSlideRunner } from '@slidejs/runner-revealjs';
+import type { SlideContext } from '@slidejs/context';
 
-const dsl: SlideDSL = {
-  version: '1.0.0',
-  slides: [
-    {
-      id: 'slide-1',
-      type: 'title',
-      title: '欢迎使用 SlideJS',
-      subtitle: '一个强大的幻灯片 DSL',
-    },
-    {
-      id: 'slide-2',
-      type: 'content',
-      title: '特性',
-      content: [
-        { type: 'text', text: '支持多种渲染引擎' },
-        { type: 'text', text: '简洁的 DSL 语法' },
-        { type: 'text', text: '类型安全' },
-      ],
-    },
-  ],
+// DSL 源代码（可以从文件导入或直接定义）
+const dslSource = `
+present quiz "my-presentation" {
+  rules {
+    rule start "intro" {
+      slide {
+        content text {
+          "# 欢迎使用 SlideJS"
+        }
+      }
+    }
+  }
+}
+`;
+
+// 创建上下文数据
+const context: SlideContext = {
+  sourceType: 'quiz',
+  sourceId: 'my-presentation',
+  metadata: {
+    title: '我的演示',
+  },
+  items: [],
 };
 
-// 创建运行器
-const runner = createRunner({
-  container: document.getElementById('slides-container')!,
-  dsl,
+// 创建并运行幻灯片
+const runner = await createSlideRunner(dslSource, context, {
+  container: '#slides-container',
+  revealOptions: {
+    controls: true,
+    progress: true,
+  },
 });
 
-// 初始化
-await runner.init();
+// 开始播放
+runner.play();
 ```
 
 ## 项目结构
@@ -105,29 +159,37 @@ slidejs/
 
 ### @slidejs/dsl
 
-Slide DSL 定义、验证和序列化工具。
+Slide DSL 语法解析器和编译器。
 
-- `validateSlideDSL()` - DSL 验证
-- `parseSlideDSL()` - DSL 解析
-- `compileSlideDSL()` - DSL 编译
+- `parseSlideDSL()` - 解析 DSL 源代码为 AST
+- `compile()` - 将 AST 编译为可执行的 SlideDSL 对象
+- 基于 [Peggy](https://peggyjs.org/) 的语法解析器
 
 ### @slidejs/runner-revealjs
 
 reveal.js 运行器，基于 reveal.js 渲染幻灯片。
 
-- `createRunner()` - 创建运行器实例
+- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
 
 ### @slidejs/runner-swiper
 
 Swiper 运行器，基于 Swiper.js 渲染幻灯片。
 
-- `createRunner()` - 创建运行器实例
+- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
 
 ### @slidejs/runner-splide
 
 Splide 运行器，基于 Splide 渲染幻灯片。
 
-- `createRunner()` - 创建运行器实例
+- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
+
+### @slidejs/theme
+
+运行时主题自定义系统。
+
+- `setTheme()` - 全局设置主题
+- `useTheme()` - 创建作用域主题 Hook
+- `Preset` - 预设主题（SolarizedDark、SolarizedLight）
 
 ## 文档
 
@@ -137,8 +199,8 @@ Splide 运行器，基于 Splide 渲染幻灯片。
 
 ### 环境要求
 
-- Node.js >= 16.0.0
-- pnpm >= 8.0.0
+- Node.js >= 22.12.0
+- pnpm >= 10.0.0
 
 ### 安装依赖
 

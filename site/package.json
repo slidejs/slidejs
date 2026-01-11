@@ -25,16 +25,16 @@
   "dependencies": {
     "@slidejs/core": "workspace:*",
     "@slidejs/dsl": "workspace:*",
-    "@wsxjs/wsx-base-components": "^0.0.20",
-    "@wsxjs/wsx-core": "^0.0.20",
-    "@wsxjs/wsx-i18next": "^0.0.20",
-    "@wsxjs/wsx-router": "^0.0.20",
+    "@wsxjs/wsx-base-components": "^0.0.25",
+    "@wsxjs/wsx-core": "^0.0.25",
+    "@wsxjs/wsx-i18next": "^0.0.25",
+    "@wsxjs/wsx-router": "^0.0.25",
     "i18next": "^23.7.0"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
+    "@types/node": "^22.12.0",
     "@vitest/ui": "^1.6.1",
-    "@wsxjs/wsx-vite-plugin": "^0.0.20",
+    "@wsxjs/wsx-vite-plugin": "^0.0.25",
     "cross-env": "^7.0.3",
     "gh-pages": "^6.1.1",
     "glob": "^13.0.0",
@@ -42,8 +42,8 @@
     "jsdom": "^24.0.0",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
-    "unocss": "^0.58.0",
-    "vite": "^5.0.0",
+    "unocss": "^66.5.12",
+    "vite": "^7.3.1",
     "vitest": "^1.6.1"
   }
 }

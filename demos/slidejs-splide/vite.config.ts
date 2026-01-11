@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     // wsx 插件 - 处理 .wsx 文件
     wsx({
-      debug: process.env.NODE_ENV === 'development',
+      debug: false,
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
     }),
@@ -27,6 +27,8 @@ export default defineConfig({
               __dirname,
               '../../packages/@slidejs/runner-splide/src'
             ),
+            '@slidejs/editor': path.resolve(__dirname, '../../packages/@slidejs/editor/src'),
+            '@slidejs/theme': path.resolve(__dirname, '../../packages/@slidejs/theme/src'),
           }
         : {}),
     },
@@ -39,7 +41,10 @@ export default defineConfig({
       '@slidejs/context',
       '@slidejs/dsl',
       '@slidejs/runner-splide',
+      '@slidejs/editor',
+      '@slidejs/theme',
       '@wsxjs/wsx-core',
+      'monaco-editor',
     ],
   },
   server: {

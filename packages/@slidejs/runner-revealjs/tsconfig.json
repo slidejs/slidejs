@@ -6,7 +6,7 @@
     "composite": true,
     "declarationMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/env.d.ts"],
   "exclude": ["**/*.test.ts", "dist", "node_modules"],
   "references": [{ "path": "../core" }, { "path": "../runner" }]
 }

@@ -12,5 +12,5 @@
     "esModuleInterop": true,
     "noEmit": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src/env.d.ts"]
 }

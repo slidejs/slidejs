@@ -1,0 +1,51 @@
+{
+  "name": "@slidejs/editor",
+  "version": "0.1.0",
+  "description": "Slide DSL Monaco Editor with syntax highlighting",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest --passWithNoTests",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.45.0"
+  },
+  "peerDependencies": {
+    "@slidejs/dsl": "workspace:*"
+  },
+  "devDependencies": {
+    "@slidejs/dsl": "workspace:*",
+    "typescript": "^5.3.3",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^1.0.0"
+  },
+  "keywords": [
+    "slide",
+    "dsl",
+    "editor",
+    "monaco",
+    "syntax-highlighting"
+  ],
+  "author": "",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

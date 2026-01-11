@@ -20,8 +20,20 @@ export default defineConfig({
         // Only externalize JS modules from swiper, NOT CSS
         /^swiper\/.*\.js$/,
       ],
+      output: {
+        // 确保 CSS 文件被正确提取为 style.css
+        assetFileNames: assetInfo => {
+          // 将所有 CSS 文件重命名为 style.css（与 package.json exports 一致）
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'style.css';
+          }
+          return assetInfo.name || 'assets/[name].[ext]';
+        },
+      },
     },
     sourcemap: true,
+    // CSS 被提取到单独文件，但通过 import 语句自动加载
+    cssCodeSplit: false,
   },
   plugins: [
     dts({
