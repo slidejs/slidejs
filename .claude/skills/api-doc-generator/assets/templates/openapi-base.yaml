@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: {{API_TITLE}}
+  description: {{API_DESCRIPTION}}
+  version: {{API_VERSION}}
+  contact:
+    name: {{CONTACT_NAME}}
+    email: {{CONTACT_EMAIL}}
+  license:
+    name: {{LICENSE_NAME}}
+    url: {{LICENSE_URL}}
+
+servers:
+  - url: {{SERVER_URL}}
+    description: {{SERVER_DESCRIPTION}}
+
+paths:
+  # API endpoints will be generated here
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 错误代码
+        message:
+          type: string
+          description: 错误消息
+        details:
+          type: object
+          description: 详细错误信息
+
+  responses:
+    NotFound:
+      description: 资源不存在
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    BadRequest:
+      description: 无效的请求
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: 未授权
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    ServerError:
+      description: 服务器内部错误
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: {{TAG_NAME}}
+    description: {{TAG_DESCRIPTION}}

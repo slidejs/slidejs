@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@systembug/pangu':
-        specifier: ^0.0.8
-        version: 0.0.8(@types/node@22.19.3)
+        specifier: ^0.0.9
+        version: 0.0.9(@types/node@22.19.3)
       '@systembug/qingniao':
-        specifier: ^0.0.8
-        version: 0.0.8(@changesets/cli@2.29.8(@types/node@22.19.3))(@types/node@22.19.3)(typescript@5.9.3)
+        specifier: ^0.0.9
+        version: 0.0.9(@changesets/cli@2.29.8(@types/node@22.19.3))(@types/node@22.19.3)(typescript@5.9.3)
       '@types/inquirer':
         specifier: ^9.0.7
         version: 9.0.9
@@ -1979,16 +1979,16 @@ packages:
   '@splidejs/splide@4.1.4':
     resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
 
-  '@systembug/diting@0.0.8':
-    resolution: {integrity: sha512-bBqy71awTwKq7ZR2thf5XdJOWB4kWJKs80xGFZ++eVtzQSTJzKoRaKcS4E0pqvHEKKTONsrm9MMGL7aopSInKA==}
+  '@systembug/diting@0.0.9':
+    resolution: {integrity: sha512-cmhrVeLAtLbLP1y4ammb4x00RZS7ImCgXDK+Rsl4YmjgMjymLCBZKZpa4byk3BM4hhZzTF1J3sE1WPAZQHZeiQ==}
     engines: {node: '>=16.0.0'}
 
-  '@systembug/pangu@0.0.8':
-    resolution: {integrity: sha512-xREwJATEvUhEVeI5lDpEmugIJmLJDWXEufD2ZEI2m6WBGSZmGczDent171Q7kavdCsp7PQVmoLkez4nCHiOlzA==}
+  '@systembug/pangu@0.0.9':
+    resolution: {integrity: sha512-ItRtEUoLN8c6MUeYwrh7MYNZVIg9Tqdj/x5cQrPdLpCXcHpo94Bt+RCJu0yYM8guuVsA9POVxX3O5yALPyvcmg==}
     hasBin: true
 
-  '@systembug/qingniao@0.0.8':
-    resolution: {integrity: sha512-Gx4WztFj/PVfpyul+qh0r7jh7fDAv+dKrBz1UZ8uw8k9+0eKmZFl/RHh75pHNPhFRFlTc5Qge68q6TxOlFWpFw==}
+  '@systembug/qingniao@0.0.9':
+    resolution: {integrity: sha512-3iYabN9TvZfGXW/S96PtLVnBnV/a643KK5Q9xJczPCdABYxnShiAa1RRgCBPXkIZSspXc2IjbvI9YGl5mOMOlw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:
@@ -6145,12 +6145,12 @@ snapshots:
 
   '@splidejs/splide@4.1.4': {}
 
-  '@systembug/diting@0.0.8':
+  '@systembug/diting@0.0.9':
     dependencies:
       chalk: 5.6.2
       pino: 9.14.0
 
-  '@systembug/pangu@0.0.8(@types/node@22.19.3)':
+  '@systembug/pangu@0.0.9(@types/node@22.19.3)':
     dependencies:
       inquirer: 9.3.8(@types/node@22.19.3)
       js-yaml: 4.1.1
@@ -6158,10 +6158,10 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@systembug/qingniao@0.0.8(@changesets/cli@2.29.8(@types/node@22.19.3))(@types/node@22.19.3)(typescript@5.9.3)':
+  '@systembug/qingniao@0.0.9(@changesets/cli@2.29.8(@types/node@22.19.3))(@types/node@22.19.3)(typescript@5.9.3)':
     dependencies:
       '@changesets/cli': 2.29.8(@types/node@22.19.3)
-      '@systembug/diting': 0.0.8
+      '@systembug/diting': 0.0.9
       chalk: 4.1.2
       commander: 9.5.0
       inquirer: 13.1.0(@types/node@22.19.3)

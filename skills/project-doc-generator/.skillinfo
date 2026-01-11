@@ -1,0 +1,87 @@
+# Project Documentation Generator Skill
+
+## Skill Information
+
+**Name**: project-doc-generator
+**Version**: 1.0.0
+**Category**: Documentation
+**Author**: Claude Code
+
+## Description
+
+自动分析项目架构并生成完整的技术文档，包括架构图、模块说明、依赖关系等。
+
+## Key Features
+
+- 🔍 智能项目结构扫描
+- 📊 自动架构分析
+- 🎨 Mermaid 架构图生成
+- 📝 完整文档生成
+- 🤖 AI 增强洞察
+- 📦 依赖关系分析
+- 🎯 多格式支持
+
+## Quick Commands
+
+```bash
+# 生成完整文档
+claude skill project-doc-generator generate
+
+# 生成详细分析
+claude skill project-doc-generator generate --depth comprehensive
+
+# 仅生成架构图
+claude skill project-doc-generator diagrams
+
+# 验证文档
+claude skill project-doc-generator validate
+```
+
+## Generated Files
+
+```
+docs/architecture/
+├── README.md           # 文档索引
+├── ARCHITECTURE.md     # 架构概览
+├── MODULES.md         # 模块说明
+├── DEPENDENCIES.md    # 依赖分析
+├── diagrams/          # 架构图表
+│   ├── modules.md
+│   ├── tech-stack.md
+│   └── directory.md
+└── analysis/          # 分析数据
+    ├── structure.json
+    ├── stack.json
+    ├── dependencies.json
+    └── ai-insights.json
+```
+
+## Use Cases
+
+1. **新项目文档**: 快速为新项目生成初始文档
+2. **技术分享**: 准备技术分享和汇报材料
+3. **代码审查**: 重构前了解项目现状
+4. **团队 Onboarding**: 帮助新成员快速了解项目
+
+## Dependencies
+
+- Node.js >= 14.0.0
+- commander
+- @mermaid-js/mermaid-cli (optional)
+- madge (optional)
+
+## Documentation
+
+- [README.md](./README.md) - 完整文档
+- [QUICKSTART.md](./QUICKSTART.md) - 快速开始
+- [examples/](./examples/) - 配置示例
+
+## Status
+
+✅ Ready for use
+🚀 Actively maintained
+📚 Well documented
+
+---
+
+*自动化文档生成，让架构更清晰！*

@@ -1,0 +1,37 @@
+{
+  "name": "project-doc-generator",
+  "version": "1.0.0",
+  "description": "自动分析项目架构并生成完整的技术文档",
+  "main": "scripts/generate.sh",
+  "scripts": {
+    "generate": "./scripts/generate.sh",
+    "analyze": "./scripts/analyze.sh",
+    "diagrams": "./scripts/generate-diagrams.sh",
+    "validate": "./scripts/validate.sh",
+    "update": "./scripts/update.sh",
+    "export": "./scripts/export.sh"
+  },
+  "keywords": [
+    "documentation",
+    "architecture",
+    "project",
+    "generator",
+    "analysis",
+    "diagrams"
+  ],
+  "author": "Claude Code",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^10.6.0",
+    "madge": "^6.1.0",
+    "dependency-cruiser": "^15.0.0",
+    "markdown-pdf": "^10.0.0"
+  },
+  "optionalDependencies": {
+    "jsdoc": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
