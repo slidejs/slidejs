@@ -1,6 +1,6 @@
 {
   "name": "@slidejs/core",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Slide DSL 核心引擎",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@slidejs/theme",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "SlideJS Theme System - Runtime CSS Variable Hook API",
   "type": "module",
   "main": "./dist/index.cjs",

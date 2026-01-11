@@ -1,6 +1,6 @@
 {
   "name": "@slidejs/context",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Slide DSL Context 接口定义",
   "type": "module",
   "main": "./dist/index.cjs",
