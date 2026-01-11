@@ -60,3 +60,6 @@ lerna-debug.log*
 # Generated files
 **/generated/
 **/generated/**
+
+# Claude local settings
+.claude/settings.local.json
