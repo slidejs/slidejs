@@ -5,14 +5,11 @@
 import { createSlideDSLEditor } from '@slidejs/editor';
 import * as monaco from 'monaco-editor';
 import { createSlideRunner } from '@slidejs/runner-swiper';
-// CSS 已自动包含在 @slidejs/runner-swiper 中，无需手动导入
+// CSS 已自动包含在 @slidejs/runner-swiper 中（包括核心 CSS、Navigation CSS 和 Pagination CSS），无需手动导入
 import { parseSlideDSL, compile } from '@slidejs/dsl';
 import type { SlideContext } from '@slidejs/context';
 import type { SlideRunner } from '@slidejs/runner';
 import { setTheme, Preset } from '@slidejs/theme';
-// Swiper 的可选样式（navigation 和 pagination）
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import './style.css';
 
 // Worker 配置已由 @slidejs/editor 包自动处理

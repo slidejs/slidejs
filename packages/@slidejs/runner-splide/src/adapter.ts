@@ -317,7 +317,7 @@ export class SplideAdapter implements SlideAdapter {
         }
       } else {
         // 对象和数组 → JavaScript properties
-        (element as Record<string, unknown>)[key] = value;
+        (element as unknown as Record<string, unknown>)[key] = value;
       }
     }
 

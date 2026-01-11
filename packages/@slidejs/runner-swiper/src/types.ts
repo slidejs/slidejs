@@ -4,20 +4,19 @@
  * 定义 Swiper 适配器的选项和配置
  */
 
-import type { SwiperOptions } from 'swiper';
+import { Swiper } from 'swiper';
 import type { AdapterOptions } from '@slidejs/runner';
+
+// Swiper 构造函数的第二个参数类型
+type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
 
 /**
  * SwiperAdapter 选项
  *
- * Swiper CSS 需要手动导入：
- * ```typescript
- * import 'swiper/css';
- * import 'swiper/css/navigation';
- * import 'swiper/css/pagination';
- * ```
+ * 注意：所有必需的 Swiper CSS（包括核心 CSS、Navigation CSS 和 Pagination CSS）
+ * 都会在创建 runner 时自动注入，无需手动导入。
  *
- * 注意：Keyboard、Navigation 和 Pagination 模块已在适配器中自动注册，
+ * Keyboard、Navigation 和 Pagination 模块已在适配器中自动注册，
  * 无需在配置中再次指定 modules。
  */
 export interface SwiperAdapterOptions extends AdapterOptions {

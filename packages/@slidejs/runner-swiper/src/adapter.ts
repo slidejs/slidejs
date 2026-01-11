@@ -6,10 +6,12 @@
 
 import { Swiper } from 'swiper';
 import { Navigation, Pagination, Keyboard } from 'swiper/modules';
-import type { SwiperOptions } from 'swiper';
 import type { SlideDefinition } from '@slidejs/core';
 import type { SlideAdapter, AdapterEvent, EventHandler } from '@slidejs/runner';
 import type { SwiperAdapterOptions } from './types';
+
+// Swiper 构造函数的第二个参数类型
+type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
 
 // 注册 Swiper 模块
 Swiper.use([Navigation, Pagination, Keyboard]);
@@ -356,7 +358,7 @@ export class SwiperAdapter implements SlideAdapter {
         }
       } else {
         // 对象和数组 → JavaScript properties
-        (element as Record<string, unknown>)[key] = value;
+        (element as unknown as Record<string, unknown>)[key] = value;
       }
     }
 
