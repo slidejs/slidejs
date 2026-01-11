@@ -1,0 +1,36 @@
+{
+  "projectName": "quizerjs",
+  "packageManager": "pnpm",
+  "demos": [
+    {
+      "name": "Vue",
+      "value": "vue",
+      "description": "Vue 3 演示项目",
+      "package": "@slidejs/demo-vue"
+    },
+    {
+      "name": "swiper",
+      "value": "swiper",
+      "description": "sr 演示项目",
+      "package": "@slidejs/slidejs-swiper"
+    },
+    {
+      "name": "splide",
+      "value": "splide",
+      "description": "Splide 演示项目",
+      "package": "@slidejs/slidejs-splide"
+    },
+    {
+      "name": "revealjs",
+      "value": "revealjs",
+      "description": "Reveal.js 演示项目",
+      "package": "@slidejs/slidejs-revealjs"
+    },
+    {
+      "name": "site",
+      "value": "site",
+      "description": "SlideJS 开源网站",
+      "package": "@slidejs/site"
+    }
+  ]
+}

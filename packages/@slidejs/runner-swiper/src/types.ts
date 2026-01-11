@@ -7,8 +7,11 @@
 import { Swiper } from 'swiper';
 import type { AdapterOptions } from '@slidejs/runner';
 
-// Swiper 构造函数的第二个参数类型
-type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
+/**
+ * Swiper 配置选项类型
+ * @see https://swiperjs.com/swiper-api#parameters
+ */
+export type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
 
 /**
  * SwiperAdapter 选项

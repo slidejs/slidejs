@@ -8,6 +8,12 @@ import type { Options } from '@splidejs/splide';
 import type { AdapterOptions } from '@slidejs/runner';
 
 /**
+ * Splide 配置选项类型
+ * @see https://splidejs.com/options/
+ */
+export type { Options as SplideOptions } from '@splidejs/splide';
+
+/**
  * SplideAdapter 选项
  *
  * Splide CSS 需要手动导入：

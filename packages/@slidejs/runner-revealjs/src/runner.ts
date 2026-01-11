@@ -8,7 +8,7 @@ import { parseSlideDSL, compile } from '@slidejs/dsl';
 import { SlideRunner } from '@slidejs/runner';
 import type { SlideContext } from '@slidejs/context';
 import { RevealJsAdapter } from './adapter';
-import type { RevealJsOptions } from './types';
+import type { RevealJsAdapterOptions } from './types';
 // 导入 CSS 内容用于注入
 import revealCSS from 'reveal.js/dist/reveal.css?inline';
 import customCSS from './style.css?inline';
@@ -25,7 +25,7 @@ export interface SlideRunnerConfig {
   /**
    * reveal.js 配置选项
    */
-  revealOptions?: RevealJsOptions['revealConfig'];
+  revealOptions?: RevealJsAdapterOptions['revealConfig'];
 }
 
 /**

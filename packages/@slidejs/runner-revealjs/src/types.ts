@@ -8,6 +8,12 @@ import type Reveal from 'reveal.js';
 import type { AdapterOptions } from '@slidejs/runner';
 
 /**
+ * Reveal.js 配置选项类型
+ * @see https://revealjs.com/config/
+ */
+export type RevealOptions = Reveal.Options;
+
+/**
  * RevealJsAdapter 选项
  *
  * 主题通过静态导入加载：
@@ -15,10 +21,10 @@ import type { AdapterOptions } from '@slidejs/runner';
  * import 'reveal.js/dist/theme/black.css';
  * ```
  */
-export interface RevealJsOptions extends AdapterOptions {
+export interface RevealJsAdapterOptions extends AdapterOptions {
   /**
    * reveal.js 配置
    * @see https://revealjs.com/config/
    */
-  revealConfig?: Reveal.Options;
+  revealConfig?: RevealOptions;
 }

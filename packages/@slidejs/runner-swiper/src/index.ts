@@ -9,4 +9,4 @@
 
 export { SwiperAdapter } from './adapter';
 export { createSlideRunner, type SlideRunnerConfig } from './runner';
-export type { SwiperAdapterOptions } from './types';
+export type { SwiperAdapterOptions, SwiperOptions } from './types';

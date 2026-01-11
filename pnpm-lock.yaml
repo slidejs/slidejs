@@ -216,6 +216,61 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
 
+  demos/vue:
+    dependencies:
+      '@slidejs/context':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/context
+      '@slidejs/core':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/core
+      '@slidejs/dsl':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/dsl
+      '@slidejs/editor':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/editor
+      '@slidejs/runner':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner
+      '@slidejs/runner-revealjs':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner-revealjs
+      '@slidejs/runner-splide':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner-splide
+      '@slidejs/runner-swiper':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner-swiper
+      '@slidejs/theme':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/theme
+      '@wsxjs/wsx-core':
+        specifier: ^0.0.25
+        version: 0.0.25(typescript@5.9.3)
+      monaco-editor:
+        specifier: ^0.45.0
+        version: 0.45.0
+      vue:
+        specifier: ^3.4.21
+        version: 3.5.25(typescript@5.9.3)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.12.0
+        version: 22.19.3
+      '@vitejs/plugin-vue':
+        specifier: ^5.0.4
+        version: 5.2.4(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))
+      '@wsxjs/wsx-vite-plugin':
+        specifier: ^0.0.25
+        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^7.3.1
+        version: 7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
+
   packages/@slidejs/context:
     devDependencies:
       typescript:
@@ -6429,6 +6484,11 @@ snapshots:
   '@vitejs/plugin-vue@5.2.4(vite@5.4.21(@types/node@22.19.3)(sass@1.77.6))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
       vite: 5.4.21(@types/node@22.19.3)(sass@1.77.6)
+      vue: 3.5.25(typescript@5.9.3)
+
+  '@vitejs/plugin-vue@5.2.4(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))':
+    dependencies:
+      vite: 7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
       vue: 3.5.25(typescript@5.9.3)
 
   '@vitest/expect@1.6.1':

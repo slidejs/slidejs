@@ -1,0 +1,32 @@
+{
+  "name": "@slidejs/demo-vue",
+  "version": "0.1.5",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@slidejs/context": "workspace:*",
+    "@slidejs/core": "workspace:*",
+    "@slidejs/dsl": "workspace:*",
+    "@slidejs/editor": "workspace:*",
+    "@slidejs/runner": "workspace:*",
+    "@slidejs/runner-revealjs": "workspace:*",
+    "@slidejs/runner-swiper": "workspace:*",
+    "@slidejs/runner-splide": "workspace:*",
+    "@slidejs/theme": "workspace:*",
+    "@wsxjs/wsx-core": "^0.0.25",
+    "monaco-editor": "^0.45.0",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@wsxjs/wsx-vite-plugin": "^0.0.25",
+    "typescript": "^5.3.3",
+    "vite": "^7.3.1"
+  }
+}

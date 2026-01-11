@@ -8,7 +8,7 @@ import Reveal from 'reveal.js';
 // CSS 现在通过 index.ts 中的 style.css 导入，不需要在这里重复导入
 import type { SlideDefinition } from '@slidejs/core';
 import type { SlideAdapter, AdapterEvent, EventHandler } from '@slidejs/runner';
-import type { RevealJsOptions } from './types';
+import type { RevealJsAdapterOptions } from './types';
 
 /**
  * reveal.js 适配器
@@ -29,7 +29,7 @@ export class RevealJsAdapter implements SlideAdapter {
    * @param container - 容器元素
    * @param options - reveal.js 选项
    */
-  async initialize(container: HTMLElement, options?: RevealJsOptions): Promise<void> {
+  async initialize(container: HTMLElement, options?: RevealJsAdapterOptions): Promise<void> {
     try {
       // 创建 reveal.js DOM 结构
       this.createRevealStructure(container);

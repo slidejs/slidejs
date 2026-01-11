@@ -14,7 +14,7 @@
 
 // 适配器（低级 API）
 export { RevealJsAdapter } from './adapter';
-export type { RevealJsOptions } from './types';
+export type { RevealJsAdapterOptions, RevealOptions } from './types';
 
 // SlideRunner 工厂函数（推荐）
 export { createSlideRunner } from './runner';

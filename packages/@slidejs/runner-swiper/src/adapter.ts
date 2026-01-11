@@ -55,6 +55,7 @@ export class SwiperAdapter implements SlideAdapter {
         speed: 300,
         spaceBetween: 30,
         slidesPerView: 1,
+        slidesPerGroup: 1, // 确保每次导航只移动一个 slide
         // 注册模块
         modules: [Navigation, Pagination, Keyboard],
         // 导航配置 - 使用元素引用而不是选择器，确保在 Vue 组件中也能正常工作
@@ -72,6 +73,7 @@ export class SwiperAdapter implements SlideAdapter {
           enabled: true,
           onlyInViewport: true,
         },
+        // 用户自定义配置（会覆盖上面的默认配置）
         ...options?.swiperConfig,
       };
 

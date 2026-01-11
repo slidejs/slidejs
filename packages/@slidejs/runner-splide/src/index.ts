@@ -16,4 +16,4 @@ import './style.css';
 
 export { SplideAdapter } from './adapter';
 export { createSlideRunner, type SlideRunnerConfig } from './runner';
-export type { SplideAdapterOptions } from './types';
+export type { SplideAdapterOptions, SplideOptions } from './types';
