@@ -13,9 +13,6 @@ import type { SwiperAdapterOptions } from './types';
 // Swiper 构造函数的第二个参数类型
 type SwiperOptions = ConstructorParameters<typeof Swiper>[1];
 
-// 注册 Swiper 模块
-Swiper.use([Navigation, Pagination, Keyboard]);
-
 /**
  * Swiper 适配器
  *
@@ -31,6 +28,7 @@ export class SwiperAdapter implements SlideAdapter {
   private nextButton?: HTMLElement;
   private paginationEl?: HTMLElement;
   private eventHandlers: Map<AdapterEvent, Set<EventHandler>> = new Map();
+  private slideChangeHandler?: () => void;
 
   /**
    * 初始化 Swiper 适配器
@@ -40,6 +38,11 @@ export class SwiperAdapter implements SlideAdapter {
    */
   async initialize(container: HTMLElement, options?: SwiperAdapterOptions): Promise<void> {
     try {
+      // 如果已经初始化，先销毁旧的实例
+      if (this.swiper) {
+        await this.destroy();
+      }
+
       // 创建 Swiper DOM 结构
       this.createSwiperStructure(container);
 
@@ -54,7 +57,7 @@ export class SwiperAdapter implements SlideAdapter {
         loop: false,
         speed: 300,
         spaceBetween: 30,
-        slidesPerView: 1,
+        slidesPerView: 1, //
         slidesPerGroup: 1, // 确保每次导航只移动一个 slide
         // 注册模块
         modules: [Navigation, Pagination, Keyboard],
@@ -78,15 +81,6 @@ export class SwiperAdapter implements SlideAdapter {
       };
 
       this.swiper = new Swiper(this.swiperContainer, swiperConfig);
-
-      // 等待 Swiper 初始化完成
-      // Swiper 初始化是同步的，但我们需要等待 DOM 更新
-      await new Promise<void>(resolve => {
-        // 使用 requestAnimationFrame 确保 DOM 已更新
-        requestAnimationFrame(() => {
-          resolve();
-        });
-      });
 
       // 设置事件监听
       this.setupEventListeners();
@@ -137,6 +131,12 @@ export class SwiperAdapter implements SlideAdapter {
    * 销毁适配器
    */
   async destroy(): Promise<void> {
+    // 先移除事件监听器
+    if (this.swiper && this.slideChangeHandler) {
+      this.swiper.off('slideChange', this.slideChangeHandler);
+      this.slideChangeHandler = undefined;
+    }
+
     if (this.swiper) {
       this.swiper.destroy(true, true);
       this.swiper = undefined;
@@ -287,8 +287,13 @@ export class SwiperAdapter implements SlideAdapter {
       return;
     }
 
-    // 监听幻灯片切换事件
-    this.swiper.on('slideChange', () => {
+    // 先移除旧的监听器（如果存在）
+    if (this.slideChangeHandler) {
+      this.swiper.off('slideChange', this.slideChangeHandler);
+    }
+
+    // 创建新的监听器
+    this.slideChangeHandler = () => {
       const currentIndex = this.swiper!.activeIndex;
       const previousIndex = this.swiper!.previousIndex;
       this.emit('slideChanged', {
@@ -297,7 +302,10 @@ export class SwiperAdapter implements SlideAdapter {
         from: previousIndex,
         to: currentIndex,
       });
-    });
+    };
+
+    // 监听幻灯片切换事件
+    this.swiper.on('slideChange', this.slideChangeHandler);
   }
 
   /**
