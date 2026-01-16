@@ -461,5 +461,145 @@ present quiz "test" {
         expect(slides[0].content.lines[0]).toBe('Title: Math Quiz (10 items)');
       }
     });
+
+    it('should support kebab-case attribute keys with string literals', async () => {
+      const source = `
+present quiz "test" {
+  rules {
+    rule end "thanks" {
+      slide {
+        content dynamic {
+          name: "wsx-quiz-submit"
+          attrs {
+            "button-text": "提交答案"
+            "show-progress": true
+            "answered-count": 3
+            "total-count": 5
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+      const ast = await parseSlideDSL(source);
+      const slideDSL = compile(ast);
+
+      const mockContext: SlideContext = {
+        sourceType: 'quiz',
+        sourceId: 'test',
+        metadata: { title: 'Test' },
+        items: [],
+      };
+
+      const slides = slideDSL.rules.flatMap(rule => rule.generate(mockContext));
+
+      expect(slides).toHaveLength(1);
+      expect(slides[0].content.type).toBe('dynamic');
+      if (slides[0].content.type === 'dynamic') {
+        expect(slides[0].content.component).toBe('wsx-quiz-submit');
+        expect(slides[0].content.props).toMatchObject({
+          'button-text': '提交答案',
+          'show-progress': true,
+          'answered-count': 3,
+          'total-count': 5,
+        });
+      }
+    });
+
+    it('should support kebab-case attribute keys without quotes', async () => {
+      const source = `
+present quiz "test" {
+  rules {
+    rule end "thanks" {
+      slide {
+        content dynamic {
+          name: "wsx-quiz-submit"
+          attrs {
+            button-text: "提交答案"
+            show-progress: true
+            answered-count: 3
+            total-count: 5
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+      const ast = await parseSlideDSL(source);
+      const slideDSL = compile(ast);
+
+      const mockContext: SlideContext = {
+        sourceType: 'quiz',
+        sourceId: 'test',
+        metadata: { title: 'Test' },
+        items: [],
+      };
+
+      const slides = slideDSL.rules.flatMap(rule => rule.generate(mockContext));
+
+      expect(slides).toHaveLength(1);
+      expect(slides[0].content.type).toBe('dynamic');
+      if (slides[0].content.type === 'dynamic') {
+        expect(slides[0].content.component).toBe('wsx-quiz-submit');
+        expect(slides[0].content.props).toMatchObject({
+          'button-text': '提交答案',
+          'show-progress': true,
+          'answered-count': 3,
+          'total-count': 5,
+        });
+      }
+    });
+
+    it('should support all attribute key formats (string literal, camelCase, snake_case, kebab-case)', async () => {
+      const source = `
+present quiz "test" {
+  rules {
+    rule end "thanks" {
+      slide {
+        content dynamic {
+          name: "wsx-quiz-submit"
+          attrs {
+            "button-text": "提交答案"
+            "show-progress": true
+            buttonText: "camelCase value"
+            button_text: "snake_case value"
+            kebab-case: "kebab-case value"
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+      const ast = await parseSlideDSL(source);
+      const slideDSL = compile(ast);
+
+      const mockContext: SlideContext = {
+        sourceType: 'quiz',
+        sourceId: 'test',
+        metadata: { title: 'Test' },
+        items: [],
+      };
+
+      const slides = slideDSL.rules.flatMap(rule => rule.generate(mockContext));
+
+      expect(slides).toHaveLength(1);
+      expect(slides[0].content.type).toBe('dynamic');
+      if (slides[0].content.type === 'dynamic') {
+        expect(slides[0].content.component).toBe('wsx-quiz-submit');
+        expect(slides[0].content.props).toMatchObject({
+          'button-text': '提交答案', // ✅ 字符串字面量（推荐用于连字符）
+          'show-progress': true, // ✅ 字符串字面量
+          buttonText: 'camelCase value', // ✅ 驼峰命名
+          button_text: 'snake_case value', // ✅ 下划线命名
+          'kebab-case': 'kebab-case value', // ✅ 连字符标识符（也支持）
+        });
+      }
+    });
   });
 });

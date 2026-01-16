@@ -187,7 +187,12 @@ AttrValue
   = StringLiteral / NumberLiteral / BooleanLiteral / PathExpression
 
 AttrKey
-  = first:[a-zA-Z_] rest:[a-zA-Z0-9_]* {
+  = str:StringLiteral {
+      // 支持字符串字面量作为属性键（如 "button-text"）
+      return str;
+    }
+  / first:[a-zA-Z_] rest:[a-zA-Z0-9_-]* {
+      // 支持标识符格式，包括连字符（如 button-text）
       return first + rest.join('');
     }
 
