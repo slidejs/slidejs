@@ -1,6 +1,6 @@
 {
   "brandName": "SlideJS",
-  "description": "使用 {editorjs} 和 {wsx} 构建交互式测验的开源库",
+  "description": "一个强大的幻灯片 DSL 库，使用声明式语法从任意数据源生成幻灯片演示。",
   "resources": {
     "title": "资源",
     "docs": "文档",

@@ -4,6 +4,7 @@ import { LightComponent, autoRegister } from '@wsxjs/wsx-core';
 import { i18n } from '@wsxjs/wsx-i18next';
 import '@wsxjs/wsx-base-components';
 import styles from './FeaturesPage.css?inline';
+import '../../components/common/Icon.wsx';
 
 @autoRegister({ tagName: 'features-page' })
 @i18n('features')
@@ -20,27 +21,27 @@ export class FeaturesPage extends LightComponent {
     const features = [
       {
         key: 'editorjsIntegration',
-        icon: '📝',
+        icon: 'document',
       },
       {
         key: 'multipleTypes',
-        icon: '🎬',
+        icon: 'film',
       },
       {
         key: 'dsl',
-        icon: '📋',
+        icon: 'clipboard',
       },
       {
         key: 'frameworkIntegration',
-        icon: '⚡',
+        icon: 'lightning',
       },
       {
         key: 'typeSafety',
-        icon: '🔒',
+        icon: 'lock',
       },
       {
         key: 'modular',
-        icon: '📦',
+        icon: 'package',
       },
     ];
 
@@ -67,7 +68,9 @@ export class FeaturesPage extends LightComponent {
               return (
                 <div class="feature-section" key={feature.key}>
                   <div class="feature-section-header">
-                    <div class="feature-section-icon">{feature.icon}</div>
+                    <div class="feature-section-icon">
+                      <wsx-icon name={feature.icon} />
+                    </div>
                     <h2 class="feature-section-title">{title}</h2>
                   </div>
                   <p class="feature-section-description">{description}</p>
@@ -77,7 +80,9 @@ export class FeaturesPage extends LightComponent {
                     {Array.isArray(details) &&
                       details.map((detail: string, index: number) => (
                         <li key={index} class="feature-detail-item">
-                          <span class="feature-detail-icon">✓</span>
+                          <span class="feature-detail-icon">
+                            <wsx-icon name="check" />
+                          </span>
                           <span>{detail}</span>
                         </li>
                       ))}

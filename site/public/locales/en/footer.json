@@ -1,6 +1,6 @@
 {
   "brandName": "SlideJS",
-  "description": "An open-source library for building interactive quizzes with {editorjs} and {wsx}",
+  "description": "A powerful slide DSL library that generates slide presentations from any data source using declarative syntax.",
   "resources": {
     "title": "Resources",
     "docs": "Docs",

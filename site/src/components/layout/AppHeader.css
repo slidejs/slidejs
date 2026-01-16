@@ -1,9 +1,11 @@
 .app-header {
-  background-color: var(--quiz-bg-primary, #ffffff);
-  border-bottom: 1px solid var(--quiz-border-color, #e0e0e0);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--quiz-border-color, #E2E8F0);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .header {
@@ -28,14 +30,20 @@
 
 .brand-link {
   text-decoration: none !important;
-  color: var(--quiz-text-primary, #333333);
+  color: var(--quiz-text-primary, #1E293B);
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   display: flex !important;
   align-items: center;
   gap: 0.75rem;
   white-space: nowrap;
   flex-wrap: nowrap;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.brand-link:hover {
+  opacity: 0.8;
 }
 
 .brand-link::part(link) {
@@ -59,8 +67,8 @@
 .brand-title {
   background: linear-gradient(
     135deg,
-    var(--quiz-accent-color, #4a9d5f) 0%,
-    var(--quiz-accent-hover, #3d8b4f) 100%
+    var(--quiz-accent-color, #2563EB) 0%,
+    var(--quiz-accent-hover, #3B82F6) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -79,16 +87,18 @@
 
 .nav-link {
   text-decoration: none !important;
-  color: var(--quiz-text-secondary, #666666);
+  color: var(--quiz-text-secondary, #475569);
   font-size: 0.95rem;
   font-weight: 500;
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0.75rem;
   transition: all 0.2s ease;
   border-bottom: 2px solid transparent;
   position: relative;
   display: inline-flex;
   align-items: center;
   height: 100%;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 .nav-link * {
@@ -104,24 +114,27 @@
 }
 
 .nav-link:hover {
-  color: var(--quiz-text-primary, #333333);
+  color: var(--quiz-text-primary, #1E293B);
+  background-color: rgba(37, 99, 235, 0.05);
 }
 
 .nav-link:hover::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0.25rem;
-  right: 0.25rem;
+  left: 0.75rem;
+  right: 0.75rem;
   height: 2px;
-  background-color: var(--quiz-accent-color, #4a9d5f);
+  background-color: var(--quiz-accent-color, #2563EB);
   opacity: 0.5;
+  border-radius: 2px 2px 0 0;
 }
 
 .nav-link-active {
-  color: var(--quiz-accent-color, #4a9d5f) !important;
-  border-bottom-color: var(--quiz-accent-color, #4a9d5f);
+  color: var(--quiz-accent-color, #2563EB) !important;
+  border-bottom-color: var(--quiz-accent-color, #2563EB);
   font-weight: 600;
+  background-color: rgba(37, 99, 235, 0.08);
 }
 
 .nav-link-active * {

@@ -1,4 +1,6 @@
 /* 全局样式 */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -9,14 +11,38 @@
  * 可以通过导入不同的主题 CSS 文件来切换主题
  */
 
+:root {
+  /* 专业蓝色主题 - 基于 SaaS/文档网站最佳实践 */
+  --quiz-accent-color: #2563EB;
+  --quiz-accent-hover: #1D4ED8;
+  --quiz-accent-active: #1E40AF;
+  --quiz-bg-primary: #FFFFFF;
+  --quiz-bg-secondary: #F8FAFC;
+  --quiz-text-primary: #1E293B;
+  --quiz-text-secondary: #475569;
+  --quiz-text-on-accent: #FFFFFF;
+  --quiz-border-color: #E2E8F0;
+  --quiz-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --quiz-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --quiz-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--quiz-bg-primary, #ffffff);
+  background-color: var(--quiz-bg-primary, #F8FAFC);
+  color: var(--quiz-text-primary, #1E293B);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--quiz-text-primary, #1E293B);
 }
 
 #app {
@@ -25,10 +51,14 @@ body {
 
 /* 按钮样式 - 使用主题变量 */
 .btn-primary {
-  background-color: var(--quiz-accent-color) !important;
-  color: white !important;
+  background-color: var(--quiz-accent-color, #2563EB) !important;
+  color: var(--quiz-text-on-accent, #FFFFFF) !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: var(--quiz-accent-hover, var(--quiz-accent-color)) !important;
+  background-color: var(--quiz-accent-hover, #1D4ED8) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }

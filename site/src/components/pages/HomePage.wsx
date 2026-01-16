@@ -4,6 +4,7 @@ import { LightComponent, autoRegister } from '@wsxjs/wsx-core';
 import { i18n } from '@wsxjs/wsx-i18next';
 import '@wsxjs/wsx-base-components';
 import styles from './HomePage.css?inline';
+import '../../components/common/Icon.wsx';
 
 @autoRegister({ tagName: 'home-page' })
 @i18n('home')
@@ -57,34 +58,46 @@ export class HomePage extends LightComponent {
             <h2 class="section-title">{this.t('features.title')}</h2>
             <div class="features-grid">
               <div class="feature-card">
-                <div class="feature-icon">🎯</div>
+                <div class="feature-icon">
+                  <wsx-icon name="target" />
+                </div>
                 <h3 class="feature-title">{this.t('features.multipleTypes.title')}</h3>
                 <p class="feature-description">{this.t('features.multipleTypes.description')}</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon">🎨</div>
+                <div class="feature-icon">
+                  <wsx-icon name="paint" />
+                </div>
                 <h3 class="feature-title">{this.t('features.modernUI.title')}</h3>
                 <p class="feature-description">{this.t('features.modernUI.description')}</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon">🔌</div>
+                <div class="feature-icon">
+                  <wsx-icon name="plug" />
+                </div>
                 <h3 class="feature-title">{this.t('features.editorjsIntegration.title')}</h3>
                 <p class="feature-description">
                   {this.t('features.editorjsIntegration.description')}
                 </p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon">📦</div>
+                <div class="feature-icon">
+                  <wsx-icon name="package" />
+                </div>
                 <h3 class="feature-title">{this.t('features.modular.title')}</h3>
                 <p class="feature-description">{this.t('features.modular.description')}</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon">🔒</div>
+                <div class="feature-icon">
+                  <wsx-icon name="lock" />
+                </div>
                 <h3 class="feature-title">{this.t('features.typeSafe.title')}</h3>
                 <p class="feature-description">{this.t('features.typeSafe.description')}</p>
               </div>
               <div class="feature-card">
-                <div class="feature-icon">📱</div>
+                <div class="feature-icon">
+                  <wsx-icon name="device" />
+                </div>
                 <h3 class="feature-title">{this.t('features.responsive.title')}</h3>
                 <p class="feature-description">{this.t('features.responsive.description')}</p>
               </div>
@@ -99,19 +112,27 @@ export class HomePage extends LightComponent {
             <p class="section-description">{this.t('readyOutOfBox.description')}</p>
             <div class="ready-features">
               <div class="ready-feature">
-                <div class="ready-feature-icon">✓</div>
+                <div class="ready-feature-icon">
+                  <wsx-icon name="check" />
+                </div>
                 <span>{this.t('readyOutOfBox.features.drag')}</span>
               </div>
               <div class="ready-feature">
-                <div class="ready-feature-icon">✓</div>
+                <div class="ready-feature-icon">
+                  <wsx-icon name="check" />
+                </div>
                 <span>{this.t('readyOutOfBox.features.zoom')}</span>
               </div>
               <div class="ready-feature">
-                <div class="ready-feature-icon">✓</div>
+                <div class="ready-feature-icon">
+                  <wsx-icon name="check" />
+                </div>
                 <span>{this.t('readyOutOfBox.features.multiSelect')}</span>
               </div>
               <div class="ready-feature">
-                <div class="ready-feature-icon">✓</div>
+                <div class="ready-feature-icon">
+                  <wsx-icon name="check" />
+                </div>
                 <span>{this.t('readyOutOfBox.features.addRemove')}</span>
               </div>
             </div>

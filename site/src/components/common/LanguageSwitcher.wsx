@@ -10,6 +10,7 @@
 import { WebComponent, autoRegister, state } from '@wsxjs/wsx-core';
 import { i18nInstance } from '@wsxjs/wsx-i18next';
 import styles from './LanguageSwitcher.css?inline';
+import './Icon.wsx';
 
 /**
  * 语言选项接口
@@ -60,7 +61,7 @@ export default class LanguageSwitcher extends WebComponent {
           aria-expanded={this.isOpen}
           aria-haspopup="listbox"
         >
-          <span class="language-switcher-icon">🌐</span>
+          <wsx-icon name="globe" class="language-switcher-icon" />
           <span class="language-switcher-text">{displayName}</span>
           <span class="language-switcher-arrow">{this.isOpen ? '▲' : '▼'}</span>
         </button>
