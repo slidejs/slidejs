@@ -20,9 +20,13 @@
 - [RFC 0005: reveal.js 高级功能支持](./0005-revealjs-advanced-features.md) - Fragments、Background、Notes 等功能
 - [RFC 0006: SlideJS 插件生态系统](./0006-plugin-ecosystem.md) - 插件市场与分发机制
 
+### 草案中
+
+- [RFC 0011: 演示项目编译结果 JSON 显示规范](./0011-demo-json-display.md) - 演示项目如何正确显示编译后的 SlideDSL 结果
+
 ### 计划中
 
-- RFC 0011: Vue 集成设计
+- RFC 0012: Vue 集成设计
 
 ## RFC 流程
 

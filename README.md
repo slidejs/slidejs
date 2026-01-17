@@ -1,41 +1,53 @@
 # SlideJS
 
-一个使用 DSL 构建幻灯片的开源库。
+An open-source library for building slides using DSL.
 
-## 简介
+## Language
 
-SlideJS 是一个功能强大的幻灯片构建库，它使用 DSL（领域特定语言）来定义和渲染幻灯片，支持多种渲染引擎（reveal.js、Swiper、Splide 等）。让您可以轻松创建、管理和展示交互式幻灯片。
+- [English](README.md) (Current)
+- [中文](README.zh.md)
 
-## 特性
+## Introduction
 
-- 🎯 **声明式 DSL** - 使用简洁的 DSL 语法定义幻灯片结构
-- 🎨 **多种渲染引擎** - 支持 reveal.js、Swiper、Splide 等
-- 📦 **数据源无关** - 通过 Context Adapter 支持任意数据源（Quiz、Survey、Form 等）
-- 🔒 **类型安全** - 完整的 TypeScript 类型定义和验证
-- 🔄 **规则引擎** - 支持 start、content、end 规则和嵌套循环
-- 🎨 **动态内容** - 支持静态文本和动态组件
-- ⚡ **高性能** - 基于编译时优化的 DSL 解析和生成
+SlideJS is a powerful slide building library that uses DSL (Domain-Specific Language) to define and render slides, supporting multiple rendering engines (reveal.js, Swiper, Splide, etc.). It allows you to easily create, manage, and present interactive slides.
 
-## 安装
+## Features
+
+- 🎯 **Declarative DSL** - Define slide structure with concise DSL syntax
+- 🎨 **Multiple Rendering Engines** - Support for reveal.js, Swiper, Splide, etc.
+- 📦 **Data Source Agnostic** - Support any data source (Quiz, Survey, Form, etc.) through Context Adapter
+- 🔒 **Type Safe** - Complete TypeScript type definitions and validation
+- 🔄 **Rule Engine** - Support for start, content, end rules and nested loops
+- 🎨 **Dynamic Content** - Support for static text and dynamic components
+- ⚡ **High Performance** - DSL parsing and generation optimized at compile time
+
+## Demos
+
+Check out our interactive demos showcasing different frameworks:
+
+- [Vue.js Demo](demos/vue/README.md) - Multi-runner comparison with Vue.js
+- [React Demo](demos/react/README.md) - Multi-runner comparison with React
+
+## Installation
 
 ```bash
-# 安装核心组件库
+# Install core component library
 npm install @slidejs/core
 
-# 安装 DSL 库（用于验证和序列化）
+# Install DSL library (for validation and serialization)
 npm install @slidejs/dsl
 
-# 安装运行器（可选）
-npm install @slidejs/runner-revealjs    # reveal.js 运行器
-npm install @slidejs/runner-swiper      # Swiper 运行器
-npm install @slidejs/runner-splide      # Splide 运行器
+# Install runners (optional)
+npm install @slidejs/runner-revealjs    # reveal.js runner
+npm install @slidejs/runner-swiper      # Swiper runner
+npm install @slidejs/runner-splide      # Splide runner
 ```
 
-## 快速开始
+## Quick Start
 
-### 使用 Slide DSL 创建幻灯片
+### Creating Slides with Slide DSL
 
-SlideJS 使用声明式的 DSL（领域特定语言）来定义幻灯片。首先创建一个 `.slide` 文件：
+SlideJS uses a declarative DSL (Domain-Specific Language) to define slides. First, create a `.slide` file:
 
 ```slide
 present quiz "my-presentation" {
@@ -43,8 +55,8 @@ present quiz "my-presentation" {
     rule start "intro" {
       slide {
         content text {
-          "# 欢迎使用 SlideJS"
-          "## 一个强大的幻灯片 DSL"
+          "# Welcome to SlideJS"
+          "## A Powerful Slide DSL"
         }
         behavior {
           transition fade {}
@@ -55,11 +67,11 @@ present quiz "my-presentation" {
     rule content "main-content" {
       slide {
         content text {
-          "# 特性"
+          "# Features"
           ""
-          "- 支持多种渲染引擎"
-          "- 简洁的 DSL 语法"
-          "- 类型安全"
+          "- Support for multiple rendering engines"
+          "- Concise DSL syntax"
+          "- Type safe"
         }
         behavior {
           transition slide {}
@@ -70,7 +82,7 @@ present quiz "my-presentation" {
     rule end "thanks" {
       slide {
         content text {
-          "# 谢谢！"
+          "# Thank You!"
         }
         behavior {
           transition zoom {}
@@ -81,20 +93,20 @@ present quiz "my-presentation" {
 }
 ```
 
-### 在代码中使用
+### Using in Code
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 import type { SlideContext } from '@slidejs/context';
 
-// DSL 源代码（可以从文件导入或直接定义）
+// DSL source code (can be imported from file or defined directly)
 const dslSource = `
 present quiz "my-presentation" {
   rules {
     rule start "intro" {
       slide {
         content text {
-          "# 欢迎使用 SlideJS"
+          "# Welcome to SlideJS"
         }
       }
     }
@@ -102,17 +114,17 @@ present quiz "my-presentation" {
 }
 `;
 
-// 创建上下文数据
+// Create context data
 const context: SlideContext = {
   sourceType: 'quiz',
   sourceId: 'my-presentation',
   metadata: {
-    title: '我的演示',
+    title: 'My Presentation',
   },
   items: [],
 };
 
-// 创建并运行幻灯片
+// Create and run slides
 const runner = await createSlideRunner(dslSource, context, {
   container: '#slides-container',
   revealOptions: {
@@ -121,156 +133,154 @@ const runner = await createSlideRunner(dslSource, context, {
   },
 });
 
-// 开始播放
+// Start playback
 runner.play();
 ```
 
-## 项目结构
+## Project Structure
 
 ```
 slidejs/
-├── packages/              # 核心包
-│   ├── @slidejs/         # 核心包命名空间
-│   │   ├── core/         # 核心引擎
-│   │   ├── dsl/          # DSL 定义、验证和序列化
-│   │   ├── context/      # 上下文管理
-│   │   ├── runner/       # 基础运行器
-│   │   ├── runner-revealjs/  # reveal.js 运行器
-│   │   ├── runner-swiper/    # Swiper 运行器
-│   │   └── runner-splide/    # Splide 运行器
-├── demos/                # 演示项目
-│   ├── slidejs-revealjs/ # reveal.js 演示
-│   ├── slidejs-swiper/   # Swiper 演示
-│   └── slidejs-splide/   # Splide 演示
-├── site/                 # 官方网站
-│   └── src/              # wsx 组件和页面
-└── docs/                 # 文档
-    └── rfc/              # 技术规范和架构设计
+├── packages/              # Core packages
+│   ├── @slidejs/         # Core package namespace
+│   │   ├── core/         # Core engine
+│   │   ├── dsl/          # DSL definition, validation and serialization
+│   │   ├── context/      # Context management
+│   │   ├── runner/       # Base runner
+│   │   ├── runner-revealjs/  # reveal.js runner
+│   │   ├── runner-swiper/    # Swiper runner
+│   │   └── runner-splide/    # Splide runner
+├── demos/                # Demo projects
+│   ├── vue/              # Vue.js demo
+│   └── react/            # React demo
+├── site/                 # Official website
+│   └── src/              # wsx components and pages
+└── docs/                 # Documentation
+    └── rfc/              # Technical specifications and architecture design
 ```
 
-## 核心包
+## Core Packages
 
 ### @slidejs/core
 
-核心引擎，提供幻灯片渲染的基础能力。
+Core engine providing fundamental slide rendering capabilities.
 
-- `SlideEngine` - 幻灯片引擎
-- `SlideContext` - 上下文管理
+- `SlideEngine` - Slide engine
+- `SlideContext` - Context management
 
 ### @slidejs/dsl
 
-Slide DSL 语法解析器和编译器。
+Slide DSL syntax parser and compiler.
 
-- `parseSlideDSL()` - 解析 DSL 源代码为 AST
-- `compile()` - 将 AST 编译为可执行的 SlideDSL 对象
-- 基于 [Peggy](https://peggyjs.org/) 的语法解析器
+- `parseSlideDSL()` - Parse DSL source code into AST
+- `compile()` - Compile AST into executable SlideDSL object
+- Grammar parser based on [Peggy](https://peggyjs.org/)
 
 ### @slidejs/runner-revealjs
 
-reveal.js 运行器，基于 reveal.js 渲染幻灯片。
+reveal.js runner, rendering slides based on reveal.js.
 
-- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
+- `createSlideRunner()` - Create runner instance from DSL source code
 
 ### @slidejs/runner-swiper
 
-Swiper 运行器，基于 Swiper.js 渲染幻灯片。
+Swiper runner, rendering slides based on Swiper.js.
 
-- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
+- `createSlideRunner()` - Create runner instance from DSL source code
 
 ### @slidejs/runner-splide
 
-Splide 运行器，基于 Splide 渲染幻灯片。
+Splide runner, rendering slides based on Splide.
 
-- `createSlideRunner()` - 从 DSL 源代码创建运行器实例
+- `createSlideRunner()` - Create runner instance from DSL source code
 
 ### @slidejs/theme
 
-运行时主题自定义系统。
+Runtime theme customization system.
 
-- `setTheme()` - 全局设置主题
-- `useTheme()` - 创建作用域主题 Hook
-- `Preset` - 预设主题（SolarizedDark、SolarizedLight）
+- `setTheme()` - Set global theme
+- `useTheme()` - Create scoped theme hook
+- `Preset` - Preset themes (SolarizedDark, SolarizedLight)
 
-## 文档
+## Documentation
 
-- **RFC 文档**: [docs/rfc/](./docs/rfc/) - 技术规范和架构设计
+- **RFC Documents**: [docs/rfc/](./docs/rfc/) - Technical specifications and architecture design
 
-## 开发
+## Development
 
-### 环境要求
+### Requirements
 
 - Node.js >= 22.12.0
 - pnpm >= 10.0.0
 
-### 安装依赖
+### Install Dependencies
 
 ```bash
 pnpm install
 ```
 
-### 开发命令
+### Development Commands
 
 ```bash
-# 开发模式（交互式菜单）
+# Development mode (interactive menu)
 pnpm dev
 
-# 开发特定项目
-pnpm dev:site              # 开发网站
-pnpm dev:slidejs           # reveal.js 演示
-pnpm dev:slidejs-swiper    # Swiper 演示
-pnpm dev:slidejs-splide    # Splide 演示
+# Develop specific projects
+pnpm dev:site              # Develop website
+pnpm dev:vue               # Vue.js demo
+pnpm dev:react             # React demo
 
-# 构建所有包
+# Build all packages
 pnpm build
 
-# 运行测试
+# Run tests
 pnpm test
 
-# 代码检查
+# Code linting
 pnpm lint
-pnpm lint:fix        # 自动修复
+pnpm lint:fix        # Auto-fix
 ```
 
-### 网站部署
+### Website Deployment
 
 ```bash
-# 构建网站和演示
+# Build website and demos
 pnpm build:pages
 
-# 预览构建结果
+# Preview build results
 pnpm preview:pages
 
-# 部署到 GitHub Pages
+# Deploy to GitHub Pages
 pnpm deploy:pages
 ```
 
-## 许可证
+## License
 
-本项目采用 **MIT License**，允许自由使用、修改和分发，包括商业用途。
+This project is licensed under **MIT License**, allowing free use, modification, and distribution, including commercial use.
 
-### 企业许可证
+### Enterprise License
 
-对于企业客户，我们提供商业许可证选项，包括：
+For enterprise customers, we offer commercial license options, including:
 
-- ✅ 商业法律保护（无 MIT 免责声明）
-- ✅ 优先技术支持
-- ✅ SLA（服务级别协议）
-- ✅ 定制开发服务
-- ✅ 白标/品牌定制
+- ✅ Commercial legal protection (no MIT disclaimer)
+- ✅ Priority technical support
+- ✅ SLA (Service Level Agreement)
+- ✅ Custom development services
+- ✅ White-label/brand customization
 
-**了解更多**: 查看 [企业许可证文档](./docs/ENTERPRISE-LICENSE.md) 或联系 [enterprise@slidejs.io](mailto:enterprise@slidejs.io)
+**Learn more**: See [Enterprise License Documentation](./docs/ENTERPRISE-LICENSE.md) or contact [enterprise@slidejs.io](mailto:enterprise@slidejs.io)
 
-## 相关项目
+## Related Projects
 
-- [reveal.js](https://revealjs.com/) - HTML 演示框架
-- [Swiper](https://swiperjs.com/) - 现代触摸滑块
-- [Splide](https://splidejs.com/) - 轻量级轮播组件
-- [wsxjs](https://www.wsxjs.dev) - Web Components 框架
+- [reveal.js](https://revealjs.com/) - HTML presentation framework
+- [Swiper](https://swiperjs.com/) - Modern touch slider
+- [Splide](https://splidejs.com/) - Lightweight carousel component
+- [wsxjs](https://www.wsxjs.dev) - Web Components framework
 
-## 贡献
+## Contributing
 
-欢迎贡献！请查看 [GitHub Issues](https://github.com/slidejs/slidejs/issues) 了解待办事项。
+Contributions are welcome! Please check [GitHub Issues](https://github.com/slidejs/slidejs/issues) for open tasks.
 
-## 作者
+## Authors
 
-SlideJS 团队
+SlideJS Team

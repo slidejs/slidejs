@@ -1,12 +1,12 @@
-present quiz "revealjs-demo" {
+present quiz "comparison-demo" {
   rules {
     rule start "intro" {
       slide {
         content text {
-          "# Slide DSL + Reveal.js"
-          "## 使用 Reveal.js 渲染幻灯片"
+          "# Slide DSL Runner Comparison"
+          "## Compare Reveal.js, Swiper, and Splide"
           ""
-          "这是一个演示如何使用 Slide DSL 和 Reveal.js 适配器创建交互式幻灯片。"
+          "This demo shows how the same Slide DSL can be rendered with different runners."
         }
         behavior {
           transition fade {}
@@ -45,10 +45,10 @@ present quiz "revealjs-demo" {
         content text {
           "# Features"
           ""
-          "- 支持 Web Components"
-          "- 支持 WSX 组件"
-          "- 流畅的过渡效果"
-          "- 键盘和鼠标导航"
+          "- Support for Web Components"
+          "- Support for WSX components"
+          "- Smooth transitions"
+          "- Keyboard and mouse navigation"
         }
         behavior {
           transition slide {}
@@ -61,7 +61,7 @@ present quiz "revealjs-demo" {
         content text {
           "# Thank You!"
           ""
-          "## 使用 Reveal.js 创建精美的幻灯片演示"
+          "## Compare different rendering engines side by side"
         }
         behavior {
           transition fade {}

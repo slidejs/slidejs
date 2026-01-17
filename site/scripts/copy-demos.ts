@@ -18,15 +18,16 @@ const SITE_DIST_DIR = resolve(__dirname, '../dist');
 const DEMOS_DIST_DIR = join(SITE_DIST_DIR, 'demos');
 
 // 需要复制的 demo 列表
-const DEMOS = ['slidejs-swiper', 'slidejs-splide', 'slidejs-revealjs'] as const;
+// 只保留 React 和 Vue demo
+const DEMOS = ['vue', 'react'] as const;
 
 /**
  * 复制单个 demo 的构建产物
  */
 function copyDemo(demoName: string): void {
   const demoDistPath = join(ROOT_DIR, 'demos', demoName, 'dist');
-  // Strip 'slidejs-' prefix for clean URLs: slidejs-swiper -> swiper
-  const targetName = demoName.replace('slidejs-', '');
+  // 直接使用 demo 名称作为目标名称
+  const targetName = demoName;
   const targetPath = join(DEMOS_DIST_DIR, targetName);
 
   if (!existsSync(demoDistPath)) {
@@ -107,8 +108,7 @@ function main() {
   console.log(`\n✨ 所有 demos 已复制到 ${DEMOS_DIST_DIR}`);
   console.log(`\n📝 访问路径:`);
   DEMOS.forEach(demo => {
-    const cleanName = demo.replace('slidejs-', '');
-    console.log(`   - /demos/${cleanName}/`);
+    console.log(`   - /demos/${demo}/`);
   });
 }
 

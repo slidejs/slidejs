@@ -55,30 +55,12 @@
 
     <!-- 底部编辑器区域 -->
     <div class="editor-container" ref="editorContainerRef">
-      <!-- 左侧 DSL 编辑器 -->
+      <!-- DSL 编辑器 -->
       <div class="editor-panel" ref="editorPanelRef">
         <div class="panel-header">
           <h3>DSL Editor</h3>
         </div>
         <div id="dsl-editor" class="editor-content" ref="dslEditorRef"></div>
-      </div>
-
-      <!-- 垂直分割器 -->
-      <div
-        class="splitter-vertical"
-        id="splitter-v"
-        @mousedown="startVerticalDrag"
-        ref="verticalSplitterRef"
-      >
-        <div class="splitter-handle"></div>
-      </div>
-
-      <!-- 右侧 JSON 显示 -->
-      <div class="json-panel" ref="jsonPanelRef">
-        <div class="panel-header">
-          <h3>Compiled JSON</h3>
-        </div>
-        <div id="json-viewer" class="json-content" ref="jsonEditorRef"></div>
       </div>
     </div>
   </div>
@@ -91,7 +73,6 @@ import * as monaco from 'monaco-editor';
 import { createSlideRunner as createRevealRunner } from '@slidejs/runner-revealjs';
 import { createSlideRunner as createSwiperRunner } from '@slidejs/runner-swiper';
 import { createSlideRunner as createSplideRunner } from '@slidejs/runner-splide';
-import { parseSlideDSL, compile } from '@slidejs/dsl';
 import type { SlideContext } from '@slidejs/context';
 import type { SlideRunner } from '@slidejs/runner';
 import { setTheme as applyTheme, Preset } from '@slidejs/theme';
@@ -106,17 +87,13 @@ const currentTheme = ref<'dark' | 'light'>('dark');
 const runnersContainerRef = ref<HTMLElement | null>(null);
 const editorContainerRef = ref<HTMLElement | null>(null);
 const editorPanelRef = ref<HTMLElement | null>(null);
-const jsonPanelRef = ref<HTMLElement | null>(null);
 const horizontalSplitterRef = ref<HTMLElement | null>(null);
-const verticalSplitterRef = ref<HTMLElement | null>(null);
 const dslEditorRef = ref<HTMLElement | null>(null);
-const jsonEditorRef = ref<HTMLElement | null>(null);
 
 let revealRunner: SlideRunner<SlideContext> | null = null;
 let swiperRunner: SlideRunner<SlideContext> | null = null;
 let splideRunner: SlideRunner<SlideContext> | null = null;
 let dslEditor: monaco.editor.IStandaloneCodeEditor | null = null;
-let jsonEditor: monaco.editor.IStandaloneCodeEditor | null = null;
 let updateTimeout: ReturnType<typeof setTimeout> | null = null;
 
 const context: SlideContext = {
@@ -129,28 +106,16 @@ const context: SlideContext = {
 };
 
 /**
- * 更新所有 Runner 和 JSON 显示
+ * 更新所有 Runner
  */
-async function updateRunnersAndJson(dsl: string) {
+async function updateRunners(dsl: string) {
   const revealContainer = document.querySelector('#player-reveal');
   const swiperContainer = document.querySelector('#player-swiper');
   const splideContainer = document.querySelector('#player-splide');
-  const jsonContainer = document.querySelector('#json-viewer');
 
-  if (!revealContainer || !swiperContainer || !splideContainer || !jsonContainer) return;
+  if (!revealContainer || !swiperContainer || !splideContainer) return;
 
   try {
-    // 解析 DSL
-    const ast = await parseSlideDSL(dsl);
-
-    // 编译为 SlideDSL
-    const slideDSL = compile(ast);
-
-    // 更新 JSON 显示
-    if (jsonEditor) {
-      jsonEditor.setValue(JSON.stringify(slideDSL, null, 2));
-    }
-
     // 销毁旧的 runners
     if (revealRunner) {
       await revealRunner.destroy();
@@ -215,10 +180,6 @@ async function updateRunnersAndJson(dsl: string) {
     console.error('❌ Error:', error);
     const errorMsg = error instanceof Error ? error.message : String(error);
 
-    if (jsonEditor) {
-      jsonEditor.setValue(`Error: ${errorMsg}`);
-    }
-
     // 显示错误信息
     if (revealContainer) {
       revealContainer.innerHTML = `<div style="padding: 2em; color: red; font-family: monospace; white-space: pre-wrap;">Error: ${errorMsg}</div>`;
@@ -251,43 +212,22 @@ function initMonacoEditors() {
           clearTimeout(updateTimeout);
         }
         updateTimeout = setTimeout(() => {
-          updateRunnersAndJson(value);
+          updateRunners(value);
         }, 500);
       },
     });
   }
 
-  // JSON 查看器（只读）
-  if (jsonEditorRef.value) {
-    jsonEditor = monaco.editor.create(jsonEditorRef.value, {
-      value: '',
-      language: 'json',
-      theme: 'vs-dark',
-      readOnly: true,
-      automaticLayout: true,
-      minimap: { enabled: true },
-      fontSize: 14,
-      lineNumbers: 'on',
-      wordWrap: 'on',
-    });
-  }
 }
 
 /**
  * 初始化分割器
  */
 let isDraggingH = false;
-let isDraggingV = false;
 
 function startHorizontalDrag() {
   isDraggingH = true;
   document.body.style.cursor = 'row-resize';
-  document.body.style.userSelect = 'none';
-}
-
-function startVerticalDrag() {
-  isDraggingV = true;
-  document.body.style.cursor = 'col-resize';
   document.body.style.userSelect = 'none';
 }
 
@@ -302,36 +242,18 @@ function handleMouseMove(e: MouseEvent) {
       editorContainerRef.value.style.height = `${newEditorHeight}px`;
       // 通知 Monaco 编辑器重新布局
       dslEditor?.layout();
-      jsonEditor?.layout();
-    }
-  }
-
-  if (isDraggingV && editorPanelRef.value && jsonPanelRef.value && editorContainerRef.value) {
-    const editorContainerRect = editorContainerRef.value.getBoundingClientRect();
-    const newEditorWidth = e.clientX - editorContainerRect.left;
-    const totalWidth = editorContainerRect.width;
-    const newJsonWidth = totalWidth - newEditorWidth;
-
-    if (newEditorWidth > 200 && newJsonWidth > 200) {
-      editorPanelRef.value.style.width = `${newEditorWidth}px`;
-      jsonPanelRef.value.style.width = `${newJsonWidth}px`;
-      // 通知 Monaco 编辑器重新布局
-      dslEditor?.layout();
-      jsonEditor?.layout();
     }
   }
 }
 
 function handleMouseUp() {
-  if (isDraggingH || isDraggingV) {
+  if (isDraggingH) {
     isDraggingH = false;
-    isDraggingV = false;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
 
     // 通知 Monaco 编辑器重新布局
     dslEditor?.layout();
-    jsonEditor?.layout();
   }
 }
 
@@ -355,8 +277,8 @@ onMounted(async () => {
   document.addEventListener('mousemove', handleMouseMove);
   document.addEventListener('mouseup', handleMouseUp);
 
-  // 初始化所有 runners 和 JSON 显示
-  await updateRunnersAndJson(dslSource.value);
+  // 初始化所有 runners
+  await updateRunners(dslSource.value);
 });
 
 onBeforeUnmount(() => {
@@ -366,7 +288,6 @@ onBeforeUnmount(() => {
 
   // 清理编辑器
   dslEditor?.dispose();
-  jsonEditor?.dispose();
 
   // 清理 runners
   revealRunner?.destroy();
@@ -515,17 +436,6 @@ body {
   background: transparent;
 }
 
-.splitter-vertical {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  cursor: col-resize;
-  z-index: 10;
-  background: transparent;
-}
 
 .splitter-handle {
   width: 100%;
@@ -543,10 +453,6 @@ body {
   margin: 3px 0;
 }
 
-.splitter-vertical .splitter-handle {
-  width: 2px;
-  margin: 0 3px;
-}
 
 /* 底部编辑器区域 */
 .editor-container {
@@ -559,9 +465,8 @@ body {
 }
 
 /* 编辑器面板 */
-.editor-panel,
-.json-panel {
-  width: 50%;
+.editor-panel {
+  width: 100%;
   display: flex;
   flex-direction: column;
   background: #1e1e1e;
@@ -582,14 +487,8 @@ body {
   color: #cccccc;
 }
 
-.editor-content,
-.json-content {
+.editor-content {
   flex: 1;
   overflow: hidden;
-}
-
-/* JSON 面板特定样式 */
-.json-panel {
-  border-left: 1px solid #3c3c3c;
 }
 </style>

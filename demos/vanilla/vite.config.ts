@@ -50,6 +50,8 @@ export default defineConfig({
       '@slidejs/context',
       '@slidejs/dsl',
       '@slidejs/runner-revealjs',
+      '@slidejs/runner-swiper',
+      '@slidejs/runner-splide',
       '@slidejs/editor',
       '@slidejs/theme',
       '@wsxjs/wsx-core',
@@ -57,7 +59,7 @@ export default defineConfig({
     ],
   },
   server: {
-    port: 3000,
+    port: 3004,
     open: true,
     hmr: {
       protocol: 'ws',

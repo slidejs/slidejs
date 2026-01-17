@@ -4,7 +4,7 @@ import { wsxPress } from '@wsxjs/wsx-press/node';
 import UnoCSS from 'unocss/vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { copyFileSync, existsSync } from 'fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,8 +36,42 @@ function copy404Plugin(): Plugin {
       }
 
       try {
-        copyFileSync(indexHtml, notFoundHtml);
-        console.log(`✅ 已复制 index.html 到 404.html`);
+        // 读取 index.html 内容
+        let htmlContent = readFileSync(indexHtml, 'utf-8');
+
+        // 获取 base 路径
+        const base = process.env.GITHUB_PAGES === 'true'
+          ? process.env.CUSTOM_DOMAIN === 'true'
+            ? '/'
+            : '/slidejs/'
+          : '/';
+
+        // 对于 hash 模式路由，404.html 主要用于处理直接访问不存在的文件路径
+        // 添加一个脚本，确保当 GitHub Pages 返回 404.html 时，资源路径正确
+        // 如果当前路径不是根路径，重定向到根路径（hash 路由会自动处理）
+        if (base !== '/') {
+          // 如果使用子路径部署，需要确保资源路径正确
+          // Vite 已经处理了 base 路径，所以这里主要是确保 404.html 与 index.html 一致
+        }
+
+        // 添加一个脚本，处理 GitHub Pages 返回 404.html 时的路径问题
+        // 对于 hash 模式路由，如果访问的是不存在的路径，重定向到根路径
+        const redirectScript = `
+    <!-- GitHub Pages 404 处理：对于 hash 模式路由，重定向到根路径 -->
+    <script>
+      // 如果当前路径不是根路径，且没有 hash，重定向到根路径
+      if (window.location.pathname !== '${base}' && window.location.pathname !== '${base.replace(/\/$/, '')}' && !window.location.hash) {
+        window.location.replace('${base}');
+      }
+    </script>`;
+
+        // 在 </head> 之前插入重定向脚本
+        htmlContent = htmlContent.replace('</head>', redirectScript + '\n  </head>');
+
+        // 写入 404.html
+        writeFileSync(notFoundHtml, htmlContent, 'utf-8');
+        console.log(`✅ 已复制 index.html 到 404.html（添加了路径重定向逻辑）`);
+        console.log(`   注意：应用使用 hash 模式路由，404.html 会重定向不存在的路径到根路径`);
       } catch (error) {
         console.error(`❌ 复制 404.html 失败:`, error);
       }

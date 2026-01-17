@@ -1,0 +1,32 @@
+{
+  "name": "@slidejs/demo-vanilla",
+  "version": "0.1.8",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@slidejs/context": "workspace:*",
+    "@slidejs/core": "workspace:*",
+    "@slidejs/dsl": "workspace:*",
+    "@slidejs/editor": "workspace:*",
+    "@slidejs/runner": "workspace:*",
+    "@slidejs/runner-revealjs": "workspace:*",
+    "@slidejs/runner-swiper": "workspace:*",
+    "@slidejs/runner-splide": "workspace:*",
+    "@slidejs/theme": "workspace:*",
+    "@wsxjs/wsx-core": "^0.0.25",
+    "monaco-editor": "^0.45.0",
+    "reveal.js": "^5.0.0",
+    "swiper": "^11.0.0",
+    "@splidejs/splide": "^4.1.3"
+  },
+  "devDependencies": {
+    "@wsxjs/wsx-vite-plugin": "^0.0.25",
+    "typescript": "^5.3.3",
+    "vite": "^7.3.1"
+  }
+}

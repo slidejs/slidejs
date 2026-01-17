@@ -1,0 +1,54 @@
+{
+  "projectName": "quizerjs",
+  "packageManager": "pnpm",
+  "demos": [
+    {
+      "name": "Vue",
+      "value": "vue",
+      "description": "Vue 3 演示项目",
+      "package": "@slidejs/demo-vue"
+    },
+    {
+      "name": "React",
+      "value": "react",
+      "description": "React 演示项目",
+      "package": "@slidejs/demo-react"
+    },
+    {
+      "name": "Svelte",
+      "value": "svelte",
+      "description": "Svelte 演示项目",
+      "package": "@slidejs/demo-svelte"
+    },
+    {
+      "name": "Vanilla",
+      "value": "vanilla",
+      "description": "Vanilla 演示项目",
+      "package": "@slidejs/demo-vanilla"
+    },
+    {
+      "name": "SlideJS RevealJS",
+      "value": "slidejs-revealjs",
+      "description": "SlideJS RevealJS 演示项目",
+      "package": "@slidejs/demo-revealjs"
+    },
+    {
+      "name": "SlideJS Swiper",
+      "value": "slidejs-swiper",
+      "description": "SlideJS Swiper 演示项目",
+      "package": "@slidejs/demo-swiper"
+    },
+    {
+      "name": "SlideJS Splide",
+      "value": "slidejs-splide",
+      "description": "SlideJS Splide 演示项目",
+      "package": "@slidejs/demo-splide"
+    },
+    {
+      "name": "site",
+      "value": "site",
+      "description": "SlideJS 开源网站",
+      "package": "@slidejs/site"
+    }
+  ]
+}

@@ -4,7 +4,9 @@
 
 import { createSlideDSLEditor } from '@slidejs/editor';
 import * as monaco from 'monaco-editor';
-import { createSlideRunner } from '@slidejs/runner-revealjs';
+import { createSlideRunner as createRevealRunner } from '@slidejs/runner-revealjs';
+import { createSlideRunner as createSwiperRunner } from '@slidejs/runner-swiper';
+import { createSlideRunner as createSplideRunner } from '@slidejs/runner-splide';
 import type { SlideContext } from '@slidejs/context';
 import type { SlideRunner } from '@slidejs/runner';
 import { setTheme, Preset } from '@slidejs/theme';
@@ -31,7 +33,9 @@ const context: SlideContext = {
   items: [],
 };
 
-let runner: SlideRunner<SlideContext> | null = null;
+let revealRunner: SlideRunner<SlideContext> | null = null;
+let swiperRunner: SlideRunner<SlideContext> | null = null;
+let splideRunner: SlideRunner<SlideContext> | null = null;
 let dslEditor: monaco.editor.IStandaloneCodeEditor | null = null;
 let updateTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -39,21 +43,33 @@ let updateTimeout: ReturnType<typeof setTimeout> | null = null;
  * 更新播放器
  */
 async function updatePlayer(dsl: string) {
-  const playerContainer = document.querySelector('#player');
+  const revealContainer = document.querySelector('#player-reveal');
+  const swiperContainer = document.querySelector('#player-swiper');
+  const splideContainer = document.querySelector('#player-splide');
 
-  if (!playerContainer) return;
+  if (!revealContainer || !swiperContainer || !splideContainer) return;
 
   try {
-    // 销毁旧的 runner
-    if (runner) {
-      await runner.destroy();
-      runner = null;
-      playerContainer.innerHTML = '';
+    // 销毁旧的 runners
+    if (revealRunner) {
+      await revealRunner.destroy();
+      revealRunner = null;
+      revealContainer.innerHTML = '';
+    }
+    if (swiperRunner) {
+      await swiperRunner.destroy();
+      swiperRunner = null;
+      swiperContainer.innerHTML = '';
+    }
+    if (splideRunner) {
+      await splideRunner.destroy();
+      splideRunner = null;
+      splideContainer.innerHTML = '';
     }
 
-    // 创建新的 runner
-    runner = await createSlideRunner(dsl, context, {
-      container: '#player',
+    // 创建新的 runners
+    revealRunner = await createRevealRunner(dsl, context, {
+      container: '#player-reveal',
       revealOptions: {
         controls: true,
         progress: true,
@@ -61,17 +77,55 @@ async function updatePlayer(dsl: string) {
         transition: 'slide',
       },
     });
+    revealRunner.play();
 
-    // 启动演示
-    runner.play();
+    swiperRunner = await createSwiperRunner(dsl, context, {
+      container: '#player-swiper',
+      swiperOptions: {
+        direction: 'horizontal',
+        loop: false,
+        speed: 300,
+        spaceBetween: 30,
+        slidesPerView: 1,
+        keyboard: {
+          enabled: true,
+          onlyInViewport: true,
+        },
+      },
+    });
+    if (swiperRunner) {
+      swiperRunner.play();
+    }
+
+    splideRunner = await createSplideRunner(dsl, context, {
+      container: '#player-splide',
+      splideOptions: {
+        type: 'slide',
+        perPage: 1,
+        perMove: 1,
+        gap: '1rem',
+        keyboard: 'global',
+        arrows: true,
+        pagination: true,
+      },
+    });
+    if (splideRunner) {
+      splideRunner.play();
+    }
 
     console.log('✅ Presentation updated!');
   } catch (error) {
     console.error('❌ Error:', error);
     const errorMsg = error instanceof Error ? error.message : String(error);
 
-    if (playerContainer) {
-      playerContainer.innerHTML = `<div style="padding: 2em; color: red; font-family: monospace; white-space: pre-wrap;">Error: ${errorMsg}</div>`;
+    if (revealContainer) {
+      revealContainer.innerHTML = `<div style="padding: 2em; color: red; font-family: monospace; white-space: pre-wrap;">Error: ${errorMsg}</div>`;
+    }
+    if (swiperContainer) {
+      swiperContainer.innerHTML = `<div style="padding: 2em; color: red; font-family: monospace; white-space: pre-wrap;">Error: ${errorMsg}</div>`;
+    }
+    if (splideContainer) {
+      splideContainer.innerHTML = `<div style="padding: 2em; color: red; font-family: monospace; white-space: pre-wrap;">Error: ${errorMsg}</div>`;
     }
   }
 }

@@ -1,6 +1,6 @@
-# SlideJS Runner Comparison Demo (Vue.js)
+# SlideJS Runner Comparison Demo (React)
 
-This is a Vue.js demo project that showcases 3 different SlideJS Runners side by side, with a DSL editor.
+This is a React demo project that showcases 3 different SlideJS Runners side by side, with a DSL editor.
 
 ## Language
 
@@ -9,8 +9,8 @@ This is a Vue.js demo project that showcases 3 different SlideJS Runners side by
 
 ## Related Demos
 
-- [Vue.js Demo](README.md) (Current)
-- [React Demo](../react/README.md)
+- [Vue.js Demo](../vue/README.md)
+- [React Demo](README.md) (Current)
 
 ## Features
 
@@ -46,7 +46,7 @@ This is a Vue.js demo project that showcases 3 different SlideJS Runners side by
 # Install dependencies
 pnpm install
 
-# Start development server (port 3003)
+# Start development server (port 3005)
 pnpm dev
 
 # Build for production
@@ -59,14 +59,13 @@ pnpm preview
 ## Project Structure
 
 ```
-vue/
+react/
 ├── src/
 │   ├── components/
-│   │   ├── RunnerColumn.vue      # Runner column component
 │   │   ├── my-quiz-question.wsx   # Web Component example
 │   │   └── my-quiz-question.css
-│   ├── App.vue                    # Main app component (includes editor and splitter)
-│   ├── main.ts                    # Entry file
+│   ├── App.tsx                    # Main app component
+│   ├── main.tsx                   # Entry file
 │   ├── demo.slide                 # Slide DSL source file
 │   └── style.css                  # Global styles
 ├── index.html
@@ -77,7 +76,7 @@ vue/
 
 ## Tech Stack
 
-- **Vue 3** - Frontend framework
+- **React 18** - Frontend framework
 - **TypeScript** - Type support
 - **Vite** - Build tool
 - **Monaco Editor** - Code editor (VS Code editor core)
@@ -89,7 +88,7 @@ vue/
 
 ## Usage
 
-1. **Start Development Server**: Run `pnpm dev`, browser will automatically open `http://localhost:3003`
+1. **Start Development Server**: Run `pnpm dev`, browser will automatically open `http://localhost:3005`
 
 2. **Edit DSL**:
    - Edit Slide DSL in the DSL Editor at the bottom
@@ -113,10 +112,11 @@ vue/
 - Each runner manages its own lifecycle independently
 - When DSL syntax errors occur, all runners will display error messages
 - There is a 500ms debounce delay when editing DSL to avoid frequent updates
+- Uses React Hooks (useState, useEffect, useRef) for state and lifecycle management
 
 ## References
 
-This demo references the implementation of `slidejs-swiper` demo, including:
+This demo references the implementation of `demos/vue`, including:
 
 - Monaco editor integration
 - Adjustable splitter implementation
