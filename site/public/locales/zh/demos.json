@@ -13,5 +13,17 @@
     "description": "使用 React 构建的多 runner 对比演示。并排比较 Reveal.js、Swiper 和 Splide。",
     "framework": "React",
     "package": "@slidejs/demo-react"
+  },
+  "svelte": {
+    "title": "Svelte 演示",
+    "description": "使用 Svelte 构建的多 runner 对比演示。并排比较 Reveal.js、Swiper 和 Splide。",
+    "framework": "Svelte",
+    "package": "@slidejs/demo-svelte"
+  },
+  "vanilla": {
+    "title": "Vanilla TypeScript 演示",
+    "description": "使用原生 TypeScript 构建的多 runner 对比演示。并排比较 Reveal.js、Swiper 和 Splide。",
+    "framework": "TypeScript",
+    "package": "@slidejs/demo-vanilla"
   }
 }

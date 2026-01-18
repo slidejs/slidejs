@@ -5,14 +5,15 @@ import { i18n } from '@wsxjs/wsx-i18next';
 import '@wsxjs/wsx-base-components';
 import styles from './AppHeader.css?inline';
 import '../../components/common/LanguageSwitcher.wsx';
+import '../../components/common/ThemeSwitcher.wsx';
 
-@autoRegister({ tagName: 'app-header' })
+@autoRegister({ tagName: 'slidejs-app-header' })
 @i18n('common')
 export class AppHeader extends LightComponent {
   constructor() {
     super({
       styles,
-      styleName: 'app-header',
+      styleName: 'slidejs-app-header',
     });
   }
 
@@ -44,7 +45,8 @@ export class AppHeader extends LightComponent {
             <wsx-link to="/demos" class="nav-link" active-class="nav-link-active">
               {this.t('demos')}
             </wsx-link>
-            <language-switcher />
+            <slidejs-language-switcher />
+            <slidejs-theme-switcher />
           </nav>
         </div>
       </header>

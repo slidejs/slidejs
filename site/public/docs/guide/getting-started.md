@@ -1,34 +1,34 @@
 ---
-title: 快速开始
+title: Getting Started
 order: 1
 category: guide
-description: '5 分钟快速上手 SlideJS，学习如何创建第一个 Slide DSL 文件和运行幻灯片演示'
+description: 'Get started with SlideJS in 5 minutes - learn how to create your first Slide DSL file and run a slide presentation'
 ---
 
-# 快速开始
+# Getting Started
 
-本指南将帮助您在 5 分钟内开始使用 SlideJS。
+This guide will help you get started with SlideJS in 5 minutes.
 
-## 步骤 1: 安装
+## Step 1: Installation
 
-根据您的项目需求，选择安装相应的包：
+Install the required packages based on your project needs:
 
 ```bash
-# 核心包（必需）
+# Core packages (required)
 npm install @slidejs/core @slidejs/dsl @slidejs/context
 
-# 运行器（选择一个或多个）
-npm install @slidejs/runner-revealjs    # reveal.js 运行器
-npm install @slidejs/runner-swiper       # Swiper 运行器
-npm install @slidejs/runner-splide      # Splide 运行器
+# Runners (choose one or more)
+npm install @slidejs/runner-revealjs    # reveal.js runner
+npm install @slidejs/runner-swiper     # Swiper runner
+npm install @slidejs/runner-splide     # Splide runner
 
-# 主题系统（可选）
+# Theme system (optional)
 npm install @slidejs/theme
 ```
 
-## 步骤 2: 创建第一个 Slide DSL 文件
+## Step 2: Create Your First Slide DSL File
 
-创建一个 `.slide` 文件，例如 `presentation.slide`：
+Create a `.slide` file, for example `presentation.slide`:
 
 ```slide
 present quiz "my-first-presentation" {
@@ -36,8 +36,8 @@ present quiz "my-first-presentation" {
     rule start "intro" {
       slide {
         content text {
-          "# 我的第一个幻灯片"
-          "## 使用 SlideJS 创建"
+          "# My First Slide"
+          "## Created with SlideJS"
         }
         behavior {
           transition fade {}
@@ -48,11 +48,11 @@ present quiz "my-first-presentation" {
     rule content "main-content" {
       slide {
         content text {
-          "# 特性"
+          "# Features"
           ""
-          "- 声明式 DSL 语法"
-          "- 支持多种渲染引擎"
-          "- 类型安全"
+          "- Declarative DSL syntax"
+          "- Support for multiple rendering engines"
+          "- Type safe"
         }
         behavior {
           transition slide {}
@@ -63,7 +63,7 @@ present quiz "my-first-presentation" {
     rule end "thanks" {
       slide {
         content text {
-          "# 谢谢！"
+          "# Thank You!"
         }
         behavior {
           transition zoom {}
@@ -74,25 +74,25 @@ present quiz "my-first-presentation" {
 }
 ```
 
-## 步骤 3: 在代码中使用
+## Step 3: Use in Code
 
-### 基础用法
+### Basic Usage
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 import type { SlideContext } from '@slidejs/context';
 
-// 导入 DSL 源代码（使用 Vite 的 ?raw 导入）
+// Import DSL source code (using Vite's ?raw import)
 import dslSource from './presentation.slide?raw';
 
-// 或者直接定义
+// Or define directly
 const dslSource = `
 present quiz "my-presentation" {
   rules {
     rule start "intro" {
       slide {
         content text {
-          "# 欢迎使用 SlideJS"
+          "# Welcome to SlideJS"
         }
       }
     }
@@ -100,17 +100,17 @@ present quiz "my-presentation" {
 }
 `;
 
-// 创建上下文数据
+// Create context data
 const context: SlideContext = {
   sourceType: 'quiz',
   sourceId: 'my-presentation',
   metadata: {
-    title: '我的演示',
+    title: 'My Presentation',
   },
   items: [],
 };
 
-// 创建并运行幻灯片
+// Create and run slides
 const runner = await createSlideRunner(dslSource, context, {
   container: '#slides-container',
   revealOptions: {
@@ -119,21 +119,21 @@ const runner = await createSlideRunner(dslSource, context, {
   },
 });
 
-// 开始播放
+// Start playback
 runner.play();
 ```
 
-### 使用主题系统
+### Using Theme System
 
 ```typescript
 import { setTheme, Preset } from '@slidejs/theme';
 
-// 使用预设主题
+// Use preset theme
 setTheme(Preset.SolarizedDark);
-// 或
+// or
 setTheme(Preset.SolarizedLight);
 
-// 自定义主题
+// Custom theme
 setTheme({
   navigationColor: '#ff0000',
   paginationColor: '#00ff00',
@@ -142,7 +142,23 @@ setTheme({
 });
 ```
 
-### 使用动态组件
+### Using Dynamic Components
+
+SlideJS uses **Web Components** for dynamic content. **[WSX](https://wsxjs.dev/) is recommended** for building Web Components. Create a Web Component using WSX:
+
+```typescript
+/** @jsxImportSource @wsxjs/wsx-core */
+import { LightComponent, autoRegister, state } from '@wsxjs/wsx-core';
+
+@autoRegister({ tagName: 'my-quiz-question' })
+export class MyQuizQuestion extends LightComponent {
+  @state private selectedOption: number | null = null;
+  
+  // ... component implementation
+}
+```
+
+Then use it in your DSL:
 
 ```slide
 present quiz "demo" {
@@ -165,11 +181,13 @@ present quiz "demo" {
 }
 ```
 
-## 步骤 4: 选择运行器
+See [Components Guide](./components-guide.md) for complete examples.
 
-### Reveal.js 运行器
+## Step 4: Choose a Runner
 
-适合：演示文稿、教学课件
+### Reveal.js Runner
+
+**Best for:** Presentations, educational content
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
@@ -184,9 +202,9 @@ const runner = await createSlideRunner(dslSource, context, {
 });
 ```
 
-### Swiper 运行器
+### Swiper Runner
 
-适合：移动端、触摸交互
+**Best for:** Mobile apps, touch interactions
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-swiper';
@@ -202,9 +220,9 @@ const runner = await createSlideRunner(dslSource, context, {
 });
 ```
 
-### Splide 运行器
+### Splide Runner
 
-适合：轻量级、简单场景
+**Best for:** Lightweight, simple scenarios
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-splide';
@@ -220,9 +238,9 @@ const runner = await createSlideRunner(dslSource, context, {
 });
 ```
 
-## 下一步
+## Next Steps
 
-- [安装指南](./installation.md) - 详细的安装说明
-- [DSL 完整指南](./dsl-guide.md) - 深入了解 Slide DSL 语法和功能
-- [主题系统](../guide/theme.md) - 了解如何自定义主题
-- [示例项目](https://github.com/slidejs/slidejs/tree/main/demos) - 查看完整示例
+- [Installation Guide](./installation.md) - Detailed installation instructions
+- [DSL Complete Guide](./dsl-guide.md) - Deep dive into Slide DSL syntax and features
+- [Theme System](./theme-guide.md) - Learn how to customize themes
+- [Example Projects](https://github.com/slidejs/slidejs/tree/main/demos) - View complete examples

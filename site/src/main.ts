@@ -20,9 +20,27 @@ import './App.wsx';
 const logger = createLogger('SlideJS-Site');
 
 /**
+ * 初始化主题系统
+ * 默认使用暗色模式，支持从 localStorage 恢复用户偏好
+ */
+function initTheme() {
+  // 从 localStorage 读取用户偏好，默认为 'dark'
+  const savedTheme = localStorage.getItem('slidejs-theme') || 'dark';
+  const theme = savedTheme === 'light' ? 'light' : 'dark';
+  
+  // 设置 data-theme 属性到 document.documentElement
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  logger.info(`Theme initialized: ${theme}`);
+}
+
+/**
  * 初始化应用
  */
 function initApp() {
+  // 先初始化主题（必须在 DOM 渲染之前）
+  initTheme();
+  
   const appContainer = document.getElementById('app');
 
   if (!appContainer) {

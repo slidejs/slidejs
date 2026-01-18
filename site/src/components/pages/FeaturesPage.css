@@ -1,7 +1,15 @@
 .features-page {
   min-height: 100vh;
-  background: var(--bg-color, #ffffff);
-  color: var(--text-color, #333333);
+  background: var(--slidejs-bg-primary, #FFFFFF);
+  color: var(--slidejs-text-primary, #1E293B);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-y: auto;
+}
+
+/* 暗色模式 */
+[data-theme="dark"] .features-page {
+  background: var(--slidejs-bg-primary, #0D1117);
+  color: var(--slidejs-text-primary, #E6EDF3);
 }
 
 /* Hero 区域 */
@@ -46,16 +54,17 @@
 .feature-section {
   margin-bottom: 4rem;
   padding: 2.5rem;
-  background: var(--card-bg, #FFFFFF);
+  background: var(--slidejs-bg-primary, #FFFFFF);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--border-color, #E2E8F0);
+  box-shadow: var(--slidejs-shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.06));
+  border: 1px solid var(--slidejs-border-color, #E2E8F0);
+  transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
 .feature-section:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border-color: var(--quiz-accent-color, #2563EB);
+  border-color: var(--slidejs-accent-color, #2563EB);
 }
 
 .feature-section:last-child {
@@ -75,27 +84,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--quiz-accent-color, #2563EB);
+  color: var(--slidejs-accent-color, #2563EB);
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
   border-radius: 10px;
   flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* 暗色模式下的 feature section icon */
+[data-theme="dark"] .feature-section-icon {
+  color: var(--slidejs-accent-color, #3B82F6);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%);
 }
 
 .feature-section-icon wsx-icon {
   width: 1.5rem;
   height: 1.5rem;
+  color: inherit;
+}
+
+.feature-section-icon wsx-icon svg {
+  stroke: currentColor;
+  fill: none;
 }
 
 .feature-section-title {
   font-size: 2rem;
   font-weight: 600;
   margin: 0;
-  color: var(--heading-color, #1f2937);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .feature-section-description {
   font-size: 1.125rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--slidejs-text-secondary, #475569);
   margin: 0 0 1.5rem 0;
   line-height: 1.6;
 }
@@ -115,14 +137,14 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
-  color: var(--text-color, #333333);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .feature-detail-icon {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: var(--quiz-accent-color, #2563EB);
+  background-color: var(--slidejs-accent-color, #2563EB);
   color: white;
   display: flex;
   align-items: center;
@@ -139,10 +161,10 @@
 /* 代码示例 */
 .feature-code-example {
   margin-top: 1.5rem;
-  background: var(--code-bg, #1e293b);
+  background: var(--slidejs-bg-secondary, #161B22);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid var(--border-color, #334155);
+  border: 1px solid var(--slidejs-border-color, #30363D);
 }
 
 .feature-code-example pre {
@@ -155,14 +177,77 @@
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: #e2e8f0;
+  color: var(--slidejs-text-primary, #E6EDF3);
   white-space: pre;
+  background: transparent;
+}
+
+/* 亮色模式下的代码颜色 */
+[data-theme="light"] .feature-code-example code {
+  color: var(--slidejs-text-primary, #1E293B);
+}
+
+/* 语法高亮 - 关键字 */
+.feature-code-example code .keyword,
+.feature-code-example code .kw {
+  color: #C792EA;
+}
+
+/* 语法高亮 - 字符串 */
+.feature-code-example code .string,
+.feature-code-example code .str {
+  color: #C3E88D;
+}
+
+/* 语法高亮 - 数字 */
+.feature-code-example code .number,
+.feature-code-example code .num {
+  color: #F78C6C;
+}
+
+/* 语法高亮 - 注释 */
+.feature-code-example code .comment,
+.feature-code-example code .cm {
+  color: #546E7A;
+  font-style: italic;
+}
+
+/* 语法高亮 - 函数名 */
+.feature-code-example code .function,
+.feature-code-example code .fn {
+  color: #82AAFF;
+}
+
+/* 亮色模式下的语法高亮 */
+[data-theme="light"] .feature-code-example code .keyword,
+[data-theme="light"] .feature-code-example code .kw {
+  color: #7C3AED;
+}
+
+[data-theme="light"] .feature-code-example code .string,
+[data-theme="light"] .feature-code-example code .str {
+  color: #059669;
+}
+
+[data-theme="light"] .feature-code-example code .number,
+[data-theme="light"] .feature-code-example code .num {
+  color: #DC2626;
+}
+
+[data-theme="light"] .feature-code-example code .comment,
+[data-theme="light"] .feature-code-example code .cm {
+  color: #6B7280;
+}
+
+[data-theme="light"] .feature-code-example code .function,
+[data-theme="light"] .feature-code-example code .fn {
+  color: #2563EB;
 }
 
 /* 对比表格 */
 .features-comparison {
   padding: 4rem 1rem;
-  background: var(--section-bg, #f9fafb);
+  background: var(--slidejs-bg-secondary, #F8FAFC);
 }
 
 .features-comparison-container {
@@ -175,12 +260,12 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
-  color: var(--heading-color, #1f2937);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .comparison-subtitle {
   font-size: 1.125rem;
-  color: var(--text-secondary, #6b7280);
+  color: var(--slidejs-text-secondary, #475569);
   margin: 0 0 2rem 0;
 }
 
@@ -192,28 +277,28 @@
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--card-bg, #ffffff);
+  background: var(--slidejs-bg-primary, #FFFFFF);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--slidejs-shadow-md, 0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
 .comparison-table thead {
-  background: var(--table-header-bg, #f3f4f6);
+  background: var(--slidejs-bg-secondary, #F8FAFC);
 }
 
 .comparison-table th {
   padding: 1rem;
   text-align: left;
   font-weight: 600;
-  color: var(--heading-color, #1f2937);
-  border-bottom: 2px solid var(--border-color, #e5e7eb);
+  color: var(--slidejs-text-primary, #1E293B);
+  border-bottom: 2px solid var(--slidejs-border-color, #E2E8F0);
 }
 
 .comparison-table td {
   padding: 1rem;
-  border-bottom: 1px solid var(--border-color, #e5e7eb);
-  color: var(--text-color, #333333);
+  border-bottom: 1px solid var(--slidejs-border-color, #E2E8F0);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .comparison-table tbody tr:last-child td {
@@ -233,7 +318,7 @@
 
 .comparison-other-col {
   width: 35%;
-  color: var(--text-secondary, #6b7280);
+  color: var(--slidejs-text-secondary, #475569);
 }
 
 /* CTA 区域 */

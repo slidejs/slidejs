@@ -1,6 +1,6 @@
 .app-footer {
-  background-color: var(--quiz-bg-secondary, #f5f5f5);
-  border-top: 1px solid var(--quiz-border-color, #e0e0e0);
+  background-color: var(--slidejs-bg-secondary, #f5f5f5);
+  border-top: 1px solid var(--slidejs-border-color, #e0e0e0);
   margin-top: auto;
 }
 
@@ -31,25 +31,25 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0 0 0.5rem 0;
-  color: var(--quiz-text-primary, #333333);
+  color: var(--slidejs-text-primary, #333333);
 }
 
 .footer-description {
   font-size: 0.9rem;
-  color: var(--quiz-text-secondary, #666666);
+  color: var(--slidejs-text-secondary, #666666);
   margin: 0;
   line-height: 1.6;
 }
 
 .footer-link {
-  color: var(--quiz-accent-color, #4a9d5f);
+  color: var(--slidejs-accent-color, #4a9d5f);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s, text-decoration 0.2s;
 }
 
 .footer-link:hover {
-  color: var(--quiz-accent-hover, #c5634f);
+  color: var(--slidejs-accent-hover, #c5634f);
   text-decoration: underline;
 }
 
@@ -57,7 +57,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
-  color: var(--quiz-text-primary, #333333);
+  color: var(--slidejs-text-primary, #333333);
 }
 
 .footer-links {
@@ -74,25 +74,25 @@
 }
 
 .footer-links a {
-  color: var(--quiz-text-secondary, #666666);
+  color: var(--slidejs-text-secondary, #666666);
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.2s;
 }
 
 .footer-links a:hover {
-  color: var(--quiz-accent-color);
+  color: var(--slidejs-accent-color);
 }
 
 .footer-bottom {
-  border-top: 1px solid var(--quiz-border-color, #e0e0e0);
+  border-top: 1px solid var(--slidejs-border-color, #e0e0e0);
   padding-top: 1.5rem;
   text-align: center;
 }
 
 .footer-copyright {
   font-size: 0.875rem;
-  color: var(--quiz-text-tertiary, #999999);
+  color: var(--slidejs-text-tertiary, #999999);
   margin: 0;
 }
 

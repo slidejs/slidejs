@@ -9,7 +9,6 @@
  */
 import { WebComponent, autoRegister, state } from '@wsxjs/wsx-core';
 import { i18nInstance } from '@wsxjs/wsx-i18next';
-import styles from './LanguageSwitcher.css?inline';
 import './Icon.wsx';
 
 /**
@@ -22,7 +21,7 @@ export interface LanguageOption {
   name: string;
 }
 
-@autoRegister({ tagName: 'language-switcher' })
+@autoRegister({ tagName: 'slidejs-language-switcher' })
 export default class LanguageSwitcher extends WebComponent {
   /** 支持的语言列表 */
   private languages: LanguageOption[] = [
@@ -39,13 +38,6 @@ export default class LanguageSwitcher extends WebComponent {
   /** 下拉菜单元素引用 */
   private dropdownElement?: HTMLElement;
   private buttonElement?: HTMLElement;
-
-  constructor() {
-    super({
-      styles,
-      styleName: 'language-switcher',
-    });
-  }
 
   render(): HTMLElement {
     const currentLang = this.languages.find(lang => lang.code === this.currentLanguage);

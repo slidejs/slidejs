@@ -30,8 +30,8 @@ importers:
         specifier: ^14.6.0
         version: 14.6.0(eslint-plugin-vue@10.6.2(@typescript-eslint/parser@8.49.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.39.2(jiti@2.6.1))))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@wsxjs/wsx-press':
-        specifier: ^0.0.25
-        version: 0.0.25(typedoc-plugin-markdown@4.9.0(typedoc@0.26.11(typescript@5.9.3)))(typedoc@0.26.11(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typedoc-plugin-markdown@4.9.0(typedoc@0.26.11(typescript@5.9.3)))(typedoc@0.26.11(typescript@5.9.3))(typescript@5.9.3)
       chalk:
         specifier: ^5.6.2
         version: 5.6.2
@@ -84,6 +84,55 @@ importers:
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.39.2(jiti@2.6.1))
 
+  demos/markdown:
+    dependencies:
+      '@slidejs/context':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/context
+      '@slidejs/core':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/core
+      '@slidejs/dsl':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/dsl
+      '@slidejs/editor':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/editor
+      '@slidejs/runner':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner
+      '@slidejs/runner-revealjs':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/runner-revealjs
+      '@slidejs/theme':
+        specifier: workspace:*
+        version: link:../../packages/@slidejs/theme
+      '@wsxjs/wsx-core':
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
+      monaco-editor:
+        specifier: ^0.45.0
+        version: 0.45.0
+      vue:
+        specifier: ^3.4.21
+        version: 3.5.25(typescript@5.9.3)
+    devDependencies:
+      '@types/node':
+        specifier: ^22.12.0
+        version: 22.19.3
+      '@vitejs/plugin-vue':
+        specifier: ^5.0.4
+        version: 5.2.4(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))
+      '@wsxjs/wsx-vite-plugin':
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vite:
+        specifier: ^7.3.1
+        version: 7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
+
   demos/react:
     dependencies:
       '@slidejs/context':
@@ -114,8 +163,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/@slidejs/theme
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -139,8 +188,8 @@ importers:
         specifier: ^4.2.1
         version: 4.7.0(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -172,8 +221,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/@slidejs/theme
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -182,8 +231,8 @@ importers:
         version: 5.2.1
     devDependencies:
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -218,15 +267,15 @@ importers:
         specifier: ^4.1.3
         version: 4.1.4
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
     devDependencies:
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -258,8 +307,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/@slidejs/theme
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -271,8 +320,8 @@ importers:
         specifier: ^22.12.0
         version: 22.19.3
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -313,8 +362,8 @@ importers:
         specifier: ^4.1.3
         version: 4.1.4
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -332,8 +381,8 @@ importers:
         specifier: ^5.0.0
         version: 5.1.1(svelte@5.46.4)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -374,8 +423,8 @@ importers:
         specifier: ^4.1.3
         version: 4.1.4
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -387,8 +436,8 @@ importers:
         version: 11.2.10
     devDependencies:
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -426,8 +475,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/@slidejs/theme
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       monaco-editor:
         specifier: ^0.45.0
         version: 0.45.0
@@ -442,8 +491,8 @@ importers:
         specifier: ^5.0.4
         version: 5.2.4(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.25(typescript@5.9.3))
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       typescript:
         specifier: ^5.3.3
         version: 5.9.3
@@ -688,21 +737,33 @@ importers:
       '@slidejs/dsl':
         specifier: workspace:*
         version: link:../packages/@slidejs/dsl
+      '@slidejs/editor':
+        specifier: workspace:*
+        version: link:../packages/@slidejs/editor
+      '@slidejs/runner-revealjs':
+        specifier: workspace:*
+        version: link:../packages/@slidejs/runner-revealjs
+      '@slidejs/theme':
+        specifier: workspace:*
+        version: link:../packages/@slidejs/theme
       '@wsxjs/wsx-base-components':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       '@wsxjs/wsx-core':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       '@wsxjs/wsx-i18next':
-        specifier: ^0.0.25
-        version: 0.0.25(i18next@23.16.8)(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(i18next@23.16.8)(typescript@5.9.3)
       '@wsxjs/wsx-router':
-        specifier: ^0.0.25
-        version: 0.0.25(typescript@5.9.3)
+        specifier: ^0.0.26
+        version: 0.0.26(typescript@5.9.3)
       i18next:
         specifier: ^23.7.0
         version: 23.16.8
+      monaco-editor:
+        specifier: ^0.45.0
+        version: 0.45.0
     devDependencies:
       '@types/node':
         specifier: ^22.12.0
@@ -711,8 +772,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1(vitest@1.6.1)
       '@wsxjs/wsx-vite-plugin':
-        specifier: ^0.0.25
-        version: 0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
+        specifier: ^0.0.26
+        version: 0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -2595,36 +2656,36 @@ packages:
   '@vueuse/shared@12.8.2':
     resolution: {integrity: sha512-dznP38YzxZoNloI0qpEfpkms8knDtaoQ6Y/sfS0L7Yki4zh40LFHEhur0odJC6xTHG5dxWVPiUWBXn+wCG2s5w==}
 
-  '@wsxjs/wsx-base-components@0.0.25':
-    resolution: {integrity: sha512-q/mnTMRKkX+cBRw5s0My8/N1O1gG83q+DMo+tSOFbStq932uKU0HygMFRaKO2jOH2HeRvOGJfkze49e94SSOKg==}
+  '@wsxjs/wsx-base-components@0.0.26':
+    resolution: {integrity: sha512-VctN0Fl/aY62Nel44HNu1iNV8kClejnhsvaC3XNk6n24szJbvrTqUtp89Yt9CjTGzeKXVq/dK8dqm9G6KC/kOw==}
 
-  '@wsxjs/wsx-core@0.0.25':
-    resolution: {integrity: sha512-31HijBvYFWGRt+yq1tjCf+bzC7/eqiEkHIb8ijNjxlhde9h5lRloPv/qvMfwVmc7gnuRHaAF+uyDoiyEmTwpiQ==}
+  '@wsxjs/wsx-core@0.0.26':
+    resolution: {integrity: sha512-8bVPmWHFHwCgHd4A9C0K/0Dr2yDeoWvpRK6zr9Rb9WyvlZW3GW1H+nDAPlln6z+bXAr7SklIAwbRWyiwe2RGWQ==}
     peerDependencies:
       typescript: '>=4.7.0'
 
-  '@wsxjs/wsx-i18next@0.0.25':
-    resolution: {integrity: sha512-cqj7DkDm+/5eHE6AaZAHUbeJJrlUyJ+UHuJC99jf8qSs3GsrwEfQBmvNeboYFOV6hrddFSPdwk3YD8c7OLaX4w==}
+  '@wsxjs/wsx-i18next@0.0.26':
+    resolution: {integrity: sha512-LDvFpTArSW9UUmIKZl0/Ch718mNIgVIaT+o5LqmhOHZrwxLnuUkfbQuQdqrdoV2YXMz1qe3GsLXWuGpNoyf3vw==}
     peerDependencies:
       i18next: ^23.0.0
 
-  '@wsxjs/wsx-logger@0.0.25':
-    resolution: {integrity: sha512-nk/dCX+xgFuofsKmHSrzy5lcRNTxtlN3tny3LTa2URDB5etHiUXIK78IF+3VwrS4ZCIpOXhhP3txrvT/IF2xBg==}
+  '@wsxjs/wsx-logger@0.0.26':
+    resolution: {integrity: sha512-aSE6FOK/Lk1YfCYPaWG/Xz6amCT4fg9YipGvPb96rAt5JXxejkVcfDsv3z9WbcODZHZTMtAcGt2aO0zQ5msvow==}
 
-  '@wsxjs/wsx-marked-components@0.0.25':
-    resolution: {integrity: sha512-oYSZmAw2LaQ5UPVo80QMrlvFKwk2C7mxZi6bzHeS4KKX7Xte07mfFOGC3D/HWTeZF9CRmd9YmPUlcp7FXUnMpQ==}
+  '@wsxjs/wsx-marked-components@0.0.26':
+    resolution: {integrity: sha512-DkKcQvZJ7dkeOx0J9QMNj5K99NY9cP7OcTfwRP72/FoyEjgmTSrLs/p4tC8lUGnyl1dE8ZPSH+vL2dkQ0Ldfkg==}
 
-  '@wsxjs/wsx-press@0.0.25':
-    resolution: {integrity: sha512-+tsuZoRPeOH9f6EGQHbLsDIT7UdmXBfGWoVsgpvt9pjGEaA0w/vvK6lZExw4rIpBMlf7j0/ZusIPerC7OS5fJw==}
+  '@wsxjs/wsx-press@0.0.26':
+    resolution: {integrity: sha512-VZPt/m2da3SCu+26C2j2yt+Va6SxCWGfuDy6cu5rANsQPZqshZEp5DTqWGSM7kvVIImrQXMEOmGmcB/TXZHoEQ==}
     peerDependencies:
       typedoc: ^0.26.0
       typedoc-plugin-markdown: ^4.0.0
 
-  '@wsxjs/wsx-router@0.0.25':
-    resolution: {integrity: sha512-aZyzOfwi0RAoZu5QdNYVLvtutbY8eWSW76vtVfkdM1YKEIMpIMtZkh7IVKKT3nAJ38NLlc4TIPLBETBnxPcCUQ==}
+  '@wsxjs/wsx-router@0.0.26':
+    resolution: {integrity: sha512-kRBGW0ra7cGDKPeFYI32V2AhcUIx34835pjR756viHxbzYQBcIcy+Z2o+5E00RAISN4eRyOqQZTA975lmb4rNA==}
 
-  '@wsxjs/wsx-vite-plugin@0.0.25':
-    resolution: {integrity: sha512-5AEimcbkZOsFeWXJtBb/2dad2ITKjavq7FY6q3zSBt/OmD0YCtpDODKn35y0ea1n79FKTA0eCbLBFfCjeraU7Q==}
+  '@wsxjs/wsx-vite-plugin@0.0.26':
+    resolution: {integrity: sha512-QvEl2vv3BGl8YH3ZoACZmYLSv6GIGUasRieUTPdgbaJ1vT1aF/JH4yRP2Zrz35q8mxslcH+3VooO2Q2mDISIww==}
     peerDependencies:
       esbuild: '>=0.25.0'
       vite: '>=4.0.0'
@@ -7013,22 +7074,22 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@wsxjs/wsx-base-components@0.0.25(typescript@5.9.3)':
+  '@wsxjs/wsx-base-components@0.0.26(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
-      '@wsxjs/wsx-logger': 0.0.25
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
+      '@wsxjs/wsx-logger': 0.0.26
       prismjs: 1.30.0
     transitivePeerDependencies:
       - typescript
 
-  '@wsxjs/wsx-core@0.0.25(typescript@5.9.3)':
+  '@wsxjs/wsx-core@0.0.26(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-logger': 0.0.25
+      '@wsxjs/wsx-logger': 0.0.26
       typescript: 5.9.3
 
-  '@wsxjs/wsx-i18next@0.0.25(i18next@23.16.8)(typescript@5.9.3)':
+  '@wsxjs/wsx-i18next@0.0.26(i18next@23.16.8)(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
       i18next: 23.16.8
       i18next-browser-languagedetector: 7.2.2
       i18next-http-backend: 2.7.3
@@ -7036,23 +7097,23 @@ snapshots:
       - encoding
       - typescript
 
-  '@wsxjs/wsx-logger@0.0.25': {}
+  '@wsxjs/wsx-logger@0.0.26': {}
 
-  '@wsxjs/wsx-marked-components@0.0.25(typescript@5.9.3)':
+  '@wsxjs/wsx-marked-components@0.0.26(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
-      '@wsxjs/wsx-logger': 0.0.25
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
+      '@wsxjs/wsx-logger': 0.0.26
       marked: 12.0.2
       prismjs: 1.30.0
     transitivePeerDependencies:
       - typescript
 
-  '@wsxjs/wsx-press@0.0.25(typedoc-plugin-markdown@4.9.0(typedoc@0.26.11(typescript@5.9.3)))(typedoc@0.26.11(typescript@5.9.3))(typescript@5.9.3)':
+  '@wsxjs/wsx-press@0.0.26(typedoc-plugin-markdown@4.9.0(typedoc@0.26.11(typescript@5.9.3)))(typedoc@0.26.11(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
-      '@wsxjs/wsx-logger': 0.0.25
-      '@wsxjs/wsx-marked-components': 0.0.25(typescript@5.9.3)
-      '@wsxjs/wsx-router': 0.0.25(typescript@5.9.3)
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
+      '@wsxjs/wsx-logger': 0.0.26
+      '@wsxjs/wsx-marked-components': 0.0.26(typescript@5.9.3)
+      '@wsxjs/wsx-router': 0.0.26(typescript@5.9.3)
       fuse.js: 7.1.0
       marked: 12.0.2
       typedoc: 0.26.11(typescript@5.9.3)
@@ -7060,14 +7121,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@wsxjs/wsx-router@0.0.25(typescript@5.9.3)':
+  '@wsxjs/wsx-router@0.0.26(typescript@5.9.3)':
     dependencies:
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
-      '@wsxjs/wsx-logger': 0.0.25
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
+      '@wsxjs/wsx-logger': 0.0.26
     transitivePeerDependencies:
       - typescript
 
-  '@wsxjs/wsx-vite-plugin@0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))':
+  '@wsxjs/wsx-vite-plugin@0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.28.5)
@@ -7075,14 +7136,14 @@ snapshots:
       '@babel/plugin-transform-class-static-block': 7.28.3(@babel/core@7.28.5)
       '@babel/preset-typescript': 7.28.5(@babel/core@7.28.5)
       '@babel/types': 7.28.5
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
       esbuild: 0.27.2
       vite: 7.3.1(@types/node@22.19.3)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@wsxjs/wsx-vite-plugin@0.0.25(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))':
+  '@wsxjs/wsx-vite-plugin@0.0.26(esbuild@0.27.2)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.28.5)
@@ -7090,7 +7151,7 @@ snapshots:
       '@babel/plugin-transform-class-static-block': 7.28.3(@babel/core@7.28.5)
       '@babel/preset-typescript': 7.28.5(@babel/core@7.28.5)
       '@babel/types': 7.28.5
-      '@wsxjs/wsx-core': 0.0.25(typescript@5.9.3)
+      '@wsxjs/wsx-core': 0.0.26(typescript@5.9.3)
       esbuild: 0.27.2
       vite: 7.3.1(@types/node@25.0.2)(jiti@2.6.1)(sass@1.77.6)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:

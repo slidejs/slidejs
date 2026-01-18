@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "id": "quiz-demo",
+      "title": "From Quiz Data to Presentation",
+      "titleZh": "从 Quiz 数据生成演示",
+      "description": "Demonstrates how to convert Quiz questions into a presentation for classroom display",
+      "descriptionZh": "展示如何将 Quiz 题目转换为演示文稿，用于课堂展示",
+      "category": "education",
+      "scenario": "Teachers need to convert Quiz questions into presentations for classroom display",
+      "scenarioZh": "教师需要将 Quiz 题目转换为演示文稿，用于课堂展示",
+      "dslSource": "present quiz \"my-quiz\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"# Quiz Presentation\"\n          \"## Let's get started!\"\n        }\n      }\n    }\n    rule content \"questions\" {\n      slide {\n        content text {\n          \"# Question\"\n          \"This is a sample question slide\"\n        }\n      }\n    }\n    rule end \"thanks\" {\n      slide {\n        content text {\n          \"# Thank You!\"\n        }\n      }\n    }\n  }\n}",
+      "tags": ["quiz", "education", "tutorial"],
+      "author": "SlideJS Team",
+      "createdAt": "2025-01-17",
+      "featured": true
+    },
+    {
+      "id": "product-intro",
+      "title": "Product Introduction Presentation",
+      "titleZh": "产品介绍演示",
+      "description": "A dynamic product introduction presentation for sales teams",
+      "descriptionZh": "销售团队使用的动态产品介绍演示",
+      "category": "business",
+      "scenario": "Sales teams need to quickly create product introductions",
+      "scenarioZh": "销售团队需要快速创建产品介绍",
+      "dslSource": "present quiz \"product\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"# Product Introduction\"\n          \"## Showcase your product\"\n        }\n      }\n    }\n    rule content \"features\" {\n      slide {\n        content text {\n          \"# Features\"\n          \"- Feature 1\"\n          \"- Feature 2\"\n          \"- Feature 3\"\n        }\n      }\n    }\n  }\n}",
+      "tags": ["product", "business", "sales"],
+      "author": "SlideJS Team",
+      "createdAt": "2025-01-17",
+      "featured": true
+    },
+    {
+      "id": "api-docs",
+      "title": "API Documentation Presentation",
+      "titleZh": "API 文档演示",
+      "description": "Technical documentation presentation for developers",
+      "descriptionZh": "面向开发者的技术文档演示",
+      "category": "technical",
+      "scenario": "Developers need to present API documentation",
+      "scenarioZh": "开发者需要展示 API 文档",
+      "dslSource": "present quiz \"api-docs\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"# API Documentation\"\n          \"## Technical Overview\"\n        }\n      }\n    }\n    rule content \"endpoints\" {\n      slide {\n        content text {\n          \"# API Endpoints\"\n          \"- GET /api/users\"\n          \"- POST /api/users\"\n          \"- PUT /api/users/:id\"\n        }\n      }\n    }\n  }\n}",
+      "tags": ["api", "technical", "documentation"],
+      "author": "SlideJS Team",
+      "createdAt": "2025-01-17",
+      "featured": false
+    },
+    {
+      "id": "survey-report",
+      "title": "Survey Report Presentation",
+      "titleZh": "调查报告演示",
+      "description": "Data visualization presentation for survey results",
+      "descriptionZh": "用于展示调查结果的数据可视化演示",
+      "category": "business",
+      "scenario": "Data analysts need to present survey results",
+      "scenarioZh": "数据分析师需要展示调查结果",
+      "dslSource": "present quiz \"survey\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"# Survey Report\"\n          \"## Data Analysis Results\"\n        }\n      }\n    }\n    rule content \"results\" {\n      slide {\n        content text {\n          \"# Key Findings\"\n          \"- Finding 1\"\n          \"- Finding 2\"\n          \"- Finding 3\"\n        }\n      }\n    }\n  }\n}",
+      "tags": ["survey", "business", "data"],
+      "author": "SlideJS Team",
+      "createdAt": "2025-01-17",
+      "featured": false
+    },
+    {
+      "id": "portfolio",
+      "title": "Portfolio Presentation",
+      "titleZh": "作品集演示",
+      "description": "Creative portfolio showcase for designers",
+      "descriptionZh": "设计师的创意作品集展示",
+      "category": "creative",
+      "scenario": "Designers need to showcase their work",
+      "scenarioZh": "设计师需要展示作品",
+      "dslSource": "present quiz \"portfolio\" {\n  rules {\n    rule start \"intro\" {\n      slide {\n        content text {\n          \"# My Portfolio\"\n          \"## Creative Works\"\n        }\n      }\n    }\n    rule content \"works\" {\n      slide {\n        content text {\n          \"# Featured Projects\"\n          \"- Project 1\"\n          \"- Project 2\"\n          \"- Project 3\"\n        }\n      }\n    }\n  }\n}",
+      "tags": ["portfolio", "creative", "design"],
+      "author": "SlideJS Team",
+      "createdAt": "2025-01-17",
+      "featured": false
+    }
+  ]
+}

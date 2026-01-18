@@ -1,14 +1,23 @@
 .home-page {
   flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 /* Hero 区域 */
 .hero {
-  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
-  color: var(--quiz-text-primary, #1E293B);
+  background: linear-gradient(180deg, var(--slidejs-bg-secondary, #F8FAFC) 0%, var(--slidejs-bg-primary, #FFFFFF) 100%);
+  color: var(--slidejs-text-primary, #1E293B);
   padding: 8rem 0 6rem;
   text-align: center;
   position: relative;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* 暗色模式下的 Hero */
+[data-theme="dark"] .hero {
+  background: linear-gradient(180deg, var(--slidejs-bg-secondary, #161B22) 0%, var(--slidejs-bg-primary, #0D1117) 100%);
+  color: var(--slidejs-text-primary, #E6EDF3);
 }
 
 .hero-container {
@@ -32,14 +41,14 @@
 }
 
 .hero-link {
-  color: var(--quiz-accent-color, #4a9d5f);
+  color: var(--slidejs-accent-color, #4a9d5f);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s, text-decoration 0.2s;
 }
 
 .hero-link:hover {
-  color: var(--quiz-accent-hover, #c5634f);
+  color: var(--slidejs-accent-hover, #c5634f);
   text-decoration: underline;
 }
 
@@ -48,6 +57,14 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
   margin-bottom: 3rem;
 }
 
@@ -68,42 +85,42 @@
 }
 
 .btn-primary {
-  background-color: var(--quiz-accent-color, #2563EB);
-  color: var(--quiz-text-on-accent, #ffffff) !important;
+  background-color: var(--slidejs-accent-color, #2563EB);
+  color: var(--slidejs-text-on-accent, #ffffff) !important;
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background-color: var(--quiz-accent-hover, #1D4ED8);
-  color: var(--quiz-text-on-accent, #ffffff) !important;
+  background-color: var(--slidejs-accent-hover, #1D4ED8);
+  color: var(--slidejs-text-on-accent, #ffffff) !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .btn-primary:active {
-  background-color: var(--quiz-accent-active, #b65340);
-  color: var(--quiz-text-on-accent, #ffffff) !important;
+  background-color: var(--slidejs-accent-active, #b65340);
+  color: var(--slidejs-text-on-accent, #ffffff) !important;
   transform: translateY(0);
 }
 
 .btn-primary * {
-  color: var(--quiz-text-on-accent, #ffffff) !important;
+  color: var(--slidejs-text-on-accent, #ffffff) !important;
 }
 
 .btn-primary::part(link) {
-  color: var(--quiz-text-on-accent, #ffffff) !important;
+  color: var(--slidejs-text-on-accent, #ffffff) !important;
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--quiz-text-primary, #1E293B);
-  border: 2px solid var(--quiz-border-color, #E2E8F0);
+  color: var(--slidejs-text-primary, #1E293B);
+  border: 2px solid var(--slidejs-border-color, #E2E8F0);
   cursor: pointer;
 }
 
 .btn-secondary:hover {
-  border-color: var(--quiz-accent-color, #2563EB);
-  color: var(--quiz-accent-color, #2563EB);
+  border-color: var(--slidejs-accent-color, #2563EB);
+  color: var(--slidejs-accent-color, #2563EB);
   background-color: rgba(37, 99, 235, 0.05);
   transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -130,7 +147,7 @@
   flex-wrap: wrap;
   margin-top: 4rem;
   padding-top: 3rem;
-  border-top: 1px solid var(--quiz-border-color, #E2E8F0);
+  border-top: 1px solid var(--slidejs-border-color, #E2E8F0);
 }
 
 .stat-item {
@@ -154,7 +171,12 @@
 /* 特性区域 */
 .features {
   padding: 6rem 0;
-  background-color: var(--quiz-bg-primary, #FFFFFF);
+  background-color: var(--slidejs-bg-primary, #FFFFFF);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .features {
+  background-color: var(--slidejs-bg-primary, #0D1117);
 }
 
 .features-container {
@@ -168,7 +190,7 @@
   font-weight: 700;
   text-align: center;
   margin: 0 0 1rem 0;
-  color: var(--quiz-text-primary, #1E293B);
+  color: var(--slidejs-text-primary, #1E293B);
   letter-spacing: -0.02em;
 }
 
@@ -181,8 +203,8 @@
 .feature-card {
   padding: 2rem;
   border-radius: 12px;
-  border: 1px solid var(--quiz-border-color, #E2E8F0);
-  background-color: var(--quiz-bg-primary, #FFFFFF);
+  border: 1px solid var(--slidejs-border-color, #E2E8F0);
+  background-color: var(--slidejs-bg-primary, #FFFFFF);
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
@@ -192,7 +214,7 @@
 .feature-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border-color: var(--quiz-accent-color, #2563EB);
+  border-color: var(--slidejs-accent-color, #2563EB);
 }
 
 .feature-icon {
@@ -202,27 +224,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--quiz-accent-color, #2563EB);
+  color: var(--slidejs-accent-color, #2563EB);
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
   border-radius: 10px;
   flex-shrink: 0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* 暗色模式下的 feature icon */
+[data-theme="dark"] .feature-icon {
+  color: var(--slidejs-accent-color, #3B82F6);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%);
 }
 
 .feature-icon wsx-icon {
   width: 1.5rem;
   height: 1.5rem;
+  color: inherit;
+}
+
+.feature-icon wsx-icon svg {
+  stroke: currentColor;
+  fill: none;
 }
 
 .feature-title {
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0 0 0.75rem 0;
-  color: var(--quiz-text-primary, #1E293B);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .feature-description {
   font-size: 0.95rem;
-  color: var(--quiz-text-secondary, #475569);
+  color: var(--slidejs-text-secondary, #475569);
   margin: 0;
   line-height: 1.6;
 }
@@ -230,7 +265,12 @@
 /* 快速开始区域 */
 .quick-start {
   padding: 6rem 0;
-  background-color: var(--quiz-bg-secondary, #F8FAFC);
+  background-color: var(--slidejs-bg-secondary, #F8FAFC);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .quick-start {
+  background-color: var(--slidejs-bg-secondary, #161B22);
 }
 
 .quick-start-container {
@@ -240,25 +280,108 @@
 }
 
 .code-example {
-  background-color: #1E293B;
-  border: 1px solid var(--quiz-border-color, #E2E8F0);
+  background-color: var(--slidejs-bg-secondary, #161B22);
+  border: 1px solid var(--slidejs-border-color, #30363D);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   overflow-x: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--slidejs-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.4));
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+[data-theme="light"] .code-example {
+  background-color: var(--slidejs-bg-secondary, #F8FAFC);
+  border-color: var(--slidejs-border-color, #E2E8F0);
+  box-shadow: var(--slidejs-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
 }
 
 .code-example pre {
   margin: 0;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  padding: 0;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
   font-size: 0.9rem;
   line-height: 1.6;
-  color: #E2E8F0;
+  color: var(--slidejs-text-primary, #E6EDF3);
+  background: transparent;
+  overflow-x: auto;
 }
 
 .code-example code {
   font-family: inherit;
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* 语法高亮 - 关键字 */
+.code-example code .keyword,
+.code-example code .kw {
+  color: #C792EA;
+}
+
+/* 语法高亮 - 字符串 */
+.code-example code .string,
+.code-example code .str {
+  color: #C3E88D;
+}
+
+/* 语法高亮 - 数字 */
+.code-example code .number,
+.code-example code .num {
+  color: #F78C6C;
+}
+
+/* 语法高亮 - 注释 */
+.code-example code .comment,
+.code-example code .cm {
+  color: #546E7A;
+  font-style: italic;
+}
+
+/* 语法高亮 - 函数名 */
+.code-example code .function,
+.code-example code .fn {
+  color: #82AAFF;
+}
+
+/* 语法高亮 - 变量 */
+.code-example code .variable,
+.code-example code .var {
+  color: #EEFFFF;
+}
+
+/* 亮色模式下的语法高亮 */
+[data-theme="light"] .code-example code .keyword,
+[data-theme="light"] .code-example code .kw {
+  color: #7C3AED;
+}
+
+[data-theme="light"] .code-example code .string,
+[data-theme="light"] .code-example code .str {
+  color: #059669;
+}
+
+[data-theme="light"] .code-example code .number,
+[data-theme="light"] .code-example code .num {
+  color: #DC2626;
+}
+
+[data-theme="light"] .code-example code .comment,
+[data-theme="light"] .code-example code .cm {
+  color: #6B7280;
+}
+
+[data-theme="light"] .code-example code .function,
+[data-theme="light"] .code-example code .fn {
+  color: #2563EB;
+}
+
+[data-theme="light"] .code-example code .variable,
+[data-theme="light"] .code-example code .var {
+  color: #1E293B;
 }
 
 .quick-start-actions {
@@ -271,7 +394,7 @@
 
 .section-description {
   font-size: 1.1rem;
-  color: var(--quiz-text-secondary, #475569);
+  color: var(--slidejs-text-secondary, #475569);
   text-align: center;
   margin: 0 0 2rem 0;
   line-height: 1.7;
@@ -283,7 +406,12 @@
 /* 开箱即用区域 */
 .ready-out-of-box {
   padding: 4rem 0;
-  background-color: var(--quiz-bg-primary, #ffffff);
+  background-color: var(--slidejs-bg-primary, #FFFFFF);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .ready-out-of-box {
+  background-color: var(--slidejs-bg-primary, #0D1117);
 }
 
 .ready-container {
@@ -306,15 +434,17 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
-  color: var(--quiz-text-primary, #333333);
+  color: var(--slidejs-text-primary, #1E293B);
 }
 
 .ready-feature-icon {
   width: 24px;
   height: 24px;
+  min-width: 24px;
+  min-height: 24px;
   border-radius: 50%;
-  background-color: var(--quiz-accent-color, #2563EB);
-  color: white;
+  background-color: var(--slidejs-accent-color, #2563EB);
+  color: var(--slidejs-text-on-accent, #FFFFFF);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,7 +454,20 @@
 .ready-feature-icon wsx-icon {
   width: 0.875rem;
   height: 0.875rem;
-  color: white;
+  min-width: 0.875rem;
+  min-height: 0.875rem;
+  color: var(--slidejs-text-on-accent, #FFFFFF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ready-feature-icon wsx-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  stroke: currentColor;
+  fill: none;
 }
 
 .ready-actions {
@@ -338,7 +481,12 @@
 /* 由我们构建，由您设计区域 */
 .powered-by {
   padding: 4rem 0;
-  background-color: var(--quiz-bg-primary, #ffffff);
+  background-color: var(--slidejs-bg-primary, #FFFFFF);
+  transition: background-color 0.2s ease;
+}
+
+[data-theme="dark"] .powered-by {
+  background-color: var(--slidejs-bg-primary, #0D1117);
 }
 
 .powered-container {

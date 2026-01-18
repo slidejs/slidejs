@@ -36,6 +36,7 @@
 - [Leonardo da Vinci](docs/persona/leonardo-da-vinci.md) - 文艺复兴大师，跨学科天才
 - [Pablo Picasso](docs/persona/pablo-picasso.md) - 现代艺术大师，立体主义创造者
 - [Osamu Tezuka](docs/persona/osamu-tezuka.md) - 日本漫画之神，动画大师
+- [Wsx Press](docs/persona/wsx-press-author.md) - WSX PRESS 大师
 
 ### 商业与管理
 

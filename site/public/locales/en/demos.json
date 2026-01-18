@@ -13,5 +13,17 @@
     "description": "Multi-runner comparison demo built with React. Compare Reveal.js, Swiper, and Splide side by side.",
     "framework": "React",
     "package": "@slidejs/demo-react"
+  },
+  "svelte": {
+    "title": "Svelte Demo",
+    "description": "Multi-runner comparison demo built with Svelte. Compare Reveal.js, Swiper, and Splide side by side.",
+    "framework": "Svelte",
+    "package": "@slidejs/demo-svelte"
+  },
+  "vanilla": {
+    "title": "Vanilla TypeScript Demo",
+    "description": "Multi-runner comparison demo built with vanilla TypeScript. Compare Reveal.js, Swiper, and Splide side by side.",
+    "framework": "TypeScript",
+    "package": "@slidejs/demo-vanilla"
   }
 }

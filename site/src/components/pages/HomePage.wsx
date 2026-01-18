@@ -16,6 +16,58 @@ export class HomePage extends LightComponent {
     });
   }
 
+  /**
+   * 简单的语法高亮函数
+   * 注意：需要先处理字符串，避免在字符串内部进行关键字替换
+   */
+  private highlightCode(code: string): string {
+    // 使用占位符保护字符串内容
+    const stringPlaceholders: string[] = [];
+    let placeholderIndex = 0;
+
+    // 先提取并保护字符串（包括模板字符串）
+    let processed = code.replace(/`[\s\S]*?`|"[\s\S]*?"|'[\s\S]*?'/g, (match) => {
+      const placeholder = `__STRING_PLACEHOLDER_${placeholderIndex}__`;
+      stringPlaceholders[placeholderIndex] = match;
+      placeholderIndex++;
+      return placeholder;
+    });
+
+    // 在非字符串区域进行语法高亮
+    // 关键字
+    processed = processed.replace(/\b(present|quiz|rules|rule|start|content|slide|text|dynamic|behavior|transition|import|from|const|let|var|function|async|await|return|if|else|for|while|class|extends|interface|type|export|default)\b/g, '<span class="keyword">$1</span>');
+    
+    // 数字
+    processed = processed.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+    
+    // 函数调用（避免匹配关键字）
+    processed = processed.replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g, (match, funcName) => {
+      // 如果已经是关键字，跳过
+      if (match.includes('class="keyword"')) {
+        return match;
+      }
+      return `<span class="function">${funcName}</span>(`;
+    });
+    
+    // 注释（单行）
+    processed = processed.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+    
+    // 注释（多行）
+    processed = processed.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+
+    // 恢复字符串并添加高亮
+    stringPlaceholders.forEach((str, index) => {
+      const placeholder = `__STRING_PLACEHOLDER_${index}__`;
+      // 为字符串添加高亮类
+      const highlighted = str.replace(/^([`"'])([\s\S]*?)\1$/, (match, quote, content) => {
+        return `${quote}<span class="string">${content}</span>${quote}`;
+      });
+      processed = processed.replace(placeholder, highlighted);
+    });
+
+    return processed;
+  }
+
   render() {
     return (
       <div class="home-page">
@@ -27,8 +79,8 @@ export class HomePage extends LightComponent {
               {this.t('subtitle')}
             </p>
             <div class="hero-actions">
-              <wsx-link to="/docs/guide/getting-started" class="btn btn-primary">
-                {this.t('getStarted', { ns: 'common' })}
+              <wsx-link to="/docs/guide/getting-started" class="btn btn-primary btn-large">
+                {this.t('quickStartCTA', { ns: 'common' })}
               </wsx-link>
               <wsx-link to="/demos" class="btn btn-secondary">
                 {this.t('viewDemos', { ns: 'common' })}
@@ -151,7 +203,9 @@ export class HomePage extends LightComponent {
             <p class="section-description">{this.t('quickStart.description')}</p>
             <div class="code-example">
               <pre>
-                <code>{`npm install @slidejs/dsl @slidejs/core @slidejs/runner-revealjs
+                <code ref={(el) => {
+                  if (el) {
+                    el.innerHTML = this.highlightCode(`npm install @slidejs/dsl @slidejs/core @slidejs/runner-revealjs
 
 import { parseSlideDSL, compile } from '@slidejs/dsl';
 import { createSlideRunner } from '@slidejs/runner-revealjs';
@@ -172,7 +226,9 @@ present quiz "my-quiz" {
 
 const runner = await createSlideRunner(dslSource, context, {
   container: '#slides'
-});`}</code>
+});`);
+                  }
+                }} />
               </pre>
             </div>
             <div class="quick-start-actions">

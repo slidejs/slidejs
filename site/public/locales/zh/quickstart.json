@@ -1,0 +1,20 @@
+{
+  "title": "快速上手",
+  "subtitle": "5 分钟创建你的第一个幻灯片",
+  "templates": {
+    "welcome": "欢迎页",
+    "quiz": "测验",
+    "product": "产品"
+  },
+  "theme": {
+    "dark": "深色",
+    "light": "浅色"
+  },
+  "actions": {
+    "copy": "复制",
+    "copied": "已复制！",
+    "download": "下载"
+  },
+  "preview": "预览",
+  "editor": "DSL 编辑器"
+}

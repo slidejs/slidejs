@@ -12,19 +12,147 @@
  */
 
 :root {
+  /* ===== SlideJS 网站主题变量 - 默认暗色模式 ===== */
   /* 专业蓝色主题 - 基于 SaaS/文档网站最佳实践 */
-  --quiz-accent-color: #2563EB;
-  --quiz-accent-hover: #1D4ED8;
-  --quiz-accent-active: #1E40AF;
-  --quiz-bg-primary: #FFFFFF;
-  --quiz-bg-secondary: #F8FAFC;
-  --quiz-text-primary: #1E293B;
-  --quiz-text-secondary: #475569;
-  --quiz-text-on-accent: #FFFFFF;
-  --quiz-border-color: #E2E8F0;
-  --quiz-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --quiz-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --quiz-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* 默认使用暗色模式 */
+  --slidejs-accent-color: #3B82F6;
+  --slidejs-accent-hover: #2563EB;
+  --slidejs-accent-active: #1D4ED8;
+  --slidejs-bg-primary: #0D1117;
+  --slidejs-bg-secondary: #161B22;
+  --slidejs-text-primary: #E6EDF3;
+  --slidejs-text-secondary: #8B949E;
+  --slidejs-text-on-accent: #FFFFFF;
+  --slidejs-border-color: #30363D;
+  --slidejs-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --slidejs-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --slidejs-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --slidejs-bg-tertiary: #21262D;
+
+  /* ===== WSX-Press 文档系统主题变量映射 ===== */
+  /* 将 SlideJS 主题变量映射到 wsx-press 标准变量 */
+  /* 颜色系统 - 默认暗色模式 */
+  --wsx-press-bg-primary: var(--slidejs-bg-primary, #0D1117);
+  --wsx-press-bg-secondary: var(--slidejs-bg-secondary, #161B22);
+  --wsx-press-bg-tertiary: #21262D;
+
+  --wsx-press-text-primary: var(--slidejs-text-primary, #E6EDF3);
+  --wsx-press-text-secondary: var(--slidejs-text-secondary, #8B949E);
+  --wsx-press-text-tertiary: #6E7681;
+
+  --wsx-press-border: var(--slidejs-border-color, #30363D);
+  --wsx-press-border-hover: #484F58;
+
+  --wsx-press-link: var(--slidejs-accent-color, #3B82F6);
+  --wsx-press-link-hover: var(--slidejs-accent-hover, #2563EB);
+
+  --wsx-press-accent: var(--slidejs-accent-color, #3B82F6);
+  --wsx-press-accent-hover: var(--slidejs-accent-hover, #2563EB);
+
+  --wsx-press-code-bg: #161B22;
+  --wsx-press-code-text: #E6EDF3;
+  --wsx-press-code-border: #30363D;
+
+  /* 间距系统 */
+  --wsx-press-spacing-xs: 0.25rem;  /* 4px */
+  --wsx-press-spacing-sm: 0.5rem;   /* 8px */
+  --wsx-press-spacing-md: 1rem;     /* 16px */
+  --wsx-press-spacing-lg: 1.5rem;   /* 24px */
+  --wsx-press-spacing-xl: 2rem;     /* 32px */
+  --wsx-press-spacing-2xl: 3rem;    /* 48px */
+
+  /* 字体系统 */
+  --wsx-press-font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --wsx-press-font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Consolas', monospace;
+
+  --wsx-press-font-size-xs: 0.75rem;
+  --wsx-press-font-size-sm: 0.875rem;
+  --wsx-press-font-size-base: 1rem;
+  --wsx-press-font-size-lg: 1.125rem;
+  --wsx-press-font-size-xl: 1.25rem;
+  --wsx-press-font-size-2xl: 1.5rem;
+  --wsx-press-font-size-3xl: 1.875rem;
+  --wsx-press-font-size-4xl: 2.25rem;
+
+  --wsx-press-line-height-tight: 1.25;
+  --wsx-press-line-height-normal: 1.6;
+
+  /* 布局系统 */
+  --wsx-press-sidebar-width: 280px;
+  --wsx-press-toc-width: 240px;
+  --wsx-press-content-max-width: 800px;
+  --wsx-press-layout-max-width: 1440px;
+
+  /* 圆角与阴影 */
+  --wsx-press-radius-sm: 0.25rem;
+  --wsx-press-radius-md: 0.5rem;
+  --wsx-press-radius-lg: 0.75rem;
+  --wsx-press-shadow-sm: var(--slidejs-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+  --wsx-press-shadow-md: var(--slidejs-shadow-md, 0 4px 12px rgba(0, 0, 0, 0.08));
+  --wsx-press-shadow-lg: var(--slidejs-shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+
+  /* 组件特定变量 - 默认暗色模式 */
+  --wsx-press-sidebar-bg: var(--slidejs-bg-secondary, #161B22);
+  --wsx-press-sidebar-hover-bg: #21262D;
+  --wsx-press-sidebar-active-bg: #1C2128;
+  --wsx-press-sidebar-active-color: var(--slidejs-accent-color, #3B82F6);
+
+  --wsx-press-toc-active-color: var(--slidejs-accent-color, #3B82F6);
+
+  --doc-page-padding-x: 2rem;
+  --doc-page-padding-y: 1rem;
+  --doc-layout-main-padding-x: 2rem;
+  --doc-layout-main-padding-y: 1rem;
+}
+
+/* 亮色模式 - 通过 [data-theme="light"] 切换 */
+[data-theme="light"] {
+  --slidejs-accent-color: #2563EB;
+  --slidejs-accent-hover: #1D4ED8;
+  --slidejs-accent-active: #1E40AF;
+  --slidejs-bg-primary: #FFFFFF;
+  --slidejs-bg-secondary: #F8FAFC;
+  --slidejs-text-primary: #1E293B;
+  --slidejs-text-secondary: #475569;
+  --slidejs-border-color: #E2E8F0;
+  --slidejs-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --slidejs-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --slidejs-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --slidejs-bg-tertiary: #F0F2F5;
+
+  /* 亮色模式下的 wsx-press 变量 */
+  --wsx-press-bg-primary: var(--slidejs-bg-primary, #FFFFFF);
+  --wsx-press-bg-secondary: var(--slidejs-bg-secondary, #F8FAFC);
+  --wsx-press-bg-tertiary: #F0F2F5;
+
+  --wsx-press-text-primary: var(--slidejs-text-primary, #1E293B);
+  --wsx-press-text-secondary: var(--slidejs-text-secondary, #475569);
+  --wsx-press-text-tertiary: #8C959F;
+
+  --wsx-press-border: var(--slidejs-border-color, #E2E8F0);
+  --wsx-press-border-hover: #8C959F;
+
+  --wsx-press-link: var(--slidejs-accent-color, #2563EB);
+  --wsx-press-link-hover: var(--slidejs-accent-hover, #1D4ED8);
+
+  --wsx-press-accent: var(--slidejs-accent-color, #2563EB);
+  --wsx-press-accent-hover: var(--slidejs-accent-hover, #1D4ED8);
+
+  --wsx-press-code-bg: #F6F8FA;
+  --wsx-press-code-text: #24292F;
+  --wsx-press-code-border: #D0D7DE;
+
+  --wsx-press-sidebar-bg: var(--slidejs-bg-secondary, #F8FAFC);
+  --wsx-press-sidebar-hover-bg: #F0F2F5;
+  --wsx-press-sidebar-active-bg: #FEF2F2;
+  --wsx-press-sidebar-active-color: var(--slidejs-accent-color, #2563EB);
+
+  --wsx-press-toc-active-color: var(--slidejs-accent-color, #2563EB);
+}
+
+html {
+  height: 100%;
+  overflow-y: auto;
 }
 
 body {
@@ -33,16 +161,19 @@ body {
   font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--quiz-bg-primary, #F8FAFC);
-  color: var(--quiz-text-primary, #1E293B);
+  background-color: var(--slidejs-bg-primary, #0D1117);
+  color: var(--slidejs-text-primary, #E6EDF3);
   line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100%;
+  overflow-y: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 600;
   line-height: 1.2;
-  color: var(--quiz-text-primary, #1E293B);
+  color: var(--slidejs-text-primary, #E6EDF3);
 }
 
 #app {
@@ -51,14 +182,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 按钮样式 - 使用主题变量 */
 .btn-primary {
-  background-color: var(--quiz-accent-color, #2563EB) !important;
-  color: var(--quiz-text-on-accent, #FFFFFF) !important;
+  background-color: var(--slidejs-accent-color, #3B82F6) !important;
+  color: var(--slidejs-text-on-accent, #FFFFFF) !important;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: var(--quiz-accent-hover, #1D4ED8) !important;
+  background-color: var(--slidejs-accent-hover, #2563EB) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }

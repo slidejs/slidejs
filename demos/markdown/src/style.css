@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 主题切换工具栏 */
+.theme-toolbar {
+  width: 100%;
+  height: 40px;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.theme-toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.theme-label {
+  font-size: 0.85em;
+  color: #cccccc;
+  margin-right: 0.5em;
+}
+
+.theme-btn {
+  padding: 0.4em 0.8em;
+  background: #3c3c3c;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  color: #cccccc;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-btn:hover {
+  background: #4a4a4a;
+  border-color: #4a90e2;
+  color: #ffffff;
+}
+
+.theme-btn.active {
+  background: #4a90e2;
+  border-color: #4a90e2;
+  color: #ffffff;
+}
+
+/* 主容器：左右布局 */
+.main-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 左侧：Markdown 编辑器 */
+.markdown-editor-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  border-right: 1px solid #3c3c3c;
+  overflow: hidden;
+}
+
+.markdown-editor-header {
+  padding: 0.5em 1em;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.markdown-editor-header h3 {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+.markdown-editor-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 垂直分割器 */
+.splitter-vertical {
+  position: absolute;
+  left: calc(50% - 4px);
+  top: 40px;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+  user-select: none;
+}
+
+.splitter-vertical .splitter-handle {
+  width: 100%;
+  height: 100%;
+  background: #3c3c3c;
+  transition: background 0.2s;
+}
+
+.splitter-vertical .splitter-handle:hover {
+  background: #4a90e2;
+}
+
+.splitter-vertical .splitter-handle {
+  width: 2px;
+  margin: 0 3px;
+}
+
+/* 右侧：预览和 DSL */
+.right-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+/* 右侧顶部：幻灯片预览 */
+.slide-preview-panel {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-bottom: 1px solid #3c3c3c;
+  overflow: hidden;
+}
+
+.slide-preview-header {
+  padding: 0.5em 1em;
+  background: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.slide-preview-header h3 {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #333;
+}
+
+.slide-preview-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 水平分割器（右侧内部） */
+.splitter-horizontal {
+  position: absolute;
+  top: calc(60% - 4px);
+  left: 50%;
+  right: 0;
+  height: 8px;
+  cursor: row-resize;
+  z-index: 10;
+  background: transparent;
+  user-select: none;
+}
+
+.splitter-horizontal .splitter-handle {
+  width: 100%;
+  height: 100%;
+  background: #3c3c3c;
+  transition: background 0.2s;
+}
+
+.splitter-horizontal .splitter-handle:hover {
+  background: #4a90e2;
+}
+
+.splitter-horizontal .splitter-handle {
+  height: 2px;
+  margin: 3px 0;
+}
+
+/* 右侧底部：生成的 DSL */
+.dsl-viewer-panel {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+.dsl-viewer-header {
+  padding: 0.5em 1em;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  flex-shrink: 0;
+}
+
+.dsl-viewer-header h3 {
+  margin: 0;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+.dsl-viewer-content {
+  flex: 1;
+  overflow: hidden;
+}

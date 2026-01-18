@@ -18,7 +18,7 @@ SlideJS is a powerful slide building library that uses DSL (Domain-Specific Lang
 - 📦 **Data Source Agnostic** - Support any data source (Quiz, Survey, Form, etc.) through Context Adapter
 - 🔒 **Type Safe** - Complete TypeScript type definitions and validation
 - 🔄 **Rule Engine** - Support for start, content, end rules and nested loops
-- 🎨 **Dynamic Content** - Support for static text and dynamic components
+- 🎨 **Dynamic Content** - Support for static text and dynamic components (WSX recommended)
 - ⚡ **High Performance** - DSL parsing and generation optimized at compile time
 
 ## Demos

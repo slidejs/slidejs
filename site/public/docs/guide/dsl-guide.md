@@ -1,45 +1,45 @@
 ---
-title: Slide DSL 完整指南
+title: Slide DSL Complete Guide
 order: 3
 category: guide
-description: '深入了解 Slide DSL 语法、规则引擎、API 使用方法和最佳实践'
+description: 'Deep dive into Slide DSL syntax, rule engine, API usage, and best practices'
 ---
 
-# Slide DSL 完整指南
+# Slide DSL Complete Guide
 
-> 本指南将帮助您理解和使用 SlideJS 的 Slide DSL（领域特定语言），包括语法、规则引擎和 API 使用方法。
+> This guide will help you understand and use SlideJS's Slide DSL (Domain-Specific Language), including syntax, rule engine, and API usage.
 
-## 目录
+## Table of Contents
 
-- [简介](#简介)
-- [安装](#安装)
-- [基本概念](#基本概念)
-- [语法参考](#语法参考)
-- [规则引擎](#规则引擎)
-- [内容类型](#内容类型)
-- [完整示例](#完整示例)
-- [API 参考](#api-参考)
-- [最佳实践](#最佳实践)
+- [What is Slide DSL?](#what-is-slide-dsl)
+- [Getting Started](#getting-started)
+- [Basic Concepts](#basic-concepts)
+- [Syntax Reference](#syntax-reference)
+- [Complete Examples](#complete-examples)
+- [API Reference](#api-reference)
+- [Real-World Use Cases](#real-world-use-cases)
+- [Best Practices](#best-practices)
+- [Frequently Asked Questions](#frequently-asked-questions)
 
-## 什么是 Slide DSL？
+## What is Slide DSL?
 
-Slide DSL 是一个声明式的领域特定语言，用于从任意数据源（Quiz、Survey、Form 等）生成幻灯片演示。它提供：
+Slide DSL is a declarative domain-specific language for generating slide presentations from any data source (Quiz, Survey, Form, etc.). It provides:
 
-- **声明式语法**：使用简洁的 DSL 语法定义幻灯片结构
-- **数据源无关**：通过 Context Adapter 支持任意数据源
-- **规则引擎**：支持 start、content、end 规则和嵌套循环
-- **类型安全**：完整的 TypeScript 类型定义
-- **高性能**：基于编译时优化的 DSL 解析和生成
+- **Declarative syntax**: Define slide structure with concise DSL syntax
+- **Data source agnostic**: Support any data source through Context Adapter
+- **Rule engine**: Support for start, content, end rules and nested loops
+- **Type safe**: Complete TypeScript type definitions
+- **High performance**: DSL parsing and generation optimized at compile time
 
-## 开始之前
+## Getting Started
 
-### 安装
+### Installation
 
 ```bash
 npm install @slidejs/dsl @slidejs/core @slidejs/context
 ```
 
-### 导入
+### Imports
 
 ```typescript
 import { parseSlideDSL, compile } from '@slidejs/dsl';
@@ -47,52 +47,52 @@ import { SlideEngine } from '@slidejs/core';
 import type { SlideContext } from '@slidejs/context';
 ```
 
-## 基本概念
+## Basic Concepts
 
-### Presentation（演示）
+### Presentation
 
-每个 Slide DSL 文档都以 `present` 关键字开始，定义数据源类型和名称：
+Every Slide DSL document starts with the `present` keyword, defining the data source type and name:
 
 ```slide
 present quiz "my-quiz" {
   rules {
-    // 规则定义
+    // Rule definitions
   }
 }
 ```
 
-支持的数据源类型：
+Supported data source types:
 
-- `quiz` - 测验数据
-- `survey` - 调查数据
-- `form` - 表单数据
-- `assessment` - 评估数据
+- `quiz` - Quiz data
+- `survey` - Survey data
+- `form` - Form data
+- `assessment` - Assessment data
 
-### Rules（规则）
+### Rules
 
-规则定义了如何从数据源生成幻灯片：
+Rules define how to generate slides from data sources:
 
-- **start 规则**：在内容前执行的规则，通常用于标题页
-- **content 规则**：从数据动态生成幻灯片的规则
-- **end 规则**：在内容后执行的规则，通常用于结束页
+- **start rule**: Executed before content, typically for title slides
+- **content rule**: Dynamically generates slides from data
+- **end rule**: Executed after content, typically for closing slides
 
-### Context（上下文）
+### Context
 
-Context 是数据源转换后的统一接口，通过 Context Adapter 将任意数据源转换为 SlideContext。
+Context is the unified interface after data source transformation. Any data source is converted to SlideContext through Context Adapter.
 
-## 语法参考
+## Syntax Reference
 
-### Presentation 语法
+### Presentation Syntax
 
 ```
 present <type> "<name>" {
   rules {
-    // 规则定义
+    // Rule definitions
   }
 }
 ```
 
-示例：
+Example:
 
 ```slide
 present quiz "math-quiz" {
@@ -108,14 +108,14 @@ present quiz "math-quiz" {
 }
 ```
 
-### Rule 语法
+### Rule Syntax
 
 #### Start Rule
 
 ```
 rule start "<name>" {
   slide {
-    // slide 定义
+    // slide definition
   }
 }
 ```
@@ -124,10 +124,10 @@ rule start "<name>" {
 
 ```
 rule content "<name>" {
-  // 可以是 for 循环或 slide 列表
+  // Can be for loop or slide list
   for item in collection {
     slide {
-      // slide 定义
+      // slide definition
     }
   }
 }
@@ -138,48 +138,48 @@ rule content "<name>" {
 ```
 rule end "<name>" {
   slide {
-    // slide 定义
+    // slide definition
   }
 }
 ```
 
-### Slide 语法
+### Slide Syntax
 
 ```
 slide {
   content <type> {
-    // 内容定义
+    // Content definition
   }
   behavior {
-    // 行为配置（可选）
+    // Behavior configuration (optional)
   }
 }
 ```
 
-### Content 类型
+### Content Types
 
-#### 静态文本内容
+#### Static Text Content
 
 ```
 content text {
-  "第一行文本"
-  "第二行文本"
+  "First line of text"
+  "Second line of text"
 }
 ```
 
-#### 动态组件内容
+#### Dynamic Component Content
 
 ```
 content dynamic {
   name: "component-name"
   attrs {
     key: value
-    title: "标题"
+    title: "Title"
   }
 }
 ```
 
-### For 循环
+### For Loop
 
 ```
 for item in collection {
@@ -194,7 +194,7 @@ for item in collection {
 }
 ```
 
-嵌套循环：
+Nested loops:
 
 ```
 for section in quiz.sections {
@@ -212,7 +212,7 @@ for section in quiz.sections {
 }
 ```
 
-### Behavior（行为配置）
+### Behavior Configuration
 
 ```
 behavior {
@@ -223,20 +223,20 @@ behavior {
 }
 ```
 
-支持的过渡类型：
+Supported transition types:
 
-- `slide` - 滑动（默认）
-- `zoom` - 缩放
-- `fade` - 淡入淡出
-- `cube` - 立方体（部分运行器支持）
-- `flip` - 翻转（部分运行器支持）
-- `none` - 无过渡
+- `slide` - Slide (default)
+- `zoom` - Zoom
+- `fade` - Fade
+- `cube` - Cube (supported by some runners)
+- `flip` - Flip (supported by some runners)
+- `none` - No transition
 
-**注意**：不同运行器支持的过渡类型可能不同。`slide` 和 `fade` 是通用支持的，其他类型取决于运行器的能力。
+**Note**: Different runners may support different transition types. `slide` and `fade` are universally supported, other types depend on runner capabilities.
 
-## 完整示例
+## Complete Examples
 
-### 示例 1：简单的 Quiz 演示
+### Example 1: Simple Quiz Presentation
 
 ```slide
 present quiz "math-quiz" {
@@ -288,7 +288,7 @@ present quiz "math-quiz" {
 }
 ```
 
-### 示例 2：带嵌套循环的复杂演示
+### Example 2: Complex Presentation with Nested Loops
 
 ```slide
 present quiz "comprehensive-quiz" {
@@ -339,9 +339,9 @@ present quiz "comprehensive-quiz" {
 }
 ```
 
-## API 参考
+## API Reference
 
-### 解析 DSL
+### Parsing DSL
 
 ```typescript
 import { parseSlideDSL } from '@slidejs/dsl';
@@ -357,7 +357,7 @@ present quiz "my-quiz" {
 const ast = await parseSlideDSL(source);
 ```
 
-### 编译 DSL
+### Compiling DSL
 
 ```typescript
 import { compile } from '@slidejs/dsl';
@@ -366,29 +366,34 @@ const ast = await parseSlideDSL(source);
 const slideDSL = compile(ast);
 ```
 
-### 生成幻灯片
+### Generating Slides
 
 ```typescript
 import { SlideEngine } from '@slidejs/core';
-import { quizToSlideContext } from '@slidejs/dsl';
+import type { SlideContext } from '@slidejs/context';
 
-// 创建 Context
-const context = quizToSlideContext(quizData);
+// Create Context
+const context: SlideContext = {
+  sourceType: 'quiz',
+  sourceId: 'my-quiz',
+  metadata: { title: 'My Quiz' },
+  items: [],
+};
 
-// 创建引擎
+// Create engine
 const engine = new SlideEngine(slideDSL);
 
-// 生成幻灯片
+// Generate slides
 const slides = engine.generate(context);
 ```
 
-### 使用 Runner
+### Using Runner
 
 ```typescript
 import { createSlideRunner } from '@slidejs/runner-revealjs';
 import type { SlideContext } from '@slidejs/context';
 
-// DSL 源代码
+// DSL source code
 const dslSource = `
 present quiz "my-quiz" {
   rules {
@@ -403,7 +408,7 @@ present quiz "my-quiz" {
 }
 `;
 
-// 上下文数据
+// Context data
 const context: SlideContext = {
   sourceType: 'quiz',
   sourceId: 'my-quiz',
@@ -411,7 +416,7 @@ const context: SlideContext = {
   items: [],
 };
 
-// 创建并运行
+// Create and run
 const runner = await createSlideRunner(dslSource, context, {
   container: '#slides',
   revealOptions: {
@@ -420,13 +425,13 @@ const runner = await createSlideRunner(dslSource, context, {
   },
 });
 
-// 开始播放
+// Start playback
 runner.play();
 ```
 
-## 实际使用场景
+## Real-World Use Cases
 
-### 场景 1: 从数据源生成幻灯片
+### Use Case 1: Generate Slides from Data Source
 
 ```slide
 present quiz "math-quiz" {
@@ -451,14 +456,14 @@ present quiz "math-quiz" {
 }
 ```
 
-### 场景 2: 嵌套结构处理
+### Use Case 2: Nested Structure Handling
 
 ```slide
 present quiz "comprehensive-quiz" {
   rules {
     rule content "sections" {
       for section in quiz.groups {
-        // 章节标题页
+        // Section title slide
         slide {
           content text {
             section.title
@@ -468,7 +473,7 @@ present quiz "comprehensive-quiz" {
           }
         }
 
-        // 章节内容
+        // Section content
         for item in section.items {
           slide {
             content dynamic {
@@ -489,7 +494,7 @@ present quiz "comprehensive-quiz" {
 }
 ```
 
-### 场景 3: 混合静态和动态内容
+### Use Case 3: Mixed Static and Dynamic Content
 
 ```slide
 present quiz "mixed-content" {
@@ -497,9 +502,9 @@ present quiz "mixed-content" {
     rule start "intro" {
       slide {
         content text {
-          "# 欢迎"
+          "# Welcome"
           ""
-          "这是一个混合内容的演示"
+          "This is a mixed content presentation"
         }
       }
     }
@@ -520,9 +525,9 @@ present quiz "mixed-content" {
     rule end "conclusion" {
       slide {
         content text {
-          "# 总结"
+          "# Summary"
           ""
-          "感谢观看！"
+          "Thank you for watching!"
         }
       }
     }
@@ -530,11 +535,11 @@ present quiz "mixed-content" {
 }
 ```
 
-## 最佳实践
+## Best Practices
 
-### 1. 规则命名
+### 1. Rule Naming
 
-使用有意义的规则名称，便于调试和维护：
+Use meaningful rule names for easier debugging and maintenance:
 
 ```slide
 rule start "intro-slide" { ... }
@@ -542,29 +547,29 @@ rule content "question-slides" { ... }
 rule end "thank-you-slide" { ... }
 ```
 
-### 2. 内容组织
+### 2. Content Organization
 
-将相关的内容组织在一起，使用嵌套循环处理层次结构：
+Organize related content together, use nested loops to handle hierarchical structures:
 
 ```slide
 for section in quiz.groups {
-  // 章节标题
+  // Section title
   slide {
     content text {
       section.title
     }
   }
 
-  // 章节内容
+  // Section content
   for item in section.items {
     slide { ... }
   }
 }
 ```
 
-### 3. 过渡效果
+### 3. Transition Effects
 
-合理使用过渡效果，避免过度使用：
+Use transition effects appropriately, avoid overuse:
 
 ```slide
 behavior {
@@ -574,15 +579,15 @@ behavior {
 }
 ```
 
-**建议**：
+**Recommendations**:
 
-- 标题页使用 `fade` 或 `zoom`
-- 内容页使用 `slide`
-- 结束页使用 `fade` 或 `zoom`
+- Use `fade` or `zoom` for title slides
+- Use `slide` for content slides
+- Use `fade` or `zoom` for closing slides
 
-### 4. 组件复用
+### 4. Component Reuse
 
-使用动态组件实现内容复用：
+Use dynamic components for content reuse:
 
 ```slide
 content dynamic {
@@ -594,9 +599,9 @@ content dynamic {
 }
 ```
 
-### 5. 错误处理
+### 5. Error Handling
 
-在代码中处理解析和编译错误：
+Handle parsing and compilation errors in code:
 
 ```typescript
 import { parseSlideDSL, compile, ParseError, CompileError } from '@slidejs/dsl';
@@ -606,25 +611,25 @@ try {
   const slideDSL = compile(ast);
 } catch (error) {
   if (error instanceof ParseError) {
-    console.error('解析错误:', error.message, error.location);
+    console.error('Parse error:', error.message, error.location);
   } else if (error instanceof CompileError) {
-    console.error('编译错误:', error.message);
+    console.error('Compile error:', error.message);
   } else {
-    console.error('未知错误:', error);
+    console.error('Unknown error:', error);
   }
 }
 ```
 
-### 6. 性能优化
+### 6. Performance Optimization
 
-对于大量数据，考虑：
+For large amounts of data, consider:
 
-1. **分页加载**：只生成当前需要的幻灯片
-2. **懒加载**：延迟加载动态组件
-3. **缓存**：缓存编译后的 DSL 对象
+1. **Pagination**: Only generate slides currently needed
+2. **Lazy loading**: Delay loading dynamic components
+3. **Caching**: Cache compiled DSL objects
 
 ```typescript
-// 缓存编译结果
+// Cache compilation results
 const cache = new Map<string, SlideDSL>();
 
 function getCompiledDSL(source: string): SlideDSL {
@@ -640,11 +645,11 @@ function getCompiledDSL(source: string): SlideDSL {
 }
 ```
 
-## 常见问题
+## Frequently Asked Questions
 
-### Q: 如何访问上下文数据？
+### Q: How do I access context data?
 
-A: 在 DSL 中，可以通过路径表达式访问上下文数据：
+A: In DSL, you can access context data through path expressions:
 
 ```slide
 rule content "data-access" {
@@ -657,18 +662,18 @@ rule content "data-access" {
 }
 ```
 
-### Q: 支持哪些数据类型？
+### Q: What data types are supported?
 
-A: 支持的数据源类型：
+A: Supported data source types:
 
-- `quiz` - 测验数据
-- `survey` - 调查数据
-- `form` - 表单数据
-- `assessment` - 评估数据
+- `quiz` - Quiz data
+- `survey` - Survey data
+- `form` - Form data
+- `assessment` - Assessment data
 
-### Q: 如何自定义主题？
+### Q: How do I customize themes?
 
-A: 使用 `@slidejs/theme` 包：
+A: Use the `@slidejs/theme` package:
 
 ```typescript
 import { setTheme } from '@slidejs/theme';
@@ -681,13 +686,13 @@ setTheme({
 });
 ```
 
-### Q: 可以在 DSL 中使用条件逻辑吗？
+### Q: Can I use conditional logic in DSL?
 
-A: 当前版本不支持条件逻辑（`if/else`），但可以通过数据源预处理来实现条件效果。条件逻辑支持计划在未来的版本中添加（参见 RFC 0003）。
+A: The current version does not support conditional logic (`if/else`), but you can achieve conditional effects through data source preprocessing. Conditional logic support is planned for future versions (see RFC 0003).
 
-### Q: 如何调试 DSL？
+### Q: How do I debug DSL?
 
-A: 使用解析和编译错误信息：
+A: Use parsing and compilation error information:
 
 ```typescript
 try {
@@ -698,14 +703,14 @@ try {
   console.log('Compiled DSL:', slideDSL);
 } catch (error) {
   if (error instanceof ParseError) {
-    console.error('位置:', error.location);
+    console.error('Location:', error.location);
   }
 }
 ```
 
-## 相关资源
+## Related Resources
 
-- [GitHub 仓库](https://github.com/slidejs/slidejs)
-- [npm 包](https://www.npmjs.com/package/@slidejs/dsl)
-- [RFC 文档](../../../docs/rfc/) - 技术规范和架构设计
-- [示例项目](https://github.com/slidejs/slidejs/tree/main/demos) - 完整示例代码
+- [GitHub Repository](https://github.com/slidejs/slidejs)
+- [npm Package](https://www.npmjs.com/package/@slidejs/dsl)
+- [RFC Documentation](../../../docs/rfc/) - Technical specifications and architecture design
+- [Example Projects](https://github.com/slidejs/slidejs/tree/main/demos) - Complete example code

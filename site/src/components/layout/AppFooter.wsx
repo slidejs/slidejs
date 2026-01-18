@@ -4,13 +4,13 @@ import { LightComponent, autoRegister } from '@wsxjs/wsx-core';
 import { i18n } from '@wsxjs/wsx-i18next';
 import styles from './AppFooter.css?inline';
 
-@autoRegister({ tagName: 'app-footer' })
+@autoRegister({ tagName: 'slidejs-app-footer' })
 @i18n('footer')
 export class AppFooter extends LightComponent {
   constructor() {
     super({
       styles,
-      styleName: 'app-footer',
+      styleName: 'slidejs-app-footer',
     });
   }
 

@@ -115,9 +115,9 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV !== 'production', // 生产环境不生成 sourcemap
     rollupOptions: {
       output: {
-        manualChunks: {
+          manualChunks: {
           vendor: ['@wsxjs/wsx-core', '@wsxjs/wsx-base-components', '@wsxjs/wsx-router'],
-          slidejs: ['@slidejs/core', '@slidejs/dsl'],
+          slidejs: ['@slidejs/core', '@slidejs/dsl', '@slidejs/editor', '@slidejs/runner-revealjs', '@slidejs/theme'],
         },
       },
     },
@@ -134,6 +134,9 @@ export default defineConfig({
         ? {
             '@slidejs/core': path.resolve(__dirname, '../packages/@slidejs/core/src/index.ts'),
             '@slidejs/dsl': path.resolve(__dirname, '../packages/@slidejs/dsl/src/index.ts'),
+            '@slidejs/editor': path.resolve(__dirname, '../packages/@slidejs/editor/src/index.ts'),
+            '@slidejs/runner-revealjs': path.resolve(__dirname, '../packages/@slidejs/runner-revealjs/src/index.ts'),
+            '@slidejs/theme': path.resolve(__dirname, '../packages/@slidejs/theme/src/index.ts'),
             '@': path.resolve(__dirname, './src'),
           }
         : {
@@ -178,6 +181,9 @@ export default defineConfig({
       '@wsxjs/wsx-router',
       '@slidejs/core',
       '@slidejs/dsl',
+      '@slidejs/editor',
+      '@slidejs/runner-revealjs',
+      '@slidejs/theme',
     ],
     // 包含 pino/browser 以便 Vite 预构建并正确处理 CommonJS 导出
     include: ['pino/browser'],

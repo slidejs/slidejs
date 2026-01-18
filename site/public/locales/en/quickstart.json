@@ -1,0 +1,20 @@
+{
+  "title": "Quick Start",
+  "subtitle": "Create your first slide in 5 minutes",
+  "templates": {
+    "welcome": "Welcome",
+    "quiz": "Quiz",
+    "product": "Product"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "actions": {
+    "copy": "Copy",
+    "copied": "Copied!",
+    "download": "Download"
+  },
+  "preview": "Preview",
+  "editor": "DSL Editor"
+}

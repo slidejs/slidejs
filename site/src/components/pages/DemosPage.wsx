@@ -57,6 +57,24 @@ export class DemosPage extends LightComponent {
         description: this.t('react.description'),
         link: getDemoLink('react'),
       },
+      {
+        id: 'svelte',
+        name: this.t('svelte.title'),
+        icon: '🎯',
+        framework: this.t('svelte.framework'),
+        package: this.t('svelte.package'),
+        description: this.t('svelte.description'),
+        link: getDemoLink('svelte'),
+      },
+      {
+        id: 'vanilla',
+        name: this.t('vanilla.title'),
+        icon: '🍦',
+        framework: this.t('vanilla.framework'),
+        package: this.t('vanilla.package'),
+        description: this.t('vanilla.description'),
+        link: getDemoLink('vanilla'),
+      },
     ];
 
     return (

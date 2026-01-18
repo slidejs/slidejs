@@ -18,8 +18,7 @@ const SITE_DIST_DIR = resolve(__dirname, '../dist');
 const DEMOS_DIST_DIR = join(SITE_DIST_DIR, 'demos');
 
 // 需要复制的 demo 列表
-// 只保留 React 和 Vue demo
-const DEMOS = ['vue', 'react'] as const;
+const DEMOS = ['vue', 'react', 'svelte', 'vanilla'] as const;
 
 /**
  * 复制单个 demo 的构建产物

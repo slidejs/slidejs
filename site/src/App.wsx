@@ -27,7 +27,7 @@ export default class App extends LightComponent {
     return (
       <div class="app-container">
         {/* 导航栏 */}
-        <app-header />
+        <slidejs-app-header />
 
         {/* 路由容器 */}
         <wsx-router mode="hash">
@@ -41,7 +41,7 @@ export default class App extends LightComponent {
           <wsx-view route="/docs/:category/:page" component="docs-page"></wsx-view>
         </wsx-router>
         {/* 页脚 */}
-        <app-footer />
+        <slidejs-app-footer />
       </div>
     );
   }
