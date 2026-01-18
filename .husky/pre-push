@@ -3,3 +3,4 @@
 
 # 运行测试
 pnpm test
+pnpm build
