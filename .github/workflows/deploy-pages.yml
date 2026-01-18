@@ -56,9 +56,7 @@ jobs:
 
       - name: Build all demos
         run: |
-          pnpm build:swiper
-          pnpm build:splide
-          pnpm build:revealjs
+          pnpm --filter "@slidejs/demo-*" build
         env:
           GITHUB_PAGES: true
 

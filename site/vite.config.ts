@@ -4,9 +4,34 @@ import { wsxPress } from '@wsxjs/wsx-press/node';
 import UnoCSS from 'unocss/vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync, cpSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Vite 插件：在构建后复制 .wsx-press 目录到 dist
+ */
+function copyWsxPressPlugin(): Plugin {
+  return {
+    name: 'copy-wsx-press',
+    apply: 'build',
+    closeBundle() {
+      const wsxPressPath = path.resolve(__dirname, '.wsx-press');
+      const distWsxPressPath = path.resolve(__dirname, 'dist/.wsx-press');
+      try {
+        if (existsSync(wsxPressPath)) {
+          cpSync(wsxPressPath, distWsxPressPath, { recursive: true, force: true });
+          console.log('✅ Copied .wsx-press directory to dist');
+        } else {
+          console.warn('⚠️  .wsx-press directory not found, skipping copy');
+        }
+      } catch (error) {
+        console.error('❌ Failed to copy .wsx-press directory:', error);
+        // 不抛出错误，避免中断构建流程
+      }
+    },
+  };
+}
 
 /**
  * Vite 插件：复制 index.html 到 404.html
@@ -105,6 +130,8 @@ export default defineConfig({
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
     }),
+    // 复制 .wsx-press 目录到 dist - 在构建完成后执行
+    copyWsxPressPlugin(),
     // 复制 404.html 插件 - 在构建完成后执行
     copy404Plugin(),
   ],
